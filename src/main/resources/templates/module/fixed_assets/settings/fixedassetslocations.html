@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Fixed Asset
+                    <small></small>
+                </h1>
+                <!--                <ol class="breadcrumb">
+                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li><a href="#">Examples</a></li>
+                                    <li class="active">Blank page</li>
+                                </ol>-->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Settings</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="box ">
+
+                            <div class="box-body">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <div class="box box-warning box-solid">
+                                        <div class="box-header with-border">
+                                            <h4>Fixed Assets Locations</h4>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+
+                                            <form  th:action="@{/fixedassetslocations/save}"   enctype="multipart/form-data" th:object="${fixedAssetsLocations}"  method="post" class="">
+                                                <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <h4><i class="icon fa fa-ban"></i> Error </h4>
+                                                    <ul th:if="${#fields.hasErrors('*')}">
+                                                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" th:field="*{id}">
+                                                    <label for="categoryName">Location Code:<span class="text-red"> * </span>:</label>
+                                                    <input type="text" class="form-control" th:field="*{locationCode}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('locationCode')}" th:errors="*{locationCode}"> </span>
+                                                </div>
+                                           
+                                                <div class="form-group">
+                                                    <label>Location Name:<span class="text-red"> * </span>:</label>
+                                               <input type="text" class="form-control" th:field="*{locationName}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('locationName')}" th:errors="*{locationName}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Contact for deliveries:</label>
+                                                    <input type="text" class="form-control" th:field="*{contactForDeliveries}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('contactForDeliveries')}" th:errors="*{contactForDeliveries}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Address:</label>
+                                                 <input type="text" class="form-control" th:field="*{address}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"> </span>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label>Telephone No:</label>
+                                                    <input type="text" class="form-control" th:field="*{telephoneNo}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('telephoneNo')}" th:errors="*{telephoneNo}"> </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label> Mobile:</label>
+                                              <input type="text" class="form-control" th:field="*{mobile}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"> </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>E-mail:</label>
+                                               <input type="text" class="form-control" th:field="*{email}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> </span>
+                                                </div>
+                                            
+                                            
+
+                                                <div class="box-footer">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>                       
+                                        </div>
+                                    </div> 
+                                </div>
+
+                                <div class="col-sm-12 ">
+                                    <div class="box box-success box-solid">
+                                        <div class="box-header with-border">
+                                            <h4>Fixed Assets Locations List</h4>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                <th><span class="badge bg-green">No</span></th>
+                                                <th>Location Code:</th>   
+                                                <th>Location Name:</th>
+                                                <th>Contact for deliveries:</th>
+                                                <th>Address</th>
+                                                <th>Telephone No:</th>
+                                                <th>Mobile</th>
+                                                <th>E-mail</th>                                                                                               
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="list,status:${fixedassetslocations}">
+                                                        <td><span class="badge bg-green">1</span></td>
+                                                        <td th:text="${list.locationCode}">Name</td>   
+                                                        <td th:text="${list.locationName}">Name</td> 
+                                                        <td th:text="${list.contactForDeliveries}">Name</td> 
+                                                        <td th:text="${list.address}">Name</td> 
+                                                        <td th:text="${list.telephoneNo}">Name</td>
+                                                        <td th:text="${list.mobile}">Name</td>
+                                                        <td th:text="${list.email}">Name</td>                                                                                                     
+                                                        <td><a th:href="@{/fixedassetslocations/edit/{id} (id=${list.id})}" class="label  bg-green"><i class="fa fa-fw fa-edit"></i></a></td>   
+                                                        <td><a th:href="@{/fixedassetslocations/delete/{id} (id=${list.id})}"  class="label bg-red" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-fw fa-trash-o"></i></a></td>   
+                                                    </tr>
+                                                </tbody></table>
+                                        </div>
+                                    </div>  
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

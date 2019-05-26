@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+    <div layout:fragment = "main_content">
+        <div class="content-wrapper">
+            <!-- Main content -->
+
+
+            <section class="content-header">
+                <h1>
+                    Inventory  <small> </small>
+                </h1>
+
+            </section>
+            <section class="content">
+
+                <div class="box ">
+
+                    <div class="box-body">
+
+
+                        <div class="col-sm-6">
+                            <div class="box box-primary box-solid">
+                                <div class="box-header with-border">
+                                    <h4> Transactions</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">1</span></td>
+                                                <td>Inventory Location Transfers</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">2</span></td>
+                                                <td>Inventory Adjustments</td>               
+                                            </tr>
+                       
+
+                                        </tbody></table>
+                                </div>
+                            </div>  
+                            <div class="box box-warning box-solid">
+                                <div class="box-header with-border">
+                                    <h4>    Settings</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                      <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-yellow">1</span></td>
+                                                <td><a th:href="@{/items/index}">Items</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">2</span></td>
+                                                <td>Foreign Item Codes</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">3</span></td>
+                                                <td>Sales Kits</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">4</span></td>
+                                                <td><a th:href="@{/itemcategories/index}">Item Categories</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">5</span></td>
+                                                <td><a th:href="@{/inventorylocations/index}">Inventory Locations</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">6</span></td>
+                                                <td><a th:href="@{/units/index}">Units of Measure</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">7</span></td>
+                                                <td>Reorder Levels</td>               
+                                            </tr>
+                                        </tbody></table>
+                                </div>
+                            </div> 
+                            
+                              <div class="box box-warning box-solid">
+                                <div class="box-header with-border">
+                                    <h4>    Pricing and Costs</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                      <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-yellow">1</span></td>
+                                                <td>Sales Pricing</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">2</span></td>
+                                                <td>Purchasing Pricing</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">3</span></td>
+                                                <td>Standard Costs</td>               
+                                            </tr>
+                                            
+                                            
+                                        </tbody></table>
+                                </div>
+                            </div> 
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="box box-success box-solid">
+                                <div class="box-header with-border">
+                                    <h4>    Inquiries and Reports</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-green">1</span></td>
+                                                <td>Inventory Item Movements</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-green">2</span></td>
+                                                <td>Inventory Item Status</td>               
+                                            </tr>
+                                   
+                            
+                                            <tr>
+                                                <td><span class="badge bg-green">5</span></td>
+                                                <td>Inventory Reports</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">1</span>Inventory Valuation Report</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">2</span>Inventory Planning Report</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">3</span>Stock Check Sheets</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">4</span> Inventory Sales Report</td>               
+                                            </tr>
+
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">5</span> GRN Valuation Report</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">6</span> Inventory Purchasing Report</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">7	</span> Inventory Movement Report</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">8</span> Costed Inventory Movement Report</td>               
+                                            </tr>
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">9</span> Item Sales Summary Report</td>               
+                                            </tr>
+
+                                        </tbody></table>
+                                </div>
+                            </div>  
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.box -->
+            </section>
+            <!-- /.content -->
+        </div> 
+    </div>
+</div>

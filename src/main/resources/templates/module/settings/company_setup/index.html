@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+    <div layout:fragment = "main_content">
+        <div class="content-wrapper">
+            <!-- Main content -->
+
+
+            <section class="content-header">
+                <h1>
+                    Settings <small> </small>
+                </h1>
+
+            </section>
+            <section class="content">
+
+                <div class="box ">
+
+                    <div class="box-body">
+
+
+                        <div class="col-sm-6">
+                            <div class="box box-primary box-solid">
+                                <div class="box-header with-border">
+                                    <h4>Company Setup</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">1</span></td>
+                                                <td>Company Setup</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">2</span></td>
+                                                <td>User Accounts Setup</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">3</span></td>
+                                                <td>Access Setup</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">4</span></td>
+                                                <td>Display Setup</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">5</span></td>
+                                                <td>Transaction References</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">6</span></td>
+                                                <td><a th:href="@{/taxes/index}">Taxes</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">7</span></td>
+                                                <td><a th:href="@{/taxgroups/index}">Tax Groups</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">8</span></td>
+                                                <td><a th:href="@{/itemtaxtypes/index}">Item Tax Types</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">9</span></td>
+                                                <td>System and General GL Setup</td>               
+                                            </tr>
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">10</span></td>
+                                                <td>Fiscal Years</td>               
+                                            </tr>
+
+                                        </tbody></table>
+                                </div>
+                            </div>  
+                            <div class="box box-warning box-solid">
+                                <div class="box-header with-border">
+                                    <h4>    Settings</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-yellow">1</span></td>
+                                                <td>Void a Transaction</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">2</span></td>
+                                                <td>View or Print Transactions</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">3</span></td>
+                                                <td>Attach Documents</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">4</span></td>
+                                                <td>System Diagnostics</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">5</span></td>
+                                                <td>Backup and Restore</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-yellow">6</span></td>
+                                                <td>Create/Update Companies</td>               
+                                            </tr>
+                                        </tbody></table>
+                                </div>
+                            </div> 
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="box box-success box-solid">
+                                <div class="box-header with-border">
+                                    <h4>Miscellaneous</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table class="table table-condensed">
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="badge bg-green">1</span></td>
+                                                <td>Payment Terms</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-green">2</span></td>
+                                                <td>Shipping Companyy</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-green">3</span></td>
+                                                <td>Points of Sale</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-green">4</span></td>
+                                                <td>Printers</td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-green">5</span></td>
+                                                <td>Contact Categories</td>               
+                                            </tr>
+                                        </tbody></table>
+                                </div>
+                            </div>  
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.box -->
+            </section>
+            <!-- /.content -->
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Finance and Banking 
+                    <small></small>
+                </h1>
+                <!--                <ol class="breadcrumb">
+                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li><a href="#">Examples</a></li>
+                                    <li class="active">Blank page</li>
+                                </ol>-->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Settings</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="box ">
+
+                            <div class="box-body">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <div class="box box-warning box-solid">
+                                        <div class="box-header with-border">
+                                            <h4>Bank Accounts</h4>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+
+                                            <form  th:action="@{/bankaccounts/save}"   enctype="multipart/form-data" th:object="${bankAccounts}"  method="post" class="">
+                                                   <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <h4><i class="icon fa fa-ban"></i> Error </h4>
+                                                    <ul th:if="${#fields.hasErrors('*')}">
+                                                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                                                    </ul>
+                                                </div>
+                                                                                                
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" th:field="*{id}">
+                                                    <label for="bankAccountName">Bank Account Name:</label>
+                                                    <input type="text" class="form-control" th:field="*{bankAccountName}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankAccountName')}" th:errors="*{bankAccountName}"> </span>
+                                                </div>
+                                                <!-- select -->
+                                                <div class="form-group">
+                                                    <label>Account Type:</label>
+                                                    <select class="form-control" th:field="*{accountType}">
+                                                        <option value=" "> Select one</option>
+                                                        <option th:each =" accounttype :${accounttype}"
+                                                                th:value=" ${accounttype}" 
+                                                                th:text="${accounttype}"> Select one</option>
+                                                    </select>
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('accountType')}" th:errors="*{accountType}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Bank Account GL Code::</label>
+                                                    <select class="form-control" th:field="*{bankAccountGLCode}">
+                                                        <option value=" "> Select one</option>
+                                                        <option th:each =" glaccounts :${glaccounts}"
+                                                                th:value=" ${glaccounts.id}" 
+                                                                th:text="${glaccounts.accountName}"> Select one</option>
+                                                    </select>
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankAccountGLCode')}" th:errors="*{bankAccountGLCode}"> </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Bank Charges Account GL Code:</label>
+                                                    <select class="form-control" th:field="*{bankChargesAccount}">
+                                                        <option value=" "> Select one</option>
+                                                        <option th:each =" glaccounts :${glaccounts}"
+                                                                th:value=" ${glaccounts.id}" 
+                                                                th:text="${glaccounts.accountName}"> Select one</option>
+                                                    </select>
+                                                    
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankChargesAccount')}" th:errors="*{bankChargesAccount}"> </span>
+                                                
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Bank Name:</label>
+                                                    <input type="text" class="form-control" th:field="*{bankName}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankName')}" th:errors="*{bankName}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="name">Bank Account Number:</label>
+                                                    <input type="text" class="form-control" th:field="*{bankAccountNumber}" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankAccountNumber')}" th:errors="*{bankAccountNumber}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="bankAddress">Bank Address:</label>
+                                                    <textarea class="form-control"  placeholder="" th:field="*{bankAddress}"></textarea>
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankAddress')}" th:errors="*{bankAddress}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="remark">Remarks:</label>
+                                                    <textarea class="form-control"  placeholder="" th:field="*{remark}"></textarea>
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('remark')}" th:errors="*{remark}"> </span>
+                                                </div>
+                                                <div class="box-footer">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>                        
+                                        </div>
+                                    </div> 
+                                </div>
+
+                                <div class="col-sm-12 ">
+                                    <div class="box box-success box-solid">
+                                        <div class="box-header with-border">
+                                            <h4>Bank Accounts List</h4>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                <th><span class="badge bg-green">No</span></th>
+                                                <th>Bank Account Name</th>   
+                                                <th>Account Type:</th>
+                                                <th>Bank Account Currency:</th>
+                                                <th>Bank Account GL Code:</th>
+                                                <th>Bank Charges Account:</th>
+                                                <th>Bank Name:</th>
+                                                <th>Bank Account Number:</th>
+                                                <th>Bank Address:</th>
+                                                
+                                                
+                                                <th>View</th>  
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="list,status:${bankaccounts}">
+                                                        <td><span class="badge bg-green">1</span></td>
+                                                        <td th:text="${list.bankAccountName}">Name</td>   
+                                                      <td th:text="${list.accountType}">Name</td> 
+                                                     <td th:text="${list.bankAccountGLCode.accountName}">Name</td> 
+                                                     <td th:text="${list.bankChargesAccount.accountName}">Name</td> 
+                                                     <td th:text="${list.bankName}">Name</td> 
+                                                     <td th:text="${list.bankAccountNumber}">Name</td> 
+                                                     <td th:text="${list.bankAddress}">Name</td> 
+                                                     <td th:text="${list.remark}">Name</td> 
+                                                        <td><a th:href="@{/bankaccounts/view/{id} (id=${list.id})}" class="label bg-yellow"><i class="fa fa-fw fa-eye"></i></a></td>   
+                                                        <td><a th:href="@{/bankaccounts/edit/{id} (id=${list.id})}" class="label  bg-green"><i class="fa fa-fw fa-edit"></i></a></td>   
+                                                        <td><a th:href="@{/bankaccounts/delete/{id} (id=${list.id})}"  class="label bg-red" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-fw fa-trash-o"></i></a></td>   
+                                                    </tr>
+                                                </tbody></table>
+                                        </div>
+                                    </div>  
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

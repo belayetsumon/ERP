@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <name>erp</name>
-    <description>Falgun Enterprise Resource Planing </description>
+    <description>Liberty Enterprise Resource Planing </description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

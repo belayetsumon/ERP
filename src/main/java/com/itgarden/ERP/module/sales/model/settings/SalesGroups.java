@@ -20,4 +20,6 @@ public class SalesGroups {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+   
 }

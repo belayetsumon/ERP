@@ -6,8 +6,11 @@
 package com.itgarden.ERP.module.sales.model.settings;
 
 import com.itgarden.ERP.module.finance_banking.model.settings.GlAccounts;
+import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
 import com.itgarden.ERP.module.settings.model.company_setup.TaxGroups;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,245 +26,271 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class CustomerBranches {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    // Name and Contact
-    private String branchName;
+	// Name and Contact
+	private String branchName;
 
-    private String branchShortName;
-    @ManyToOne
-    private SalesPersons salesPerson;
-    @ManyToOne
-    private SalesAreas salesArea;
-    @ManyToOne
-    private SalesGroups salesGroup;
-    @ManyToOne
-    private TaxGroups taxGroup;
+	private String branchShortName;
 
-    // GL Accounts
-    @NotNull(message = "Sales Account field cannot be blank.")
-    @ManyToOne
-    private GlAccounts salesAccount;
+	@ManyToOne
+	private SalesPersons salesPerson;
 
-    @NotNull(message = "Sales Discount Account field cannot be blank.")
-    @ManyToOne
-    private GlAccounts salesDiscountAccount;
+	@ManyToOne
+	private SalesAreas salesArea;
 
-    @NotNull(message = "Accounts Receivable Account field cannot be blank.")
-    @ManyToOne
-    private GlAccounts accountsReceivableAccount;
+	@NotNull(message = "This field cannot be blank.")
+	
+	@Enumerated(EnumType.STRING)
+	private SalesGroups salesGroup;
 
-    @NotNull(message = "Prompt Payment Discount Account field cannot be blank.")
-    @ManyToOne
-    private GlAccounts promptPaymentDiscountAccount;
+	@ManyToOne
+	private InventoryLocations inventoryLocations;
 
-    private String bankAccountNumber;
+	@ManyToOne
+	private TaxGroups taxGroup;
 
-    // General contact data
-    // Contact Data //
-    private String contactPerson;
-    private String phoneNumber;
-    private String mobileNumber;
-    private String faxNumber;
-    @Email
-    private String email;
+	// GL Accounts
+	@NotNull(message = "Sales Account field cannot be blank.")
+	@ManyToOne
+	private GlAccounts salesAccount;
 
-    //Addresses
-    @Lob
-    private String mailingAddress;
-    @Lob
-    private String physicalAddress;
-    @Lob
-    private String generalNotes;
+	@NotNull(message = "Sales Discount Account field cannot be blank.")
+	@ManyToOne
+	private GlAccounts salesDiscountAccount;
 
-    public CustomerBranches() {
-    }
+	@NotNull(message = "Accounts Receivable Account field cannot be blank.")
+	@ManyToOne
+	private GlAccounts accountsReceivableAccount;
 
-    public CustomerBranches(Long id, String branchName, String branchShortName, SalesPersons salesPerson, SalesAreas salesArea, SalesGroups salesGroup, TaxGroups taxGroup, GlAccounts salesAccount, GlAccounts salesDiscountAccount, GlAccounts accountsReceivableAccount, GlAccounts promptPaymentDiscountAccount, String bankAccountNumber, String contactPerson, String phoneNumber, String mobileNumber, String faxNumber, String email, String mailingAddress, String physicalAddress, String generalNotes) {
-        this.id = id;
-        this.branchName = branchName;
-        this.branchShortName = branchShortName;
-        this.salesPerson = salesPerson;
-        this.salesArea = salesArea;
-        this.salesGroup = salesGroup;
-        this.taxGroup = taxGroup;
-        this.salesAccount = salesAccount;
-        this.salesDiscountAccount = salesDiscountAccount;
-        this.accountsReceivableAccount = accountsReceivableAccount;
-        this.promptPaymentDiscountAccount = promptPaymentDiscountAccount;
-        this.bankAccountNumber = bankAccountNumber;
-        this.contactPerson = contactPerson;
-        this.phoneNumber = phoneNumber;
-        this.mobileNumber = mobileNumber;
-        this.faxNumber = faxNumber;
-        this.email = email;
-        this.mailingAddress = mailingAddress;
-        this.physicalAddress = physicalAddress;
-        this.generalNotes = generalNotes;
-    }
+	@NotNull(message = "Prompt Payment Discount Account field cannot be blank.")
+	@ManyToOne
+	private GlAccounts promptPaymentDiscountAccount;
 
-    public Long getId() {
-        return id;
-    }
+	private String bankAccountNumber;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	// General contact data
+	// Contact Data //
+	private String contactPerson;
+	private String phoneNumber;
+	private String mobileNumber;
+	private String faxNumber;
+	@Email
+	private String email;
 
-    public String getBranchName() {
-        return branchName;
-    }
+	// Addresses
+	@Lob
+	private String mailingAddress;
+	@Lob
+	private String physicalAddress;
+	@Lob
+	private String generalNotes;
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
+	public CustomerBranches() {
+	}
 
-    public String getBranchShortName() {
-        return branchShortName;
-    }
+	public CustomerBranches(Long id, String branchName, String branchShortName, SalesPersons salesPerson,
+			SalesAreas salesArea, @NotNull(message = "This field cannot be blank.") SalesGroups salesGroup,
+			InventoryLocations inventoryLocations, TaxGroups taxGroup,
+			@NotNull(message = "Sales Account field cannot be blank.") GlAccounts salesAccount,
+			@NotNull(message = "Sales Discount Account field cannot be blank.") GlAccounts salesDiscountAccount,
+			@NotNull(message = "Accounts Receivable Account field cannot be blank.") GlAccounts accountsReceivableAccount,
+			@NotNull(message = "Prompt Payment Discount Account field cannot be blank.") GlAccounts promptPaymentDiscountAccount,
+			String bankAccountNumber, String contactPerson, String phoneNumber, String mobileNumber, String faxNumber,
+			@Email String email, String mailingAddress, String physicalAddress, String generalNotes) {
+		super();
+		this.id = id;
+		this.branchName = branchName;
+		this.branchShortName = branchShortName;
+		this.salesPerson = salesPerson;
+		this.salesArea = salesArea;
+		this.salesGroup = salesGroup;
+		this.inventoryLocations = inventoryLocations;
+		this.taxGroup = taxGroup;
+		this.salesAccount = salesAccount;
+		this.salesDiscountAccount = salesDiscountAccount;
+		this.accountsReceivableAccount = accountsReceivableAccount;
+		this.promptPaymentDiscountAccount = promptPaymentDiscountAccount;
+		this.bankAccountNumber = bankAccountNumber;
+		this.contactPerson = contactPerson;
+		this.phoneNumber = phoneNumber;
+		this.mobileNumber = mobileNumber;
+		this.faxNumber = faxNumber;
+		this.email = email;
+		this.mailingAddress = mailingAddress;
+		this.physicalAddress = physicalAddress;
+		this.generalNotes = generalNotes;
+	}
 
-    public void setBranchShortName(String branchShortName) {
-        this.branchShortName = branchShortName;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public SalesPersons getSalesPerson() {
-        return salesPerson;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setSalesPerson(SalesPersons salesPerson) {
-        this.salesPerson = salesPerson;
-    }
+	public String getBranchName() {
+		return branchName;
+	}
 
-    public SalesAreas getSalesArea() {
-        return salesArea;
-    }
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
 
-    public void setSalesArea(SalesAreas salesArea) {
-        this.salesArea = salesArea;
-    }
+	public String getBranchShortName() {
+		return branchShortName;
+	}
 
-    public SalesGroups getSalesGroup() {
-        return salesGroup;
-    }
+	public void setBranchShortName(String branchShortName) {
+		this.branchShortName = branchShortName;
+	}
 
-    public void setSalesGroup(SalesGroups salesGroup) {
-        this.salesGroup = salesGroup;
-    }
+	public SalesPersons getSalesPerson() {
+		return salesPerson;
+	}
 
-    public TaxGroups getTaxGroup() {
-        return taxGroup;
-    }
+	public void setSalesPerson(SalesPersons salesPerson) {
+		this.salesPerson = salesPerson;
+	}
 
-    public void setTaxGroup(TaxGroups taxGroup) {
-        this.taxGroup = taxGroup;
-    }
+	public SalesAreas getSalesArea() {
+		return salesArea;
+	}
 
-    public GlAccounts getSalesAccount() {
-        return salesAccount;
-    }
+	public void setSalesArea(SalesAreas salesArea) {
+		this.salesArea = salesArea;
+	}
 
-    public void setSalesAccount(GlAccounts salesAccount) {
-        this.salesAccount = salesAccount;
-    }
+	public SalesGroups getSalesGroup() {
+		return salesGroup;
+	}
 
-    public GlAccounts getSalesDiscountAccount() {
-        return salesDiscountAccount;
-    }
+	public void setSalesGroup(SalesGroups salesGroup) {
+		this.salesGroup = salesGroup;
+	}
 
-    public void setSalesDiscountAccount(GlAccounts salesDiscountAccount) {
-        this.salesDiscountAccount = salesDiscountAccount;
-    }
+	public InventoryLocations getInventoryLocations() {
+		return inventoryLocations;
+	}
 
-    public GlAccounts getAccountsReceivableAccount() {
-        return accountsReceivableAccount;
-    }
+	public void setInventoryLocations(InventoryLocations inventoryLocations) {
+		this.inventoryLocations = inventoryLocations;
+	}
 
-    public void setAccountsReceivableAccount(GlAccounts accountsReceivableAccount) {
-        this.accountsReceivableAccount = accountsReceivableAccount;
-    }
+	public TaxGroups getTaxGroup() {
+		return taxGroup;
+	}
 
-    public GlAccounts getPromptPaymentDiscountAccount() {
-        return promptPaymentDiscountAccount;
-    }
+	public void setTaxGroup(TaxGroups taxGroup) {
+		this.taxGroup = taxGroup;
+	}
 
-    public void setPromptPaymentDiscountAccount(GlAccounts promptPaymentDiscountAccount) {
-        this.promptPaymentDiscountAccount = promptPaymentDiscountAccount;
-    }
+	public GlAccounts getSalesAccount() {
+		return salesAccount;
+	}
 
-    public String getBankAccountNumber() {
-        return bankAccountNumber;
-    }
+	public void setSalesAccount(GlAccounts salesAccount) {
+		this.salesAccount = salesAccount;
+	}
 
-    public void setBankAccountNumber(String bankAccountNumber) {
-        this.bankAccountNumber = bankAccountNumber;
-    }
+	public GlAccounts getSalesDiscountAccount() {
+		return salesDiscountAccount;
+	}
 
-    public String getContactPerson() {
-        return contactPerson;
-    }
+	public void setSalesDiscountAccount(GlAccounts salesDiscountAccount) {
+		this.salesDiscountAccount = salesDiscountAccount;
+	}
 
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
+	public GlAccounts getAccountsReceivableAccount() {
+		return accountsReceivableAccount;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public void setAccountsReceivableAccount(GlAccounts accountsReceivableAccount) {
+		this.accountsReceivableAccount = accountsReceivableAccount;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public GlAccounts getPromptPaymentDiscountAccount() {
+		return promptPaymentDiscountAccount;
+	}
 
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
+	public void setPromptPaymentDiscountAccount(GlAccounts promptPaymentDiscountAccount) {
+		this.promptPaymentDiscountAccount = promptPaymentDiscountAccount;
+	}
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
+	public String getBankAccountNumber() {
+		return bankAccountNumber;
+	}
 
-    public String getFaxNumber() {
-        return faxNumber;
-    }
+	public void setBankAccountNumber(String bankAccountNumber) {
+		this.bankAccountNumber = bankAccountNumber;
+	}
 
-    public void setFaxNumber(String faxNumber) {
-        this.faxNumber = faxNumber;
-    }
+	public String getContactPerson() {
+		return contactPerson;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public String getMailingAddress() {
-        return mailingAddress;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public void setMailingAddress(String mailingAddress) {
-        this.mailingAddress = mailingAddress;
-    }
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
 
-    public String getPhysicalAddress() {
-        return physicalAddress;
-    }
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
 
-    public void setPhysicalAddress(String physicalAddress) {
-        this.physicalAddress = physicalAddress;
-    }
+	public String getFaxNumber() {
+		return faxNumber;
+	}
 
-    public String getGeneralNotes() {
-        return generalNotes;
-    }
+	public void setFaxNumber(String faxNumber) {
+		this.faxNumber = faxNumber;
+	}
 
-    public void setGeneralNotes(String generalNotes) {
-        this.generalNotes = generalNotes;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getMailingAddress() {
+		return mailingAddress;
+	}
+
+	public void setMailingAddress(String mailingAddress) {
+		this.mailingAddress = mailingAddress;
+	}
+
+	public String getPhysicalAddress() {
+		return physicalAddress;
+	}
+
+	public void setPhysicalAddress(String physicalAddress) {
+		this.physicalAddress = physicalAddress;
+	}
+
+	public String getGeneralNotes() {
+		return generalNotes;
+	}
+
+	public void setGeneralNotes(String generalNotes) {
+		this.generalNotes = generalNotes;
+	}
+
+	
 }

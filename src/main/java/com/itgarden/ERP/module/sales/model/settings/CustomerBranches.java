@@ -8,6 +8,7 @@ package com.itgarden.ERP.module.sales.model.settings;
 import com.itgarden.ERP.module.finance_banking.model.settings.GlAccounts;
 import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
 import com.itgarden.ERP.module.settings.model.company_setup.TaxGroups;
+import com.itgarden.ERP.module.sales.model.enumvalue.SalesGroups;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

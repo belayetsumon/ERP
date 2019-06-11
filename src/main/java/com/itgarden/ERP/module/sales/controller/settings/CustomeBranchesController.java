@@ -114,7 +114,7 @@ public class CustomeBranchesController {
 	@RequestMapping("/edit/{id}")
 	public String edit(Model model, @PathVariable Long id, CustomerBranches customerBranches) {
 		
-		model.addAttribute("salesPersons", customerBranchesRepository.getOne(id));
+		model.addAttribute("customerBranches", customerBranchesRepository.getOne(id));
 		
 		model.addAttribute("salespersonslist", salesPersonsRepository.findAll());
 		

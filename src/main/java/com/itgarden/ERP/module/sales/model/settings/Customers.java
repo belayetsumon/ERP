@@ -45,6 +45,8 @@ public class Customers {
     String phone;
     String mobile;
     String email;
+    String salesPerson;
+     String bankAccountNumber;
 
     //Sales//
     int discountPercent;
@@ -68,9 +70,7 @@ public class Customers {
     TaxGroups taxGroup;
 
     // Others //
-    String bankAccountNumber;
-    
-    String salesPerson;
+   
 
     public Customers() {
     }
@@ -257,7 +257,5 @@ public class Customers {
     public void setSalesPerson(String salesPerson) {
         this.salesPerson = salesPerson;
     }
-    
-    
 
 }

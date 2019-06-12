@@ -1,354 +1,364 @@
 <!DOCTYPE html>
 <div xmlns:th="http://www.thymeleaf.org"
-	layout:decorator="theme/admin-layout">
+     layout:decorator="theme/admin-layout">
 
-	<div layout:fragment="main_content">
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>
-					Sales <small></small>
-				</h1>
-				<!--                <ol class="breadcrumb">
-                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                    <li><a href="#">Examples</a></li>
-                                    <li class="active">Blank page</li>
-                                </ol>-->
-			</section>
+    <div layout:fragment="main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Sales <small></small>
+                </h1>
+                <!--                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#">Examples</a></li>
+                    <li class="active">Blank page</li>
+                </ol>-->
+            </section>
 
-			<!-- Main content -->
-			<section class="content">
-				<!-- Default box -->
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<h3 class="box-title">Customer Branches Add</h3>
-						<div class="box-tools pull-right">
-							<div class="btn-group">
-								<!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
-                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
-                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
-                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
-							</div>
-						</div>
-					</div>
-					<div class="box-body">
-						<form th:action="@{/customebranches/save}"
-							enctype="multipart/form-data" th:object="${customerBranches}"
-							method="post" class="">
-							<div class="alert alert-danger alert-dismissible"
-								th:if="${#fields.hasErrors('*')}">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">&times;</button>
-								<h4>
-									<i class="icon fa fa-ban"></i> Error
-								</h4>
-								<ul th:if="${#fields.hasErrors('*')}">
-									<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
-										is incorrect</li>
-								</ul>
-							</div>
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Customer Branches Add</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form th:action="@{/customers/save}"
+                              enctype="multipart/form-data" th:object="${customers}"
+                              method="post" class="">
+                            <div class="alert alert-danger alert-dismissible"
+                                 th:if="${#fields.hasErrors('*')}">
+                                <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">&times;</button>
+                                <h4>
+                                    <i class="icon fa fa-ban"></i> Error
+                                </h4>
+                                <ul th:if="${#fields.hasErrors('*')}">
+                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
+                                        is incorrect</li>
+                                </ul>
+                            </div>
 
-							<div class="row">
-								<div class="col-md-6 col-sm-6">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
 
-									<div class="form-group">
-										<h4 class="text-center">Basic Data</h4>
-									</div>
-									<div class="form-group">
-										<input type="hidden" class="form-control" th:field="*{id}">
-										<label for="itemCode">Branch Name:<span
-											class="text-red"> * </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{branchName}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('branchName')}"
-											th:errors="*{branchName}"> </span>
-									</div>
+                                    <div class="form-group">
+                                        <h4 class="text-center">Name and Address</h4>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" th:field="*{id}">
+                                        <label for="itemCode">Customer Name:<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{customerName}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('customerName')}"
+                                                        th:errors="*{customerName}"> </span>
+                                    </div>
 
-									<div class="form-group">
+                                    <div class="form-group">
 
-										<label for="name">Branch Short Name:<span
-											class="text-red"> * </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{branchShortName}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('branchShortName')}"
-											th:errors="*{branchShortName}"> </span>
-									</div>
+                                        <label for="name">Customer Short Name:<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{customerShortName}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('customerShortName')}"
+                                                        th:errors="*{customerShortName}"> </span>
+                                    </div>
 
-									<div class="form-group">
-										<h4 class="text-center">Sales</h4>
-									</div>
+                                    <div class="form-group">
 
-									<div class="form-group">
-										<label>Sales Person<span class="text-red"> * </span>:
-										</label> <select class="form-control" th:field="*{salesPerson}">
-											<option value=" ">Select one</option>
-											<option th:each=" salespersonslists :${salespersonslist}"
-												th:value=" ${salespersonslists.id}"
-												th:text="${salespersonslists.salesPersonName}">
-												Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('salesPerson')}"
-											th:errors="*{salesPerson}"> </span>
-									</div>
+                                        <label for="name">Address:<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{address}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('address')}"
+                                                        th:errors="*{address}"> </span>
+                                    </div>
 
-									<div class="form-group">
-										<label>Sales Area<span class="text-red"> * </span>:
-										</label> <select class="form-control" th:field="*{salesArea}">
-											<option value=" ">Select one</option>
-											<option th:each=" salesareaslists :${salesareaslist}"
-												th:value=" ${salesareaslists.id}"
-												th:text="${salesareaslists.areaName}">Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('salesArea')}"
-											th:errors="*{salesArea}"> </span>
-									</div>
+                                    <div class="form-group">
 
-									<div class="form-group">
-										<label>Sales Group<span class="text-red"> * </span>:
-										</label> <select class="form-control" th:field="*{salesGroup}">
-											<option value=" ">Select one</option>
-											<option th:each=" salesareasgroups :${salesareasgroup}"
-												th:value=" ${salesareasgroups}" th:text="${salesareasgroups}">
-												Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('salesGroup')}"
-											th:errors="*{salesGroup}"> </span>
-									</div>
+                                        <label for="name">GSTNo:<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{gstNo}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('gstNo')}"
+                                                        th:errors="*{gstNo}"> </span>
+                                    </div>
 
-									<div class="form-group">
-										<label>Default Inventory Location<span
-											class="text-red"> * </span>:
-										</label> <select class="form-control" th:field="*{inventoryLocations}">
-											<option value=" ">Select one</option>
-											<option
-												th:each=" inventorylocationslists :${inventorylocationslist}"
-												th:value=" ${inventorylocationslists.id}"
-												th:text="${inventorylocationslists.locationName}">
-												Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('inventoryLocations')}"
-											th:errors="*{inventoryLocations}"> </span>
-									</div>
-
-
-									<div class="form-group">
-										<label>Tax Group<span class="text-red"> * </span>:
-										</label> <select class="form-control" th:field="*{taxGroup}">
-											<option value=" ">Select one</option>
-											<option th:each=" taxGroup :${taxgroupslist}"
-												th:value=" ${taxGroup.id}" th:text="${taxGroup.name}">
-												Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('taxGroup')}"
-											th:errors="*{taxGroup}"> </span>
-									</div>
+                                    <div class="form-group">
+                                        <label>Sales Type/Price List<span class="text-red"> * </span>:
+                                        </label> <select class="form-control" th:field="*{salesTypeOrPriceList}">
+                                            <option value=" ">Select one</option>
+                                            <option th:each=" salestypenames :${salestypename}"
+                                                    th:value=" ${salestypenames}"
+                                                    th:text="${salestypenames}">
+                                                Select one</option>
+                                        </select> <span class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('salesTypeOrPriceList')}"
+                                                        th:errors="*{salesTypeOrPriceList}"> </span>
+                                    </div>
 
 
 
-								</div>
-
-								<div class="col-md-6 col-sm-6">
-
-									<div class="form-group">
-										<h4 class="text-center">GL Accounts</h4>
-									</div>
-									<div class="form-group">
-										<label>Sales Account<span class="text-red"> * </span>:
-										</label> <select class="form-control" th:field="*{salesAccount}">
-											<option value=" ">Select one</option>
-											<option th:each=" glaccounts :${glaccountslist}"
-												th:value=" ${glaccounts.id}"
-												th:text="${glaccounts.accountName}">Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('salesAccount')}"
-											th:errors="*{salesAccount}"> </span>
-									</div>
-									<div class="form-group">
-										<label> Sales Discount Account:<span class="text-red">
-												* </span>:
-										</label> <select class="form-control"
-											th:field="*{salesDiscountAccount}">
-											<option value=" ">Select one</option>
-											<option th:each=" glaccounts :${glaccountslist}"
-												th:value=" ${glaccounts.id}"
-												th:text="${glaccounts.accountName}">Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('salesDiscountAccount')}"
-											th:errors="*{salesDiscountAccount}"> </span>
-									</div>
-									<div class="form-group">
-										<label>Accounts Receivable Account:<span
-											class="text-red"> * </span>:
-										</label> <select class="form-control"
-											th:field="*{accountsReceivableAccount}">
-											<option value=" ">Select one</option>
-											<option th:each=" glaccounts :${glaccountslist}"
-												th:value=" ${glaccounts.id}"
-												th:text="${glaccounts.accountName}">Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('accountsReceivableAccount')}"
-											th:errors="*{accountsReceivableAccount}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label>Prompt Payment Discount Account:<span
-											class="text-red"> * </span>:
-										</label> <select class="form-control"
-											th:field="*{promptPaymentDiscountAccount}">
-											<option value=" ">Select one</option>
-											<option th:each=" glaccounts :${glaccountslist}"
-												th:value=" ${glaccounts.id}"
-												th:text="${glaccounts.accountName}">Select one</option>
-										</select> <span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('promptPaymentDiscountAccount')}"
-											th:errors="*{{promptPaymentDiscountAccount}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Bank Account Number<span
-											class="text-red"> * </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{bankAccountNumber}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('bankAccountNumber')}"
-											th:errors="*{bankAccountNumber}"> </span>
-									</div>
-
-								</div>
-							</div>
-							<div class="row">
-
-								<div class="col-md-6 col-sm-6">
-
-									<div class="form-group">
-										<h4 class="text-center">General contact data</h4>
-									</div>
-									<div class="form-group">
-										<label for="name">Contact Person<span class="text-red">
-												* </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{contactPerson}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('contactPerson')}"
-											th:errors="*{contactPerson}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Phone Number<span class="text-red">
-												* </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{phoneNumber}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('phoneNumber')}"
-											th:errors="*{phoneNumber}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Mobile Number<span class="text-red">
-												* </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{mobileNumber}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('mobileNumber')}"
-											th:errors="*{mobileNumber}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Fax Number<span class="text-red">
-												* </span>:
-										</label> <input type="text" class="form-control"
-											th:field="*{faxNumber}" placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('faxNumber')}"
-											th:errors="*{faxNumber}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Email<span class="text-red">
-												* </span>:
-										</label> <input type="text" class="form-control" th:field="*{email}"
-											placeholder=""> <span
-											class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-										</span>
-									</div>
-								</div>
-								<div class="col-md-6 col-sm-6">
-									<div class="form-group">
-										<h4 class="text-center">Addresses</h4>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Mailing Address<span
-											class="text-red"> * </span>:
-										</label>
-										<textarea class="form-control" th:field="*{mailingAddress}">  </textarea>
-										<span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('mailingAddress')}"
-											th:errors="*{mailingAddress}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">Physical Address<span
-											class="text-red"> * </span>:
-										</label>
-										<textarea class="form-control" th:field="*{physicalAddress}">  </textarea>
-										<span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('physicalAddress')}"
-											th:errors="*{physicalAddress}"> </span>
-									</div>
-
-									<div class="form-group">
-										<label for="name">General Notes<span class="text-red">
-												* </span>:
-										</label>
-										<textarea class="form-control" th:field="*{generalNotes}">  </textarea>
-										<span class="help-block has-error text-red"
-											th:if="${#fields.hasErrors('generalNotes')}"
-											th:errors="*{generalNotes}"> </span>
-									</div>
 
 
-									<!--                            <div class="form-group">
-                                                                    <label>Status<span class="text-red"> * </span>:</label>
-                                                                    <select class="form-control" th:field="*{itemstatus}">
-                                                                        <option value=" "> Select one</option>
-                                                                        <option th:each =" status :${ststus}"
-                                                                                th:value=" ${status}" 
-                                                                                th:text="${status}"> Select one</option>
-                                                                    </select>
-                                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemstatus')}" th:errors="*{itemstatus}"> </span>
-                                                                </div>-->
-								</div>
-							</div>
-							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</div>
-						</form>
+
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+
+                                    <div class="form-group">
+                                        <h4 class="text-center">General contact data</h4>
+                                    </div>
 
 
-					</div>
-					<!-- /.box-body -->
-					<div class="box-footer">
-						<div class="box-tools pull-right">
-							<div class="btn-group">
-								<!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
-                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
-                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
-                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
-							</div>
-						</div>
-					</div>
-					<!-- /.box-footer-->
-				</div>
-				<!-- /.box -->
+                                    <div class="form-group">
+                                        <label for="name">Phone Number<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{phone}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('phone')}"
+                                                        th:errors="*{phone}"> </span>
+                                    </div>
 
-			</section>
-			<!-- /.content -->
-		</div>
-		<!-- /.content-wrapper -->
-	</div>
+                                    <div class="form-group">
+                                        <label for="name">Mobile Number<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{mobile}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('mobile')}"
+                                                        th:errors="*{mobile}"> </span>
+                                    </div>
+
+                                    <!--									<div class="form-group">
+                                                                                                                    <label for="name">Fax Number<span class="text-red">
+                                                                                                                                    * </span>:
+                                                                                                                    </label> <input type="text" class="form-control"
+                                                                                                                            th:field="*{faxNumber}" placeholder=""> <span
+                                                                                                                            class="help-block has-error text-red"
+                                                                                                                            th:if="${#fields.hasErrors('faxNumber')}"
+                                                                                                                            th:errors="*{faxNumber}"> </span>
+                                                                                                            </div>-->
+
+                                    <div class="form-group">
+                                        <label for="name">Email<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control" th:field="*{email}"
+                                                        placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sales Person<span class="text-red"> * </span>:
+                                        </label> <select class="form-control" th:field="*{salesPerson}">
+                                            <option value=" ">Select one</option>
+                                            <option th:each=" salespersonslists :${salespersonslist}"
+                                                    th:value=" ${salespersonslists.id}"
+                                                    th:text="${salespersonslists.salesPersonName}">
+                                                Select one</option>
+                                        </select> <span class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('salesPerson')}"
+                                                        th:errors="*{salesPerson}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Bank Account Number<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{bankAccountNumber}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('bankAccountNumber')}"
+                                                        th:errors="*{bankAccountNumber}"> </span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+
+                                    <div class="form-group">
+                                        <h4 class="text-center">Branch</h4>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label>Sales Area<span class="text-red"> * </span>:
+                                        </label> <select class="form-control" th:field="*{salesArea}">
+                                            <option value=" ">Select one</option>
+                                            <option th:each=" salesareaslists :${salesareaslist}"
+                                                    th:value=" ${salesareaslists.id}"
+                                                    th:text="${salesareaslists.areaName}">Select one</option>
+                                        </select> <span class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('salesArea')}"
+                                                        th:errors="*{salesArea}"> </span>
+                                    </div>
+
+                                    <!--                                    <div class="form-group">
+                                                                            <label>Sales Group<span class="text-red"> * </span>:
+                                                                            </label> <select class="form-control" th:field="*{salesGroup}">
+                                                                                <option value=" ">Select one</option>
+                                                                                <option th:each=" salesareasgroups :${salesareasgroup}"
+                                                                                        th:value=" ${salesareasgroups}" th:text="${salesareasgroups}">
+                                                                                    Select one</option>
+                                                                            </select> <span class="help-block has-error text-red"
+                                                                                            th:if="${#fields.hasErrors('salesGroup')}"
+                                                                                            th:errors="*{salesGroup}"> </span>
+                                                                        </div>-->
+
+                                    <div class="form-group">
+                                        <label>Default Inventory Location<span
+                                                class="text-red"> * </span>:
+                                        </label> <select class="form-control" th:field="*{defaultInventoryLocation}">
+                                            <option value=" ">Select one</option>
+                                            <option
+                                                th:each=" inventorylocationslists :${inventorylocationslist}"
+                                                th:value=" ${inventorylocationslists.id}"
+                                                th:text="${inventorylocationslists.locationName}">
+                                                Select one</option>
+                                        </select> <span class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('defaultInventoryLocation')}"
+                                                        th:errors="*{defaultInventoryLocation}"> </span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Tax Group<span class="text-red"> * </span>:
+                                        </label> <select class="form-control" th:field="*{taxGroup}">
+                                            <option value=" ">Select one</option>
+                                            <option th:each=" taxGroup :${taxgroupslist}"
+                                                    th:value=" ${taxGroup.id}" th:text="${taxGroup.name}">
+                                                Select one</option>
+                                        </select> <span class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('taxGroup')}"
+                                                        th:errors="*{taxGroup}"> </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <h4 class="text-center">Sales</h4>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Discount Percent<span
+                                                class="text-red"> * </span>:
+                                        </label> 
+                                        <input type="text" class="form-control"
+                                               th:field="*{discountPercent}" placeholder=""> <span
+                                               class="help-block has-error text-red"
+                                               th:if="${#fields.hasErrors('discountPercent')}"
+                                               th:errors="*{discountPercent}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Prompt Payment Discount Percent<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{promptPaymentDiscountPercent}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('promptPaymentDiscountPercent')}"
+                                                        th:errors="*{promptPaymentDiscountPercent}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Credit Limit<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{creditLimit}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('creditLimit')}"
+                                                        th:errors="*{creditLimit}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Payment Terms<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{paymentTerms}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('paymentTerms')}"
+                                                        th:errors="*{paymentTerms}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Credit Status<span class="text-red"> * </span>:
+                                        </label> <select class="form-control" th:field="*{creditStatus}">
+                                            <option value=" ">Select one</option>
+                                            <option th:each=" creditstatuslists :${creditstatuslist}"
+                                                    th:value=" ${creditstatuslists}" th:text="${creditstatuslists}">
+                                                Select one</option>
+                                        </select> <span class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('creditStatus')}"
+                                                        th:errors="*{creditStatus}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">General Notes<span class="text-red">
+                                                * </span>:
+                                        </label>
+                                        <textarea class="form-control" th:field="*{generalNotes}">  </textarea>
+                                        <span class="help-block has-error text-red"
+                                              th:if="${#fields.hasErrors('generalNotes')}"
+                                              th:errors="*{generalNotes}"> </span>
+                                    </div>
+
+
+                                    <!--                            <div class="form-group">
+                                <label>Status<span class="text-red"> * </span>:</label>
+                                <select class="form-control" th:field="*{itemstatus}">
+                                    <option value=" "> Select one</option>
+                                    <option th:each =" status :${ststus}"
+                                            th:value=" ${status}" 
+                                            th:text="${status}"> Select one</option>
+                                </select>
+                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemstatus')}" th:errors="*{itemstatus}"> </span>
+                            </div>-->
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
 </div>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org"
+     layout:decorator="theme/admin-layout">
+
+    <div layout:fragment="main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Settings <small></small>
+                </h1>
+                <!--                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#">Examples</a></li>
+                    <li class="active">Blank page</li>
+                </ol>-->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Company Setup</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form th:action="@{/companysetup/save}"
+                              enctype="multipart/form-data" th:object="${companySetup}"
+                              method="post" class="">
+                            <div class="alert alert-danger alert-dismissible"
+                                 th:if="${#fields.hasErrors('*')}">
+                                <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">&times;</button>
+                                <h4>
+                                    <i class="icon fa fa-ban"></i> Error
+                                </h4>
+                                <ul th:if="${#fields.hasErrors('*')}">
+                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
+                                        is incorrect</li>
+                                </ul>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" th:field="*{id}">
+                                        <label for="itemCode">Name (to appear on reports):<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{companyName}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('companyName')}"
+                                                        th:errors="*{companyName}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="name">Address:<span
+                                                class="text-red"> * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{address}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('address')}"
+                                                        th:errors="*{address}"> </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="name">Phone Number<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{phoneNumber}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('phoneNumber')}"
+                                                        th:errors="*{phoneNumber}"> </span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="name">Mobile Number<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{mobileNumber}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('mobileNumber')}"
+                                                        th:errors="*{mobileNumber}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Fax Number<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control"
+                                                        th:field="*{faxNumber}" placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('faxNumber')}"
+                                                        th:errors="*{faxNumber}"> </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Email<span class="text-red">
+                                                * </span>:
+                                        </label> <input type="text" class="form-control" th:field="*{emailAddress}"
+                                                        placeholder=""> <span
+                                                        class="help-block has-error text-red"
+                                                        th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -58,7 +60,9 @@ public class CustomersController {
 
     @RequestMapping("/index")
     public String page(Model model) {
-        model.addAttribute("attribute", "value");
+
+        model.addAttribute("customarlist", customersRepository.findAll());
+
         return "module/sales/settings/customer_index";
     }
 
@@ -113,11 +117,45 @@ public class CustomersController {
 
             return "module/sales/settings/customer_add";
         }
-        
+
         customersRepository.save(customers);
 
         redirectAttrs.addFlashAttribute("success_messages", " Successfully Save.");
 
+        return "redirect:/customers/index";
+    }
+
+    @RequestMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable Long id, Customers customers) {
+
+        model.addAttribute("customers", customersRepository.getOne(id));
+
+        model.addAttribute("salespersonslist", salesPersonsRepository.findAll());
+
+        model.addAttribute("salesareaslist", salesAreasRepository.findAll());
+
+        model.addAttribute("creditstatuslist", creditStatusSetupRepository.findAll());
+
+        model.addAttribute("salesareasgroup", SalesGroups.values());
+
+        model.addAttribute("salestypename", SalesTypeName.values());
+
+        model.addAttribute("inventorylocationslist", inventoryLocationsRepository.findAll());
+
+        model.addAttribute("taxgroupslist", taxGroupsRepository.findAll());
+
+        model.addAttribute("glaccountslist", glAccountsRepository.findAll());
+
+        model.addAttribute("customerbrancheslist", customerBranchesRepository.findAll());
+
+        return "module/sales/settings/customer_add";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String delete(Model model, @PathVariable Long id, Customers customers,
+            RedirectAttributes redirectAttrs) {
+        redirectAttrs.addFlashAttribute("success_messages", " Successfully Delete.");
+        customersRepository.deleteById(id);
         return "redirect:/customers/index";
     }
 

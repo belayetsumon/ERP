@@ -37,43 +37,41 @@
 						<table class="table table-condensed">
 							<thead>
 								<th><span class="badge bg-green">No</span></th>
-								<th>Short Name</th>
-								<th>Name</th>
-								<th>Contact</th>
+								<th>Customer Name</th>
+								<th> Short Name</th>
+                                                                <th>Mobile No</th>
+                                                                <th>E-mail</th>
+								
 								<th>Sales Person</th>
 								<th>Area</th>
-								<th>Mobile No</th>
-								<th>Fax No</th>
-								<th>E-mail</th>
-								<th>Tax Group</th>
+							
 								<th>Edit</th>
 								<th>Delete</th>
 							</thead>
 							<tbody>
-								<tr th:each="list,status:${customerbrancheslist}">
+								<tr th:each="list,status:${customarlist}">
 
 									<td><span class="badge bg-green">1</span></td>
 
-									<td th:text="${list.branchShortName}">Item Code</td>
+									<td th:text="${list.customerName}">Item Code</td>
 
-									<td th:text="${list.branchName}">Name</td>
+									<td th:text="${list.customerShortName}">Name</td>
 
-									<td th:text="${list.contactPerson}">Description</td>
-                                                                        <td th:text="${list.salesPerson.salesPersonName}">Description</td>
+									<td th:text="${list.mobile}">Description</td>
+                                                                        <td th:text="${list.email}">Description</td>
+                                                                        
+                                                                         <td th:text="${list.salesPerson}">Description</td>
+                                                                        
                                                                         <td th:text="${list.salesArea.areaName}">Description</td>
 
-									<td th:text="${list.mobileNumber}">Description</td>
-                                                                        <td th:text="${list.faxNumber}">Description</td>
-
-									<td th:text="${list.email}">Item Tax Type</td>
-									<td th:text="${list.taxGroup.name}">Item Tax Type</td>
+					
 									<!--                                                        <td><a th:href="@{/language/edit/{id} (id=${list.id})}"  class="label bg-yellow"><i class="fa fa-fw fa-eye"></i></a></td>   -->
 									
-									<td><a th:href="@{/customebranches/edit/{id} (id=${list.id})}"
+									<td><a th:href="@{/customers/edit/{id} (id=${list.id})}"
 										href="#" class="label  bg-green"><i
 											class="fa fa-fw fa-edit"></i></a></td>
 
-									<td><a th:href="@{/customebranches/delete/{id} (id=${list.id})}"
+									<td><a th:href="@{/customers/delete/{id} (id=${list.id})}"
 										href="#" class="label bg-red"
 										onclick="return confirm('Are you sure you want to delete this item?');"><i
 											class="fa fa-fw fa-trash-o"></i></a></td>

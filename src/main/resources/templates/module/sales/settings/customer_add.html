@@ -304,7 +304,7 @@
                                         </label> <select class="form-control" th:field="*{creditStatus}">
                                             <option value=" ">Select one</option>
                                             <option th:each=" creditstatuslists :${creditstatuslist}"
-                                                    th:value=" ${creditstatuslists}" th:text="${creditstatuslists}">
+                                                    th:value=" ${creditstatuslists.id}" th:text="${creditstatuslists.description}">
                                                 Select one</option>
                                         </select> <span class="help-block has-error text-red"
                                                         th:if="${#fields.hasErrors('creditStatus')}"

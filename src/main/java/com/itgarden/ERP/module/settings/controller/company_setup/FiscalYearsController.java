@@ -5,6 +5,7 @@
  */
 package com.itgarden.ERP.module.settings.controller.company_setup;
 
+import com.itgarden.ERP.module.settings.model.company_setup.FiscalYears;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
     @RequestMapping("/fiscalyears")
 public class FiscalYearsController {
     
-    @RequestMapping("/url")
-    public String page(Model model) {
+    @RequestMapping("/index")
+    public String index(Model model, FiscalYears fiscalYears) {
         model.addAttribute("attribute", "value");
-        return "view.name";
+       return "module/settings/company_setup/fiscalyears";
+
     }
+    
+    
     
 }

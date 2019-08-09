@@ -36,14 +36,6 @@ public class CompanySetup {
 
     String mobileNumber;
 
-    String companyLogo;
-
-    String CompanyNewLogo;
-
-    byte deleteCompanyLogo;
-
-    byte companyLogoonReports;
-
     // General Ledger Settings//
     String fiscalYear;
 
@@ -57,7 +49,7 @@ public class CompanySetup {
     public CompanySetup() {
     }
 
-    public CompanySetup(Long id, String companyName, String address, String phoneNumber, String faxNumber, String emailAddress, String mobileNumber, String companyLogo, String CompanyNewLogo, byte deleteCompanyLogo, byte companyLogoonReports, String fiscalYear, int taxPeriods, int taxLastPeriod, int loginTimeout) {
+    public CompanySetup(Long id, String companyName, String address, String phoneNumber, String faxNumber, String emailAddress, String mobileNumber, String fiscalYear, int taxPeriods, int taxLastPeriod, int loginTimeout) {
         this.id = id;
         this.companyName = companyName;
         this.address = address;
@@ -65,10 +57,6 @@ public class CompanySetup {
         this.faxNumber = faxNumber;
         this.emailAddress = emailAddress;
         this.mobileNumber = mobileNumber;
-        this.companyLogo = companyLogo;
-        this.CompanyNewLogo = CompanyNewLogo;
-        this.deleteCompanyLogo = deleteCompanyLogo;
-        this.companyLogoonReports = companyLogoonReports;
         this.fiscalYear = fiscalYear;
         this.taxPeriods = taxPeriods;
         this.taxLastPeriod = taxLastPeriod;
@@ -131,38 +119,6 @@ public class CompanySetup {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getCompanyLogo() {
-        return companyLogo;
-    }
-
-    public void setCompanyLogo(String companyLogo) {
-        this.companyLogo = companyLogo;
-    }
-
-    public String getCompanyNewLogo() {
-        return CompanyNewLogo;
-    }
-
-    public void setCompanyNewLogo(String CompanyNewLogo) {
-        this.CompanyNewLogo = CompanyNewLogo;
-    }
-
-    public byte getDeleteCompanyLogo() {
-        return deleteCompanyLogo;
-    }
-
-    public void setDeleteCompanyLogo(byte deleteCompanyLogo) {
-        this.deleteCompanyLogo = deleteCompanyLogo;
-    }
-
-    public byte getCompanyLogoonReports() {
-        return companyLogoonReports;
-    }
-
-    public void setCompanyLogoonReports(byte companyLogoonReports) {
-        this.companyLogoonReports = companyLogoonReports;
-    }
-
     public String getFiscalYear() {
         return fiscalYear;
     }
@@ -194,5 +150,7 @@ public class CompanySetup {
     public void setLoginTimeout(int loginTimeout) {
         this.loginTimeout = loginTimeout;
     }
+
+   
 
 }

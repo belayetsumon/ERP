@@ -39,9 +39,9 @@
                 <li class="">
                     <a th:href="@{/sales/index}">
                         <i class="fa fa-users"></i> <span>Sales</span>
-                        
+
                     </a>
-          
+
                 </li>
 
                 <li class="treeview">
@@ -51,11 +51,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-<!--                    <ul class="treeview-menu">
-                        <li><a th:href="@{/profile/newprofile}"><i class="fa fa-circle-o"></i> Add New Profile </a></li>
-                        <li><a th:href="@{/profile/profilelist}"><i class="fa fa-circle-o"></i> Employee Profile List</a></li>
-                        <li><a th:href="@{/}"><i class="fa fa-circle-o"></i>User Profile </a></li>
-                    </ul>-->
+                    <!--                    <ul class="treeview-menu">
+                                            <li><a th:href="@{/profile/newprofile}"><i class="fa fa-circle-o"></i> Add New Profile </a></li>
+                                            <li><a th:href="@{/profile/profilelist}"><i class="fa fa-circle-o"></i> Employee Profile List</a></li>
+                                            <li><a th:href="@{/}"><i class="fa fa-circle-o"></i>User Profile </a></li>
+                                        </ul>-->
                 </li>
 
                 <li class="treeview">
@@ -65,25 +65,25 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-<!--                    <ul class="treeview-menu">
-                        <li><a th:href="@{/profile/newprofile}"><i class="fa fa-circle-o"></i> Add New Profile </a></li>
-                        <li><a th:href="@{/profile/profilelist}"><i class="fa fa-circle-o"></i> Employee Profile List</a></li>
-                        <li><a th:href="@{/}"><i class="fa fa-circle-o"></i>User Profile </a></li>
-                    </ul>-->
+                    <!--                    <ul class="treeview-menu">
+                                            <li><a th:href="@{/profile/newprofile}"><i class="fa fa-circle-o"></i> Add New Profile </a></li>
+                                            <li><a th:href="@{/profile/profilelist}"><i class="fa fa-circle-o"></i> Employee Profile List</a></li>
+                                            <li><a th:href="@{/}"><i class="fa fa-circle-o"></i>User Profile </a></li>
+                                        </ul>-->
                 </li>
 
                 <li class="treeview">
-                   <a th:href="@{/fixedassets/index}">
+                    <a th:href="@{/fixedassets/index}">
                         <i class="fa fa-book"></i>
                         <span>Fixed Assets</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-<!--                    <ul class="treeview-menu">
-                        <li><a th:href="@{/report/index}"><i class="fa fa-circle-o"></i> Report List</a></li>
-                        <li><a th:href="@{/employeedirectory/index}"><i class="fa fa-circle-o"></i> Employee Directory List</a></li>
-                    </ul>-->
+                    <!--                    <ul class="treeview-menu">
+                                            <li><a th:href="@{/report/index}"><i class="fa fa-circle-o"></i> Report List</a></li>
+                                            <li><a th:href="@{/employeedirectory/index}"><i class="fa fa-circle-o"></i> Employee Directory List</a></li>
+                                        </ul>-->
                 </li>
 
 
@@ -96,30 +96,77 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-<!--                    <ul class="treeview-menu">
-                        <li><a th:href="@{/report/index}"><i class="fa fa-circle-o"></i> Report List</a></li>
-                        <li><a th:href="@{/employeedirectory/index}"><i class="fa fa-circle-o"></i> Employee Directory List</a></li>
-                    </ul>-->
+                    <!--                    <ul class="treeview-menu">
+                                            <li><a th:href="@{/report/index}"><i class="fa fa-circle-o"></i> Report List</a></li>
+                                            <li><a th:href="@{/employeedirectory/index}"><i class="fa fa-circle-o"></i> Employee Directory List</a></li>
+                                        </ul>-->
                 </li>
 
 
                 <li class="treeview">
-                     <a th:href="@{/settings/index}">
+                    <a th:href="@{/settings/index}">
                         <i class="fa  fa-user"></i>
                         <span>Settings</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-<!--                    <ul class="treeview-menu">
-                        <li><a th:href="@{/settings/lookupindex}"><i class="fa fa-circle-o"></i> Settings Data</a></li>
-                        <li><a th:href="@{/users/login}"><i class="fa fa-circle-o"></i> login</a></li>
-
-                        <li> <a>
-
-                            </a> </li>
-                    </ul>-->
+                    <!--                    <ul class="treeview-menu">
+                                            <li><a th:href="@{/settings/lookupindex}"><i class="fa fa-circle-o"></i> Settings Data</a></li>
+                                            <li><a th:href="@{/users/login}"><i class="fa fa-circle-o"></i> login</a></li>
+                    
+                                            <li> <a>
+                    
+                                                </a> </li>
+                                        </ul>-->
                 </li>
+
+                <li class="treeview">
+                    <a th:href="@{/settings/index}">
+                        <i class="fa  fa-user"></i>
+                        <span>Users</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/module/index}">
+                                <i class="far fa-file"></i>
+                                Module
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/privilege/index}">
+                                <i class="far fa-file"></i>
+                                Privilege 
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/role/index}">
+                                <i class="far fa-file"></i>
+                                Role
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users/index}">
+                                <i class="far fa-file"></i>
+                                User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="far fa-file"></i>
+                                Change Password
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
                 <li class="treeview">
                     <a th:href="@{/users/logout}">
                         <i class="fa fa-user-times"></i>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Users
+                    <small></small>
+                </h1>
+                <!--                <ol class="breadcrumb">
+                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li><a href="#">Examples</a></li>
+                                    <li class="active">Blank page</li>
+                                </ol>-->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Module</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form  class="" action="#" th:action="@{/privilege/save}" th:object="${privilege}" method="post">
+                            <input type="hidden" class="form-control"  th:field="*{id}" /> 
+
+                            <div class="form-group row">
+                                <label  class="col-sm-2 col-form-label text-right " for="inputState">Module<span class="text-danger">*</span>:</label>
+                                <select id="inputState" class="form-control col-sm-3"  th:field="*{module}">
+                                    <option value=" "> Select one</option>              
+                                    <option th:each =" modulelists : ${modulelist}"
+                                            th:value="${modulelists.id} " 
+                                            th:text="${modulelists.name}"> Select one</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="colFormLabel" class="col-sm-2 col-form-label text-right">Name<span class="text-danger">*</span>:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control col-sm-3" id="colFormLabel" placeholder="Name" th:field="*{name}">
+                                    <span  class="help-block text-danger col-sm-8" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">First Name Error</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabel" class="col-sm-2 col-form-label  text-right">Slug<span class="text-danger">*</span>:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control col-sm-3" id="colFormLabel" placeholder="Slug" th:field="*{slug}" >
+                                    <span  class="help-block text-danger col-sm-8" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">First Name Error</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div> </div>
+                        </form>
+
+
+
+
+
+
+
+                        <table class="table table-bordered ">
+                            <tr class="bg-success text-white">
+                                <th style="width: 10px">#</th>
+                                <th>Module Name</th>
+                                <th>Privilege Name</th>
+                                <th>Privilege Slug</th>
+                                <th>Edit</th>
+                                <th style="width: 40px">Delete</th>
+                            </tr>
+                            <tr th:each="list,status:${list}">
+                                <td th:text="${status.count}">2.</td>
+                                <td th:text="${list.module.name}">Chakma</td>
+                                <td th:text="${list.name}">Chakma</td>
+                                <td th:text="${list.slug}">Chakma</td>
+                                <td>
+                                    <a th:href="@{/privilege/edit/{id} (id=${list.id})}" > Edit</a>
+                                </td>
+                                <td> <a th:href="@{/privilege/delete/{id} (id=${list.id})}" > Delete </a></td>
+                            </tr>                              
+                        </table>
+
+               
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>     

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
  * @author User
  */
 @Entity
-public class SalesAreas {
+public class SalesAreas  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

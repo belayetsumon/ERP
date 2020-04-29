@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Sales
+                    <small></small>
+                </h1>
+
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Sales Order Entry</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="box ">
+
+                            <div class="box-body">
+
+                                <div class="box box-warning box-solid">
+                                    <div class="box-header with-border">
+                                        <h4>  </h4>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <h3 class="bg-green text-center"th:text="${success_messages}"></h3>
+
+                                        <form  th:action="@{/salesorderentry/save}"   enctype="multipart/form-data" th:object="${salesOrderEntry}"  method="post" class="">
+                                            <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <h4><i class="icon fa fa-ban"></i> Error </h4>
+                                                <ul th:if="${#fields.hasErrors('*')}">
+                                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                                                </ul>
+                                            </div>
+
+                                                                                       <div class="form-group">
+                                                <input type="hidden" class="form-control" th:field="*{id}">
+                                                <label for="itemCode">Order:<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{orderno}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('orderno')}" th:errors="*{orderno}"> </span>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="name">transType<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{transType}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('transType')}" th:errors="*{transType}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">debtorNo<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{debtorNo}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('debtorNo')}" th:errors="*{debtorNo}"> </span>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label for="name">branchCode<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{branchCode}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('branchCode')}" th:errors="*{branchCode}"> </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">reference<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{reference}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">customerRef<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{customerRef}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('customerRef')}" th:errors="*{customerRef}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">comments<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{comments}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}"> </span>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="name">orderType<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{orderType}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('orderType')}" th:errors="*{orderType}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">ordDate<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{ordDate}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('ordDate')}" th:errors="*{ordDate}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">shipVia<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{shipVia}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('shipVia')}" th:errors="*{shipVia}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">deliveryAddress<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{deliveryAddress}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('deliveryAddress')}" th:errors="*{deliveryAddress}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">contactPhone<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{contactPhone}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('contactPhone')}" th:errors="*{contactPhone}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">contactEmail<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{contactEmail}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('contactEmail')}" th:errors="*{contactEmail}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">deliverTo<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{deliverTo}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('deliverTo')}" th:errors="*{deliverTo}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">freightCost<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{freightCost}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('freightCost')}" th:errors="*{freightCost}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">fromStkLoc<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{fromStkLoc}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('fromStkLoc')}" th:errors="*{fromStkLoc}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">deliveryDate<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{deliveryDate}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('deliveryDate')}" th:errors="*{deliveryDate}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">paymentTerms<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{paymentTerms}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('paymentTerms')}" th:errors="*{paymentTerms}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">total<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{total}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('total')}" th:errors="*{total}"> </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">prepAmount<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{total}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('prepAmount')}" th:errors="*{prepAmount}"> </span>
+                                            </div>
+                                            
+                                               <div class="form-group">
+                                                <label for="name">alloc<span class="text-red"> * </span>:</label>
+                                                <input type="text" class="form-control" th:field="*{alloc}" placeholder="">
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('alloc')}" th:errors="*{alloc}"> </span>
+                                            </div>
+
+
+
+                                            <div class="box-footer">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form> 
+                                    </div>
+                                </div> 
+
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

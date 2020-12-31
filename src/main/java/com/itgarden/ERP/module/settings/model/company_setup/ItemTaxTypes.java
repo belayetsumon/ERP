@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 public class ItemTaxTypes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
      @NotEmpty(message = "This field cannot be blank.")
     String name;

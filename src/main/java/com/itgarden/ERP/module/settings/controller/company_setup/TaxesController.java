@@ -56,7 +56,6 @@ public class TaxesController {
         model.addAttribute("taxes", taxesRepository.getOne(id));
         model.addAttribute("taxeslist", taxesRepository.findAll());
         model.addAttribute("glaccounts", glAccountsRepository.findAll());
-
         return "module/settings/company_setup/taxes";
     }
 

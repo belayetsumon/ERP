@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 public class BankAccounts {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "This field cannot be blank.")
     String bankAccountName;
@@ -35,6 +35,7 @@ public class BankAccounts {
     @NotNull(message = "This field cannot be blank.")
     @ManyToOne
     GlAccounts bankAccountGLCode;
+    
     @NotNull(message = "This field cannot be blank.")
     @ManyToOne
     GlAccounts bankChargesAccount;

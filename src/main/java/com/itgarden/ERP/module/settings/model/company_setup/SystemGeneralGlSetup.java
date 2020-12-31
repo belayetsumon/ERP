@@ -27,116 +27,164 @@ import javax.validation.constraints.NotNull;
 public class SystemGeneralGlSetup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+     private Long id;
 
     ////  General GL /////
-    int pastDueDaysInterval;
-    @NotNull(message = "This field cannot be blank.")
+    private int pastDueDaysInterval;
+
+    @NotNull(message = "Accounts Type cannot be blank.")
     @Enumerated(EnumType.STRING)
-    AccountsType accountsType;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts retainedEarnings;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts profitLossYear;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts exchangeVariancesAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts bankChargesAccount;
-   @NotNull(message = "This field cannot be blank.")
+    private AccountsType accountsType;
+
+    @NotNull(message = "Retained Earnings cannot be blank.")
+     @ManyToOne(optional = false)
+    private GlAccounts retainedEarnings;
+
+    @NotNull(message = " Profit Loss Year cannot be blank.")
+     @ManyToOne(optional = false)
+    private GlAccounts profitLossYear;
+
+    @NotNull(message = "Exchange Variances Account cannot be blank.")
+     @ManyToOne(optional = false)
+    private GlAccounts exchangeVariancesAccount;
+
+    @NotNull(message = " Bank Charges Account cannot be blank.")
+     @ManyToOne(optional = false)
+    private GlAccounts bankChargesAccount;
+
+    @NotNull(message = " Tax Algorithm cannot be blank.")
     @Enumerated(EnumType.STRING)
-    TaxAlgorithm taxAlgorithm;
+    private TaxAlgorithm taxAlgorithm;
 
     //// Customers and Sales ///
-    String defaultCreditLimit;
-    @NotNull(message = "This field cannot be blank.")
+    @NotNull(message = "Default Credit Limit cannot be blank.")
+    private double defaultCreditLimit;
+
+    @NotNull(message = "Invoice Identification cannot be blank.")
     @Enumerated(EnumType.STRING)
-    InvoiceIdentification nvoiceIdentification;
-    byte accumulateBatchShipping;
-    byte PrintItemImageonQuote;
-    String legalTextonInvoice;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts shippingChargedAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts deferredIncomeAccount;
+    private InvoiceIdentification invoiceIdentification;
+
+    private byte accumulateBatchShipping;
+
+    private byte printItemImageonQuote;
+
+    private String legalTextonInvoice;
+
+    @NotNull(message = "Shipping Charged Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts shippingChargedAccount;
+
+    @NotNull(message = "Deferred Income Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts deferredIncomeAccount;
 
     //  Customers and Sales Defaults //
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts receivableAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts salesAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts salesDiscountAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts promptPaymentDiscountAccount;
-    int quoteValidDays;
-    int deliveryRequiredBy;
+    @NotNull(message = "Receivable Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts receivableAccount;
+
+    @NotNull(message = "Sales Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts salesAccount;
+
+    @NotNull(message = "Sales Discount Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts salesDiscountAccount;
+
+    @NotNull(message = "Prompt Payment DiscountAccount cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts promptPaymentDiscountAccount;
+
+    private int quoteValidDays;
+    private int deliveryRequiredBy;
 
     ///// Suppliers and Purchasing ////
-    int deliveryOverReceiveAllowance;
-    int invoiceOverChargeAllowance;
+    private double deliveryOverReceiveAllowance;
+    private double invoiceOverChargeAllowance;
 
     /// Suppliers and Purchasing Defaults ///
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts payableAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts purchaseDiscountAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts grnClearingAccount;
-    int receivalRequiredBy;
-    byte showPoitemcodes;
+    @NotNull(message = "Payable Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts payableAccount;
+
+    @NotNull(message = "Purchase Discount Accountcannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts purchaseDiscountAccount;
+
+    @NotNull(message = "GRN Clearing Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts grnClearingAccount;
+
+    private int receivalRequiredBy;
+    private byte showPoitemcodes;
 
     // Inventory///
-    byte allowNegativeInventory;
-    byte nozeroAmountsService;
-    byte locationNotifications;
-    byte allowNegativePrices;
+    private byte allowNegativeInventory;
+
+    private byte nozeroAmountsService;
+
+    private byte locationNotifications;
+
+    private byte allowNegativePrices;
 
     /////Items Defaults/////
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts ItemsDefaultsSalesAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts inventoryAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts cogsAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts inventoryAdjustmentsAccount;
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts wipAccount;
+    @NotNull(message = "Items Defaults Sales Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts itemsDefaultsSalesAccount;
+    
+    @NotNull(message = "Inventory Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts inventoryAccount;
+    
+    @NotNull(message = "COGS Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts cogsAccount;
+    
+    @NotNull(message = "Inventory Adjustments Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts inventoryAdjustmentsAccount;
+    
+    @NotNull(message = "WIP Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts wipAccount;
 
     /// Fixed Assets Defaults////
-    @NotNull(message = "This field cannot be blank.")
-    @ManyToOne
-    GlAccounts lossOnAssetDisposalAccount;
-    @NotNull(message = "This field cannot be blank.")
+    @NotNull(message = "Loss On Asset Disposal Account cannot be blank.")
+    @ManyToOne(optional = false)
+    private GlAccounts lossOnAssetDisposalAccount;
+    
+    @NotNull(message = "Depreciation Period cannot be blank.")
     @Enumerated(EnumType.STRING)
-    DepreciationPeriod depreciationPeriod;
+    private DepreciationPeriod depreciationPeriod;
 
     //// Manufacturing Defaults///////
-    int manufacturingDefaults;
+    private int manufacturingDefaults;
 
+///// Audit /// 
+//    @Version
+//    private int version;
+//
+//    @CreatedBy
+//    @Column(nullable = false, updatable = false)
+//    private String createdBy;
+//
+//    @CreatedDate
+//    @Column(nullable = false, updatable = false)
+//    private LocalDateTime created;
+//
+//    @LastModifiedBy
+//    @Column(insertable = false, updatable = true)
+//    private String modifiedBy;
+//
+//    @LastModifiedDate
+//    @Column(insertable = false, updatable = true)
+//    private LocalDateTime modified;
+//
+//    /// End Audit //// 
     public SystemGeneralGlSetup() {
     }
 
-    public SystemGeneralGlSetup(Long id, int pastDueDaysInterval, AccountsType accountsType, GlAccounts retainedEarnings, GlAccounts profitLossYear, GlAccounts exchangeVariancesAccount, GlAccounts bankChargesAccount, TaxAlgorithm taxAlgorithm, String defaultCreditLimit, InvoiceIdentification nvoiceIdentification, byte accumulateBatchShipping, byte PrintItemImageonQuote, String legalTextonInvoice, GlAccounts shippingChargedAccount, GlAccounts deferredIncomeAccount, GlAccounts receivableAccount, GlAccounts salesAccount, GlAccounts salesDiscountAccount, GlAccounts promptPaymentDiscountAccount, int quoteValidDays, int deliveryRequiredBy, int deliveryOverReceiveAllowance, int invoiceOverChargeAllowance, GlAccounts payableAccount, GlAccounts purchaseDiscountAccount, GlAccounts grnClearingAccount, int receivalRequiredBy, byte showPoitemcodes, byte allowNegativeInventory, byte nozeroAmountsService, byte locationNotifications, byte allowNegativePrices, GlAccounts ItemsDefaultsSalesAccount, GlAccounts inventoryAccount, GlAccounts cogsAccount, GlAccounts inventoryAdjustmentsAccount, GlAccounts wipAccount, GlAccounts lossOnAssetDisposalAccount, DepreciationPeriod depreciationPeriod, int manufacturingDefaults) {
+    public SystemGeneralGlSetup(Long id, int pastDueDaysInterval, AccountsType accountsType, GlAccounts retainedEarnings, GlAccounts profitLossYear, GlAccounts exchangeVariancesAccount, GlAccounts bankChargesAccount, TaxAlgorithm taxAlgorithm, double defaultCreditLimit, InvoiceIdentification invoiceIdentification, byte accumulateBatchShipping, byte printItemImageonQuote, String legalTextonInvoice, GlAccounts shippingChargedAccount, GlAccounts deferredIncomeAccount, GlAccounts receivableAccount, GlAccounts salesAccount, GlAccounts salesDiscountAccount, GlAccounts promptPaymentDiscountAccount, int quoteValidDays, int deliveryRequiredBy, double deliveryOverReceiveAllowance, double invoiceOverChargeAllowance, GlAccounts payableAccount, GlAccounts purchaseDiscountAccount, GlAccounts grnClearingAccount, int receivalRequiredBy, byte showPoitemcodes, byte allowNegativeInventory, byte nozeroAmountsService, byte locationNotifications, byte allowNegativePrices, GlAccounts itemsDefaultsSalesAccount, GlAccounts inventoryAccount, GlAccounts cogsAccount, GlAccounts inventoryAdjustmentsAccount, GlAccounts wipAccount, GlAccounts lossOnAssetDisposalAccount, DepreciationPeriod depreciationPeriod, int manufacturingDefaults) {
         this.id = id;
         this.pastDueDaysInterval = pastDueDaysInterval;
         this.accountsType = accountsType;
@@ -146,9 +194,9 @@ public class SystemGeneralGlSetup {
         this.bankChargesAccount = bankChargesAccount;
         this.taxAlgorithm = taxAlgorithm;
         this.defaultCreditLimit = defaultCreditLimit;
-        this.nvoiceIdentification = nvoiceIdentification;
+        this.invoiceIdentification = invoiceIdentification;
         this.accumulateBatchShipping = accumulateBatchShipping;
-        this.PrintItemImageonQuote = PrintItemImageonQuote;
+        this.printItemImageonQuote = printItemImageonQuote;
         this.legalTextonInvoice = legalTextonInvoice;
         this.shippingChargedAccount = shippingChargedAccount;
         this.deferredIncomeAccount = deferredIncomeAccount;
@@ -169,7 +217,7 @@ public class SystemGeneralGlSetup {
         this.nozeroAmountsService = nozeroAmountsService;
         this.locationNotifications = locationNotifications;
         this.allowNegativePrices = allowNegativePrices;
-        this.ItemsDefaultsSalesAccount = ItemsDefaultsSalesAccount;
+        this.itemsDefaultsSalesAccount = itemsDefaultsSalesAccount;
         this.inventoryAccount = inventoryAccount;
         this.cogsAccount = cogsAccount;
         this.inventoryAdjustmentsAccount = inventoryAdjustmentsAccount;
@@ -243,20 +291,20 @@ public class SystemGeneralGlSetup {
         this.taxAlgorithm = taxAlgorithm;
     }
 
-    public String getDefaultCreditLimit() {
+    public double getDefaultCreditLimit() {
         return defaultCreditLimit;
     }
 
-    public void setDefaultCreditLimit(String defaultCreditLimit) {
+    public void setDefaultCreditLimit(double defaultCreditLimit) {
         this.defaultCreditLimit = defaultCreditLimit;
     }
 
-    public InvoiceIdentification getNvoiceIdentification() {
-        return nvoiceIdentification;
+    public InvoiceIdentification getInvoiceIdentification() {
+        return invoiceIdentification;
     }
 
-    public void setNvoiceIdentification(InvoiceIdentification nvoiceIdentification) {
-        this.nvoiceIdentification = nvoiceIdentification;
+    public void setInvoiceIdentification(InvoiceIdentification invoiceIdentification) {
+        this.invoiceIdentification = invoiceIdentification;
     }
 
     public byte getAccumulateBatchShipping() {
@@ -268,11 +316,11 @@ public class SystemGeneralGlSetup {
     }
 
     public byte getPrintItemImageonQuote() {
-        return PrintItemImageonQuote;
+        return printItemImageonQuote;
     }
 
-    public void setPrintItemImageonQuote(byte PrintItemImageonQuote) {
-        this.PrintItemImageonQuote = PrintItemImageonQuote;
+    public void setPrintItemImageonQuote(byte printItemImageonQuote) {
+        this.printItemImageonQuote = printItemImageonQuote;
     }
 
     public String getLegalTextonInvoice() {
@@ -347,19 +395,19 @@ public class SystemGeneralGlSetup {
         this.deliveryRequiredBy = deliveryRequiredBy;
     }
 
-    public int getDeliveryOverReceiveAllowance() {
+    public double getDeliveryOverReceiveAllowance() {
         return deliveryOverReceiveAllowance;
     }
 
-    public void setDeliveryOverReceiveAllowance(int deliveryOverReceiveAllowance) {
+    public void setDeliveryOverReceiveAllowance(double deliveryOverReceiveAllowance) {
         this.deliveryOverReceiveAllowance = deliveryOverReceiveAllowance;
     }
 
-    public int getInvoiceOverChargeAllowance() {
+    public double getInvoiceOverChargeAllowance() {
         return invoiceOverChargeAllowance;
     }
 
-    public void setInvoiceOverChargeAllowance(int invoiceOverChargeAllowance) {
+    public void setInvoiceOverChargeAllowance(double invoiceOverChargeAllowance) {
         this.invoiceOverChargeAllowance = invoiceOverChargeAllowance;
     }
 
@@ -436,11 +484,11 @@ public class SystemGeneralGlSetup {
     }
 
     public GlAccounts getItemsDefaultsSalesAccount() {
-        return ItemsDefaultsSalesAccount;
+        return itemsDefaultsSalesAccount;
     }
 
-    public void setItemsDefaultsSalesAccount(GlAccounts ItemsDefaultsSalesAccount) {
-        this.ItemsDefaultsSalesAccount = ItemsDefaultsSalesAccount;
+    public void setItemsDefaultsSalesAccount(GlAccounts itemsDefaultsSalesAccount) {
+        this.itemsDefaultsSalesAccount = itemsDefaultsSalesAccount;
     }
 
     public GlAccounts getInventoryAccount() {
@@ -498,5 +546,9 @@ public class SystemGeneralGlSetup {
     public void setManufacturingDefaults(int manufacturingDefaults) {
         this.manufacturingDefaults = manufacturingDefaults;
     }
+
+    
+    
+    
 
 }

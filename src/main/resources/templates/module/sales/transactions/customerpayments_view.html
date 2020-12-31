@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Sales
+                    <small></small>
+                </h1>
+
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Customer Payment Details</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">      
+
+                        <h3 class="bg-green text-center"th:text="${success_messages}"></h3>
+
+                        <table class="table table-bordered">
+                            <tr>
+                                <td  class="text-center">
+                                    <a  th:href="@{/customerpayments/index}"> New Customer Payments Entry</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td  class="text-center">
+                                    <a  th:href="@{/customerpayments/pdf/{id}(id=${pyid})}"> Print This Receipt</a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td  class="text-center">
+                                    <a  th:href="@{/customerpayments/detail/{id}(id=${pyid})}"> View this Customer Payment</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td  class="text-center">
+                                    <a  th:href="@{/customerpayments/index}"> Enter Another Customer Payment</a>
+                                </td>
+                            </tr>
+                                               
+                             <tr>
+                                <td class="text-center"> <a  th:href="@{/customerpayments/{id}(id=${pyid})}"> View the GL Journal Entries for this Customer Payment</a></td> 
+                            </tr>
+                            
+      
+                        </table>
+
+                        <div class="box-footer">
+
+                        </div>
+
+                    </div>
+
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

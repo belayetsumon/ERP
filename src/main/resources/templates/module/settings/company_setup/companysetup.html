@@ -51,70 +51,202 @@
 
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
+                                    <table class="table  table-bordered">
+                                        <tr>
+                                            <th colspan="2" class="text-center">General settings</th>
 
-                                    <div class="form-group">
-                                        <input type="hidden" class="form-control" th:field="*{id}">
-                                        <label for="itemCode">Name (to appear on reports):<span
-                                                class="text-red"> * </span>:
-                                        </label> <input type="text" class="form-control"
-                                                        th:field="*{companyName}" placeholder=""> <span
-                                                        class="help-block has-error text-red"
-                                                        th:if="${#fields.hasErrors('companyName')}"
-                                                        th:errors="*{companyName}"> </span>
-                                    </div>
+                                        </tr>
+                                        <tr>
+                                            <td>Name (to appear on reports)<span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <input type="hidden" class=""
+                                                       th:field="*{id}" required="true" placeholder="">
+                                                <input type="text" class=""
+                                                       th:field="*{companyName}" required="true" placeholder=""> <span
+                                                       class="help-block has-error text-red"
+                                                       th:if="${#fields.hasErrors('companyName')}"
+                                                       th:errors="*{companyName}"> </span>
+                                            </td>
+                                        </tr> 
 
-                                    <div class="form-group">
+                                        <tr>
+                                            <td>Address<span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <textarea class=""
+                                                          th:field="*{address}" required="true" placeholder=""> </textarea><span
+                                                          class="help-block has-error text-red"
+                                                          th:if="${#fields.hasErrors('address')}"
+                                                          th:errors="*{address}"> </span>
+                                            </td>
+                                        </tr>
 
-                                        <label for="name">Address:<span
-                                                class="text-red"> * </span>:
-                                        </label> <input type="text" class="form-control"
-                                                        th:field="*{address}" placeholder=""> <span
-                                                        class="help-block has-error text-red"
-                                                        th:if="${#fields.hasErrors('address')}"
-                                                        th:errors="*{address}"> </span>
-                                    </div>
+                                        <tr>
+                                            <td>Phone Number: </td>
+                                            <td> 
+                                                <input type="text" class=""
+                                                       th:field="*{phoneNumber}" placeholder=""> <span
+                                                       class="help-block has-error text-red"
+                                                       th:if="${#fields.hasErrors('phoneNumber')}"
+                                                       th:errors="*{phoneNumber}"> </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Mobile Number<span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <input type="text" required="true" class=""
+                                                       th:field="*{mobileNumber}" placeholder=""> <span
+                                                       class="help-block has-error text-red"
+                                                       th:if="${#fields.hasErrors('mobileNumber')}"
+                                                       th:errors="*{mobileNumber}"> </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Fax Number<span class="text-red">
+                                                </span>: </td>
+                                            <td> 
+                                                <input type="text" class=""
+                                                       th:field="*{faxNumber}" placeholder=""> <span
+                                                       class="help-block has-error text-red"
+                                                       th:if="${#fields.hasErrors('faxNumber')}"
+                                                       th:errors="*{faxNumber}"> </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Email <span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <input type="text" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                       th:field="*{emailAddress}" placeholder=""> <span
+                                                       class="help-block has-error text-red"
+                                                       th:if="${#fields.hasErrors('emailAddress')}"
+                                                       th:errors="*{emailAddress}"> </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>GSTNo: </td>
+                                            <td> 
+                                                <input type="text" class=""
+                                                       th:field="*{gstno}" placeholder=""> <span
+                                                       class="help-block has-error text-red"
+                                                       th:if="${#fields.hasErrors('gstno')}"
+                                                       th:errors="*{gstno}"> </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Home Currency<span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <select class=""  required="true" th:field="*{homeCurrency}">
+                                                    <option value=" "> Select one</option>
+                                                    <option th:each =" currencieslists :${currencieslist}"
+                                                            th:value=" ${currencieslists.id}" 
+                                                            th:text="${currencieslists.name}"> Select one</option>
+                                                </select>
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('homeCurrency')}" th:errors="*{homeCurrency}"> </span>    
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
+
                                 <div class="col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label for="name">Phone Number<span class="text-red">
-                                                * </span>:
-                                        </label> <input type="text" class="form-control"
-                                                        th:field="*{phoneNumber}" placeholder=""> <span
-                                                        class="help-block has-error text-red"
-                                                        th:if="${#fields.hasErrors('phoneNumber')}"
-                                                        th:errors="*{phoneNumber}"> </span>
-                                    </div>
+                                    <table class="table  table-bordered">
+                                        <tr>
+                                            <th colspan="2" class="text-center">General Ledger Settings</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Fiscal Year<span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <select class=""  required="true" th:field="*{fiscalYear}">
+                                                    <option value=" "> Select one</option>
+                                                    <option th:each =" fiscalyearslists :${fiscalyearslist}"
+                                                            th:value=" ${fiscalyearslists.id}" 
+                                                            th:text="${fiscalyearslists.fiscalYearBegin+'-'+fiscalyearslists.fiscalYearEnd+'-'+isClosed}"> Select one</option>
+                                                </select>
+                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('fiscalYear')}" th:errors="*{fiscalYear}"> </span>    
+                                            </td>
+                                        </tr> 
 
+                                        <tr>
+                                            <td>Tax Periods:<span class="text-red">
+                                                    * </span>: </td>
+                                            <td> 
+                                                <input type="number" required="true" min="1" max="12"class=""
+                                                       th:field="*{taxPeriods}" placeholder="">Months.
+                                                <span
+                                                    class="help-block has-error text-red"
+                                                    th:if="${#fields.hasErrors('taxPeriods')}"
+                                                    th:errors="*{taxPeriods}"> </span>
+                                            </td>
+                                        </tr>
 
-                                    <div class="form-group">
-                                        <label for="name">Mobile Number<span class="text-red">
-                                                * </span>:
-                                        </label> <input type="text" class="form-control"
-                                                        th:field="*{mobileNumber}" placeholder=""> <span
-                                                        class="help-block has-error text-red"
-                                                        th:if="${#fields.hasErrors('mobileNumber')}"
-                                                        th:errors="*{mobileNumber}"> </span>
-                                    </div>
+                                        <tr>
+                                            <td>Tax Last Period: </td>
+                                            <td> 
+                                                <input type="number" required="true" min="1" max="12" class=""
+                                                       th:field="*{taxLastPeriod}" placeholder=""> 
+                                                Months back.
+                                                <span
+                                                    class="help-block has-error text-red"
+                                                    th:if="${#fields.hasErrors('taxLastPeriod')}"
+                                                    th:errors="*{taxLastPeriod}"> </span>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                                    <div class="form-group">
-                                        <label for="name">Fax Number<span class="text-red">
-                                                * </span>:
-                                        </label> <input type="text" class="form-control"
-                                                        th:field="*{faxNumber}" placeholder=""> <span
-                                                        class="help-block has-error text-red"
-                                                        th:if="${#fields.hasErrors('faxNumber')}"
-                                                        th:errors="*{faxNumber}"> </span>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="name">Email<span class="text-red">
-                                                * </span>:
-                                        </label> <input type="text" class="form-control" th:field="*{emailAddress}"
-                                                        placeholder=""> <span
-                                                        class="help-block has-error text-red"
-                                                        th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}">
-                                        </span>
-                                    </div>
+                                    <!--                                    <table class="table  table-bordered">
+                                                                            <tr>
+                                                                                <th colspan="2" class="text-center">Sales Pricing</th>
+                                    
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Base for auto price calculations:<span class="text-red">
+                                                                                        * </span>: </td>
+                                                                                <td> 
+                                                                                    <input type="text" class=""
+                                                                                           th:field="*{companyName}" placeholder=""> <span
+                                                                                           class="help-block has-error text-red"
+                                                                                           th:if="${#fields.hasErrors('companyName')}"
+                                                                                           th:errors="*{companyName}"> </span>
+                                                                                </td>
+                                                                            </tr> 
+                                    
+                                                                            <tr>
+                                                                                <td>Add Price from Std Cost:<span class="text-red">
+                                                                                        * </span>: </td>
+                                                                                <td> 
+                                                                                    <input type="text" class=""
+                                                                                           th:field="*{companyName}" placeholder=""> %
+                                    
+                                                                                    <span
+                                                                                        class="help-block has-error text-red"
+                                                                                        th:if="${#fields.hasErrors('companyName')}"
+                                                                                        th:errors="*{companyName}"> </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Round calculated prices to nearest<span class="text-red">
+                                                                                        * </span>: </td>
+                                                                                <td> 
+                                                                                    <input type="text" class=""
+                                                                                           th:field="*{companyName}" placeholder=""> cents/poisa
+                                    
+                                    
+                                                                                    <span
+                                                                                        class="help-block has-error text-red"
+                                                                                        th:if="${#fields.hasErrors('companyName')}"
+                                                                                        th:errors="*{companyName}"> </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table> -->
                                 </div>
                             </div>
 

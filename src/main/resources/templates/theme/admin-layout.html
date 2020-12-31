@@ -7,21 +7,24 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
         <!-- Bootstrap 3.3.6 -->
-        <link th:href="@{css/app.css}"  rel="stylesheet" type="text/css"  />
+
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
         <!-- Font Awesome -->
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <!--        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />-->
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <!-- Theme style -->
         <link th:href="@{/webjars/adminlte/2.3.11/dist/css/AdminLTE.min.css}"   rel="stylesheet" type="text/css"  />
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link th:href="@{/webjars/adminlte/2.3.11/dist/css/skins/_all-skins.min.css}" href="/plugins/admin-lte/dist/css/skins/_all-skins.min.css"  rel="stylesheet" type="text/css"  />
 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
         <!--        Datatable-->
-        <link rel="stylesheet" type="text/css" th:href="@{/plugins/DataTables/datatables.min.css}"/>
+        <!--        <link rel="stylesheet" type="text/css" th:href="@{/plugins/DataTables/datatables.min.css}"/>-->
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,13 +32,15 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <link th:href="@{css/app.css}"  rel="stylesheet" type="text/css"  />
+
+
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <!-- Site wrapper -->
         <div class="wrapper">
             <div th:replace="theme/admin-nav-top">
-
-                   
 
             </div>
             <!-- =============================================== -->
@@ -66,27 +71,52 @@
 
         <!-- jQuery 2.2.3 -->
         <!--        <script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}">...</script>-->
-        <script   type="text/javascript"  th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>   
+        <!--        <script   type="text/javascript"  th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>  -->
 
-        <script th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!--        <script th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
         <!-- Bootstrap 3.3.6 -->
 
         <!-- SlimScroll -->
-        <script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}">...</script>
+        <!--<script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}">...</script>-->
         <!-- FastClick -->
-        <script th:src="@{/plugins/fastclick/fastclick.js}">...</script>
+        <!--<script th:src="@{/plugins/fastclick/fastclick.js}">...</script>-->
         <!-- AdminLTE App -->
         <script th:src="@{/webjars/adminlte/2.3.11/dist/js/app.min.js}">...</script>
 
         <!--        Datatable-->
 
-        <script type="text/javascript" th:src="@{/plugins/DataTables/datatables.min.js}"></script>
-        <script th:src="@{/js/app_datatable.js}">...</script>
+        <!--        <script type="text/javascript" th:src="@{/plugins/DataTables/datatables.min.js}"></script>
+                <script th:src="@{/js/app_datatable.js}">...</script>-->
         <!-- All Date -->
+
+        <!--        select 2-->
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
         <script th:src="@{/js/bootstrap_date.js}">...</script>
-        <script th:src="@{/js/report_search.js}">...</script>  
-        <script th:src="@{/js/apps.js}">...</script>
+        <!--        <script th:src="@{/js/report_search.js}">...</script>  -->
+        <script th:src="@{/js/app.js}">...</script>
+
+        <!-- Custom Java scripts -->
+        <!-- Custom Sales Order -->
+
+        <script th:src="@{/js/sales/sales_order.js}"></script>
+
+        <script th:src="@{/js/sales/sales_quotation.js}"></script>
+
+        <script th:src="@{/js/sales/sales_direct_invoice.js}"></script>
+
+        <script th:src="@{/js/sales/custome_payments.js}"></script>
+
+        <!--        Inventory-->
+        <script th:src="@{/js/inventory/inventory_item_adjustmant.js}"></script>
+
+        <script th:src="@{/js/inventory/inventory_location_transfers.js}"></script>
+
     </body>
 </html>

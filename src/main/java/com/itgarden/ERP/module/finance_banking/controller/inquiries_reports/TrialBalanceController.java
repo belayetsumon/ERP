@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/trialbalance")
 public class TrialBalanceController {
-    
-    @RequestMapping("/url")
+
+    @RequestMapping(value = {"", "/", "/index"})
     public String page(Model model) {
         model.addAttribute("attribute", "value");
-        return "view.name";
+        return "module/finance_banking/inquiriesandreports/trialbalance";
     }
-    
+
 }

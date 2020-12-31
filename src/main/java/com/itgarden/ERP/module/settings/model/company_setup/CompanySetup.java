@@ -5,11 +5,15 @@
  */
 package com.itgarden.ERP.module.settings.model.company_setup;
 
+import com.itgarden.ERP.module.finance_banking.model.settings.Currencies;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,36 +24,74 @@ public class CompanySetup {
 
     ////  General settings //
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
-    String companyName;
-    @NotEmpty
-    String address;
+    @NotEmpty(message = "Company Name cannot be blank.")
+    @Size(min = 2, message = "Minimum input 2 char. ")
+    private String companyName;
 
-    String phoneNumber;
+    @NotEmpty(message = "Address cannot be blank.")
+    private String address;
 
-    String faxNumber;
+    private String phoneNumber;
 
-    String emailAddress;
+    private String faxNumber;
 
-    String mobileNumber;
+    @NotEmpty(message = "Email Address cannot be blank.")
+    @Email(message = "Email should be valid.")
+    private String emailAddress;
+
+    @NotEmpty(message = "Mobile Number cannot be blank.")
+    private String mobileNumber;
+
+   
+    private String gstno;
+
+    @NotNull(message = "Home Currency cannot be blank.")
+    @ManyToOne(optional = false)
+    private Currencies homeCurrency;
 
     // General Ledger Settings//
-    String fiscalYear;
+    @NotNull(message = "Fiscal Year cannot be blank.")
+    @ManyToOne(optional = false)
+    private FiscalYears fiscalYear;
 
-    int taxPeriods; //Months.
+    @Min(value = 1)
+    @NotNull(message = "Tax Periods cannot be blank.")
+    private int taxPeriods; //Months.
 
-    int taxLastPeriod; //Months back.
+    @Min(value = 1)
+    @NotNull(message = "Tax Last Periods cannot be blank.")
+    private int taxLastPeriod; //Months back.
 
     //User Interface Options//
-    int loginTimeout;
+    private int loginTimeout;
 
     public CompanySetup() {
     }
 
-    public CompanySetup(Long id, String companyName, String address, String phoneNumber, String faxNumber, String emailAddress, String mobileNumber, String fiscalYear, int taxPeriods, int taxLastPeriod, int loginTimeout) {
+    ///// Audit /// 
+//    @Version
+//    private int version;
+//
+//    @CreatedBy
+//    @Column(nullable = false, updatable = false)
+//    private String createdBy;
+//
+//    @CreatedDate
+//    @Column(nullable = false, updatable = false)
+//    private LocalDateTime created;
+//
+//    @LastModifiedBy
+//    @Column(insertable = false, updatable = true)
+//    private String modifiedBy;
+//
+//    @LastModifiedDate
+//    @Column(insertable = false, updatable = true)
+//    private LocalDateTime modified;
+//
+//    /// End Audit //// 
+    public CompanySetup(Long id, String companyName, String address, String phoneNumber, String faxNumber, String emailAddress, String mobileNumber, String gstno, Currencies homeCurrency, FiscalYears fiscalYear, int taxPeriods, int taxLastPeriod, int loginTimeout) {
         this.id = id;
         this.companyName = companyName;
         this.address = address;
@@ -57,6 +99,8 @@ public class CompanySetup {
         this.faxNumber = faxNumber;
         this.emailAddress = emailAddress;
         this.mobileNumber = mobileNumber;
+        this.gstno = gstno;
+        this.homeCurrency = homeCurrency;
         this.fiscalYear = fiscalYear;
         this.taxPeriods = taxPeriods;
         this.taxLastPeriod = taxLastPeriod;
@@ -119,11 +163,27 @@ public class CompanySetup {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getFiscalYear() {
+    public String getGstno() {
+        return gstno;
+    }
+
+    public void setGstno(String gstno) {
+        this.gstno = gstno;
+    }
+
+    public Currencies getHomeCurrency() {
+        return homeCurrency;
+    }
+
+    public void setHomeCurrency(Currencies homeCurrency) {
+        this.homeCurrency = homeCurrency;
+    }
+
+    public FiscalYears getFiscalYear() {
         return fiscalYear;
     }
 
-    public void setFiscalYear(String fiscalYear) {
+    public void setFiscalYear(FiscalYears fiscalYear) {
         this.fiscalYear = fiscalYear;
     }
 
@@ -150,7 +210,4 @@ public class CompanySetup {
     public void setLoginTimeout(int loginTimeout) {
         this.loginTimeout = loginTimeout;
     }
-
-   
-
 }

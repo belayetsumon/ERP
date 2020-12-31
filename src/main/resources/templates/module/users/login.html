@@ -1,40 +1,97 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="../../../../favicon.ico">
-
-        <title> IT Garden</title>
-
-        <!-- Bootstrap core CSS -->
-         <link rel="stylesheet" th:href="@{/bootstrap/dist/css/bootstrap.min.css}"/>
-<!--        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
-        <link rel="stylesheet" th:href="@{/css/signin.css}"/>
-
-
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Liberty  Enterprise Resource Planning </title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+        <!-- Bootstrap 3.3.6 -->
+        <link th:href="@{css/app.css}"  rel="stylesheet" type="text/css"  />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <!-- Theme style -->
+        <link th:href="@{/webjars/adminlte/2.3.11/dist/css/AdminLTE.min.css}"   rel="stylesheet" type="text/css"  />
+        <!--        AdminLTE Skins. Choose a skin from the css/skins-->
+        <link th:href="@{/webjars/adminlte/2.3.11/dist/css/signin.css}"/>
     </head>
 
-    <body class="text-center">
-        <form class="form-signin" th:action="@{/users/login}"  method="post">
-            <img  class="mb-4 " th:src="@{/img/logo.png}" alt="" width="72" height="72" />
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <!--            <div class="login-logo">
+                            <a href="../../index2.html"><b>Admin</b>LTE</a>
+                        </div>-->
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Email address" value="sumon@yahoo.com" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password"  id="inputPassword" class="form-control"  value="1234567890" placeholder="Password" required>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+            <h1> Liberty ERP</h1>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <div class="alert alert-success alert-dismissible text-center" th:if="${!#strings.isEmpty(success)}"> 
+                    <span th:text="${success}"></span>
+                </div>
+
+                <!--                    <h3 class="box-title text-center"> Please provide your user name  and password </h3>-->
+                <!--    <p class="login-box-msg">Sign in to start your session</p>-->
+                <div class="alert alert-danger" th:if="${param.error}">
+                    Invalid User Name or Password. Please try again.   
+
+                </div>
+                <div class="alert alert-warning" th:if="${param.logout}">
+                    You have been logged out.
+                </div>
+
+                <form  th:action="@{/users/login}"  method="post">
+                    <div class="form-group has-feedback">
+                        <input type="email"  name="username" class="form-control" placeholder="Email" value="">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+
+                </div>
+                <!-- /.social-auth-links -->
+
+                <a href="#">I forgot my password</a><br>
+                <!--                <a href="register.html" class="text-center">Register a new membership</a>-->
+
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <a class="" >Sign in</a>
-            <p class="mt-5 mb-3 "><a class="" th:href="@{/forgotpassword/userforgotpassword}">Forgot Password</a></p>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-        </form>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
+        <!-- jQuery 2.2.3 -->
+        <!--        <script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}">...</script>-->
+        <script   type="text/javascript"  th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>   
+
+        <script th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}"></script>
+
+        <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+        <!-- Bootstrap 3.3.6 -->
+
+        <!-- AdminLTE App -->
+        <script th:src="@{/webjars/adminlte/2.3.11/dist/js/app.min.js}">...</script> 
     </body>
 </html>

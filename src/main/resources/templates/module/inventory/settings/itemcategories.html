@@ -27,8 +27,8 @@
                             <div class="btn-group">
                                 <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
                                                                 <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
-                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
-                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button> -->
+                                <a  th:href="@{/inventory/index}" type="button" class="btn  btn-warning btn-xs">Close</a>
                             </div>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                                 <div class="col-sm-12">
                                     <div class="box box-success box-solid">
                                         <div class="box-header with-border">
-                                            <h4>Units of Measure List</h4>
+                                            <h4>Item Categories List</h4>
                                         </div>
                                         <!-- /.box-header -->
                                         <div class="box-body">
@@ -215,7 +215,7 @@
                                                 <tbody>
                                                     <tr th:each="list,status:${itemCategorieslist}">
 
-                                                        <td><span class="badge bg-green">1</span></td>
+                                                        <td><span class="badge bg-green" th:text="${status.count}">1</span></td>
 
                                                         <td th:text="${list.categoryName}">Category Name</td>
 

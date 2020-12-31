@@ -167,7 +167,7 @@ public class UsersController {
         model.addAttribute("attribute", "value");
 
         model.addAttribute("logout", " You are successfully logout");
-        return "user/login";
+        return "module/users/login";
     }
 
     @RequestMapping("/logout")

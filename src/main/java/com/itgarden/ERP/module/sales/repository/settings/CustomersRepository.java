@@ -6,6 +6,7 @@
 package com.itgarden.ERP.module.sales.repository.settings;
 
 import com.itgarden.ERP.module.sales.model.settings.Customers;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,4 +15,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CustomersRepository extends JpaRepository<Customers, Long> {
     
+    List<Customers> findByCustomerNameContainingIgnoreCaseOrContactPersonsNameContainingIgnoreCase(String customerName, String contactpersonsname);
+    
+    
+
 }

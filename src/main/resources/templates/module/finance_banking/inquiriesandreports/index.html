@@ -23,31 +23,31 @@
                                         <tbody>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">1</span></td>
-                                                <td>Payments</td>               
+                                                <td><a th:href="@{/payments/index}">Payments</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">2</span></td>
-                                                <td>Deposits</td>               
+                                                <td><a th:href="@{/deposits/index}">Deposits</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">3</span></td>
-                                                <td>Bank Account Transfers</td>               
+                                                <td><a th:href="@{/bankaccounttransfers/index}">Bank Account Transfers</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">4</span></td>
-                                                <td>Journal Entry</td>               
+                                                <td><a th:href="@{/journalentry/index}">Journal Entry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">5</span></td>
-                                                <td>Budget Entry</td>               
+                                                <td><a th:href="@{/budgetentry/index}">Budget Entry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">6</span></td>
-                                                <td>Reconcile Bank Account</td>               
+                                                <td><a th:href="@{/reconcilebankaccount/index}">Reconcile Bank Account</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">7</span></td>
-                                                <td>Revenue / Costs Accruals</td>               
+                                                <td><a th:href="@{/RevenueCostsAccruals/index}">Revenue / Costs Accruals</a></td>               
                                             </tr>
                                      </tbody></table>
                                 </div>
@@ -60,7 +60,6 @@
                                 <div class="box-body">
                                       <table class="table table-condensed">
                                         <tbody>
-
                                             <tr>
                                                 <td><span class="badge bg-yellow">1</span></td>
                                                 <td><a th:href="@{/bankaccounts/index}">Bank Accounts</a></td>               
@@ -75,11 +74,11 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-yellow">4</span></td>
-                                                <td>Currencies</td>               
+                                                <td><a th:href="@{/currencies/index}">Currencies</a></td>              
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-yellow">5</span></td>
-                                                <td>Exchange Rates</td>               
+                                                <td>Exchange Rates</td>           
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-yellow">6</span></td>
@@ -119,39 +118,39 @@
 
                                             <tr>
                                                 <td><span class="badge bg-green">1</span></td>
-                                                <td>Journal Inquiry</td>               
+                                                <td><a th:href="@{/journalinquiry/index}">Journal Inquiry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">2</span></td>
-                                                <td>GL Inquiry</td>               
+                                                <td><a th:href="@{/glinquiry/index}">GL Inquiry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">3</span></td>
-                                                <td>Bank Account Inquiry</td>               
+                                                <td><a th:href="@{/bankaccountinquiry/index}">Bank Account Inquiry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">4</span></td>
-                                                <td>Tax Inquiry</td>               
+                                                <td><a th:href="@{/taxinquiry/index}">Tax Inquiry</a></td>               
                                             </tr>
                                               <tr>
                                                 <td><span class="badge bg-green">4</span></td>
-                                                <td>Trial Balance</td>               
+                                                <td><a th:href="@{/trialbalance/index}">Trial Balance</a></td>               
                                             </tr>
                                               <tr>
                                                 <td><span class="badge bg-green">4</span></td>
-                                                <td>Profit and Loss Drilldown</td>               
+                                                <td><a th:href="@{/profitlossdrilldown/index}">Profit and Loss Drilldown</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">5</span></td>
-                                                <td>Banking Reports</td>               
+                                                <td><a th:href="@{/glaccountclasses/glaccountclasses}">Banking Reports</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">1</span>Bank Statement</td>               
+                                                <td><span class="badge bg-green">1</span><a th:href="@{/bankstatement/index}">Bank Statement</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">2</span>Bank Statement w/ Reconcile</td>               
+                                                <td><span class="badge bg-green">2</span><a th:href="@{/bankstatementwreconcile/index}">Bank Statement w/ Reconcile</a></td>               
                                             </tr>
                                 
                                             
@@ -161,42 +160,45 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">1</span>Chart of Accounts</td>               
+                                                <td><span class="badge bg-green">1</span><a th:href="@{/chartofaccounts/index}">Chart of Accounts</a></td>               
                                             </tr>
 
 
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">2</span>List of Journal Entries</td>               
+                                                <td><span class="badge bg-green">2</span><a th:href="@{/listofjournalentries/index}">List of Journal Entries</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">3</span> GL Account Transactions</td>               
+                                                <td><span class="badge bg-green">3</span> <a th:href="@{/glaccounttransactions/index}">GL Account Transactions</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">4	</span>Annual Expense Breakdown</td>               
+                                                <td><span class="badge bg-green">4	</span>
+                                                    
+                                                    <a th:href="@{/annualexpensebreakdown/index}">
+                                                        Annual Expense Breakdown</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">5</span>	Balance Sheet</td>               
+                                                <td><span class="badge bg-green">5</span>	<a th:href="@{/balancesheet/index}">Balance Sheet</a></td>               
                                             </tr>
 
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">6</span>Profit and Loss Statement</td>               
+                                                <td><span class="badge bg-green">6</span><a th:href="@{/profitlossstatement/index}">Profit and Loss Statement</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">7</span> Trial Balance</td>               
+                                                <td><span class="badge bg-green">7</span><a th:href="@{/trialbalance/index}"> Trial Balance</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">8</span>Tax Report</td>               
+                                                <td><span class="badge bg-green">8</span><a th:href="@{/taxreport/index}">Tax Report</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">9</span>Audit Trail</td>               
+                                                <td><span class="badge bg-green">9</span><a th:href="@{/audittrail/index}">Audit Trail</a></td>               
                                             </tr>
                                         </tbody></table>
                                 </div>

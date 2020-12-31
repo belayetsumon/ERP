@@ -3,8 +3,6 @@
     <div layout:fragment = "main_content">
         <div class="content-wrapper">
             <!-- Main content -->
-
-
             <section class="content-header">
                 <h1>
                     Settings <small> </small>
@@ -27,18 +25,17 @@
                                 <div class="box-body">
                                     <table class="table table-condensed">
                                         <tbody>
-
                                             <tr>
                                                 <td><span class="badge bg-light-blue">1</span></td>
                                                 <td><a th:href="@{/companysetup/index}">Company Setup</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">2</span></td>
-                                                <td>User Accounts Setup</td>               
+                                                <td><a th:href="@{/users/index}">User Accounts Setup</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">3</span></td>
-                                                <td>Access Setup</td>               
+                                                <td><a th:href="@{/role/index}">Access Setup/Role</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">4</span></td>
@@ -46,8 +43,14 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">5</span></td>
+                                                <td><a th:href="@{/transactionstype/index}">Transaction Type</a></td>               
+                                            </tr>
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue">5</span></td>
                                                 <td>Transaction References</td>               
                                             </tr>
+
                                             <tr>
                                                 <td><span class="badge bg-light-blue">6</span></td>
                                                 <td><a th:href="@{/taxes/index}">Taxes</a></td>               
@@ -62,7 +65,7 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">9</span></td>
-                                                <td>System and General GL Setup</td>               
+                                                <td><a th:href="@{/systemandgeneralglsetup/index}">System and General GL Setup</a></td>               
                                             </tr>
 
                                             <tr>
@@ -75,7 +78,7 @@
                             </div>  
                             <div class="box box-warning box-solid">
                                 <div class="box-header with-border">
-                                    <h4>    Settings</h4>
+                                    <h4> Settings</h4>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -124,11 +127,11 @@
 
                                             <tr>
                                                 <td><span class="badge bg-green">1</span></td>
-                                                <td>Payment Terms</td>               
+                                                <td><a th:href="@{/paymentterms/index}">Payment Terms</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">2</span></td>
-                                                <td>Shipping Companyy</td>               
+                                                <td><a th:href="@{/shippingcompany/index}">Shipping Company</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">3</span></td>

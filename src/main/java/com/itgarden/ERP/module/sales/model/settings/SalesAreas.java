@@ -19,7 +19,7 @@ import javax.validation.constraints.NotEmpty;
 public class SalesAreas  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "This field cannot be blank.")
     String areaName;

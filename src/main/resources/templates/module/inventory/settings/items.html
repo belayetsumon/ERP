@@ -25,10 +25,10 @@
                         <h3 class="box-title">Settings</h3>
                         <div class="box-tools pull-right">
                             <div class="btn-group">
-                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
-                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
-                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
-                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                                                           <!--    <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                 <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>-->
+                                                                <a  th:href="@{/items/index/}" type="button" class="btn  btn-warning btn-xs">Close</a>
                             </div>
                         </div>
                     </div>
@@ -115,44 +115,38 @@
                                                     <select class="form-control" th:field="*{unitsofMeasure}">
                                                         <option value=" "> Select one</option>
                                                         <option th:each =" units :${units}"
-                                                                th:value=" ${units.id}" 
+                                                                th:value=" ${units.unitAbbreviation}" 
                                                                 th:text="${units.unitAbbreviation}"> Select one</option>
                                                     </select>
                                                     <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('unitsofMeasure')}" th:errors="*{unitsofMeasure}"> </span>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Editable Description<span class="text-red"> * </span>:</label>
-                                                    <select class="form-control" th:field="*{editabledescription}">
-                                                        <option value=" "> Select one</option>
-                                                        <option th:each =" yesnoo :${yesno}"
-                                                                th:value=" ${yesnoo}" 
-                                                                th:text="${yesnoo}"> Select one</option>
-                                                    </select>
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('editabledescription')}" th:errors="*{editabledescription}"> </span>
+                                                    <input type="checkbox" th:field="*{editable}"   />
+
+                                                    <label>Editable Description<span class="text-red">  </span></label>
+
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('editable')}" th:errors="*{editable}"> </span>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Exclude from sales:<span class="text-red"> * </span>:</label>
-                                                    <select class="form-control" th:field="*{excludefromSales}">
-                                                        <option value=" "> Select one</option>
-                                                        <option th:each =" yesnoo :${yesno}"
-                                                                th:value=" ${yesnoo}" 
-                                                                th:text="${yesnoo}"> Select one</option>
-                                                    </select>
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('excludefromSales')}" th:errors="*{excludefromSales}"> </span>
+                                                    <input type="checkbox" th:field="*{noSale}" />
+                                                    <label>Exclude from sales<span class="text-red">  </span></label>
+
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Exclude from purchases<span class="text-red"> * </span>:</label>
-                                                    <select class="form-control" th:field="*{excludeFromPurchases}">
-                                                        <option value=" "> Select one</option>
-                                                        <option th:each =" yesnoo :${yesno}"
-                                                                th:value=" ${yesnoo}" 
-                                                                th:text="${yesnoo}"> Select one</option>
-                                                    </select>
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('excludeFromPurchases')}" th:errors="*{excludeFromPurchases}"> </span>
+
+                                                    <input type="checkbox" th:field="*{noPurchase}" th:checked="checked"/>
+
+                                                    <label>Exclude from purchases<span class="text-red">  </span></label>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label>Discount<span class="text-red">  </span>:</label>
+                                                    <input type="number" min="0" th:field="*{discount}" />
+                                                </div> 
+
                                                 <div class="form-group">
                                                     <h4  class="text-center">GL Accounts</h4>
                                                 </div>
@@ -188,27 +182,23 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Inventory Adjustments Account:<span class="text-red"> * </span>:</label>
-                                                    <select class="form-control" th:field="*{InventoryadjustmentsAccount}">
+                                                    <select class="form-control" th:field="*{inventoryAdjustmentAccount}">
                                                         <option value=" "> Select one</option>
                                                         <option th:each =" glaccounts :${glaccounts}"
                                                                 th:value=" ${glaccounts.id}" 
                                                                 th:text="${glaccounts.accountName}"> Select one</option>
                                                     </select>
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('InventoryadjustmentsAccount')}" th:errors="*{InventoryadjustmentsAccount}"> </span>
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('inventoryAdjustmentAccount')}" th:errors="*{inventoryAdjustmentAccount}"> </span>
                                                 </div>
-                                         
+
                                                 <div class="form-group">
                                                     <h4  class="text-center">Other</h4>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Status<span class="text-red"> * </span>:</label>
-                                                    <select class="form-control" th:field="*{itemstatus}">
-                                                        <option value=" "> Select one</option>
-                                                        <option th:each =" status :${ststus}"
-                                                                th:value=" ${status}" 
-                                                                th:text="${status}"> Select one</option>
-                                                    </select>
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemstatus')}" th:errors="*{itemstatus}"> </span>
+
+                                                    <input type="checkbox" th:field="*{itemstatus}" />
+
+                                                    <label>Status Inactive<span class="text-red"></span></label>
                                                 </div>
 
                                                 <div class="box-footer">
@@ -219,87 +209,7 @@
                                     </div> 
                                 </div>
 
-                                <div class="col-sm-12">
-                                    <div class="box box-success box-solid" style="overflow-x: scroll;">
-                                        <div class="box-header with-border">
-                                            <h4>Units of Measure List</h4>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body">
-
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                <th><span class="badge bg-green">No</span></th>
-                                                <th>Item Code</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Category</th>
-                                                <th>Item Tax Type</th>
-                                                <th>Item Type</th>
-                                                <th>Units of Measure</th>
-                                                <th>Editable description</th>
-                                                <th>Exclude from sales</th>
-                                                <th>Exclude from purchases</th>
-
-                                                <th>Sales Account:</th>
-                                                <th>Inventory Account</th>
-                                                <th>C.O.G.S. Account</th>
-                                                <th>Inventory Adjustments Account</th>
-                                                
-                                          
-
-                                                <th>Status</th>
-
-                                                <!--                                                <th>View</th>  -->
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr th:each="list,status:${itemlist}">
-
-                                                        <td><span class="badge bg-green">1</span></td>
-
-                                                        <td th:text="${list.itemCode}">Item Code</td>
-
-                                                        <td th:text="${list.name}">Name</td>
-
-                                                        <td th:text="${list.description}">Description</td>
-
-                                                        <td th:text="${list.category.categoryName}">Description</td>
-
-                                                        <td th:text="${list.itemTaxType.name}">Item Tax Type</td> 
-
-                                                        <td th:text="${list.itemType}">Item Type</td> 
-
-                                                        <td th:text="${list.unitsofMeasure.descriptiveName}">Units of Measure</td> 
-
-                                                        <td th:text="${list.editabledescription}">Editable description</td> 
-
-                                                        <td th:text="${list.excludefromSales}">Exclude from sales</td> 
-
-                                                        <td th:text="${list.excludeFromPurchases}">Exclude from purchases</td> 
-
-                                                        <td th:text="${list.salesAccount.accountName}">Sales Account</td> 
-
-                                                        <td th:text="${list.inventoryAccount.accountName}">Sales Account</td> 
-
-                                                        <td th:text="${list.cogsAccount.accountName}">C.O.G.S. Account</td> 
-
-                                                        <td th:text="${list.inventoryadjustmentsAccount.accountName}">Inventory Adjustments Account</td>
-
-                                                        <td th:text="${list.itemstatus}">Status</td> 
-                                                        <!--                                                        <td><a th:href="@{/language/edit/{id} (id=${list.id})}"  class="label bg-yellow"><i class="fa fa-fw fa-eye"></i></a></td>   -->
-                                                        <td> <a th:href="@{/items/edit/{id} (id=${list.id})}" href="#" class="label  bg-green"><i class="fa fa-fw fa-edit"></i></a></td>   
-
-                                                        <td> <a th:href="@{/items/delete/{id} (id=${list.id})}" href="#" class="label bg-red" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-fw fa-trash-o"></i></a></td>   
-                                                    </tr>
-                                                </tbody></table>
-                                        </div>
-                                    </div>  
-
-                                </div>
-
-                            </div>
+                         </div>
                         </div>
 
 

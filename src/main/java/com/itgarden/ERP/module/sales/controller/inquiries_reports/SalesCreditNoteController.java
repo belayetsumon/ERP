@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author User
  */
 @Controller
- @RequestMapping("/salescreditnote")
+@RequestMapping("/salescreditnote")
 public class SalesCreditNoteController {
-    
-    @RequestMapping("/url")
+
+    @RequestMapping(value = {"", "/", "/index"})
     public String page(Model model) {
         model.addAttribute("attribute", "value");
-        return "view.name";
+        return "module/sales/inquiriesandreports/salescreditnote";
     }
-    
+
 }

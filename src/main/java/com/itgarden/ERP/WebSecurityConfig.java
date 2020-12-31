@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
+    // Password encrypt
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -38,30 +39,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/**","/front-view/**","/cart/**","/order/create", "/users/uregistrations", "/users/usave",  "/users/front-registration-save", "/users/userforgotpassword", "/forgotpassword/**").permitAll()
+                .antMatchers("/front-view/**", "/cart/**", "/order/create", "/users/uregistrations", "/users/usave", "/users/front-registration-save", "/users/userforgotpassword", "/forgotpassword/**").permitAll()
                 //                .antMatchers("/dashboards/index").hasRole("admin")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/front-view/member-login")
-                .defaultSuccessUrl("/",true)
+                .loginPage("/users/login")
+                .defaultSuccessUrl("/", true)
                 .usernameParameter("username")
                 .passwordParameter("password")
                 //                .failureUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/front-view/member-login")
+                .logoutSuccessUrl("/users/login")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                .accessDeniedPage("/dashboards/access-denied");
+
+        http.csrf().disable();
+
+        http.headers().disable();
+http.headers().defaultsDisabled().contentTypeOptions();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/bootstrap/**", "/bootstrap/dist/css/**", "/bootstrap/dist/js/**", "/plugin/owlcarousel/**", "/fontawesome/css/**","/fontawesome/webfonts/**","/plugin/owlcarousel/assets/**", "/js/**", "/img/**", "/webjars/**", "/files/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/bootstrap/**", "/bootstrap/dist/css/**", "/bootstrap/dist/js/**", "/plugin/owlcarousel/**", "/fontawesome/css/**", "/fontawesome/webfonts/**", "/plugin/owlcarousel/assets/**", "/js/**", "/img/**", "/webjars/**", "/files/**");
     }
 
     @Autowired

@@ -5,11 +5,15 @@
  */
 package com.itgarden.ERP.exception;
 
+import com.itgarden.ERP.module.settings.componant.company_setup.CompanySetupComponent;
+import com.itgarden.ERP.module.user.services.UserComponent;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -24,12 +28,13 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(Exception.class)
     @RequestMapping("/url")
-    public String page(Model model,HttpServletRequest request, Exception ex) {
-      model.addAttribute("error","An error occurred, please try again later");
-       model.addAttribute("cause", ex.getCause());
-       model.addAttribute("message", ex.getMessage());
-       model.addAttribute("stacktrace", ex.getStackTrace());
+    public String page(Model model, HttpServletRequest request, Exception ex) {
+        model.addAttribute("error", "An error occurred, please try again later");
+        model.addAttribute("cause", ex.getCause());
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("stacktrace", ex.getStackTrace());
         return "exception/error";
     }
+
 
 }

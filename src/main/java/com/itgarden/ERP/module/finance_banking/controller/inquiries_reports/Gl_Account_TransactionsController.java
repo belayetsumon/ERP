@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/glaccounttransactions")
 public class Gl_Account_TransactionsController {
     
-    @RequestMapping("/url")
+     @RequestMapping(value = {"", "/", "/index"})
     public String page(Model model) {
         model.addAttribute("attribute", "value");
-        return "view.name";
+       return "module/finance_banking/inquiriesandreports/glaccounttransactions";
     }
     
 }

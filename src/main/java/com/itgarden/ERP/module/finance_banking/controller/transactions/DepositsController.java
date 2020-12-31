@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
   @RequestMapping("/deposits")
 public class DepositsController {
     
-    @RequestMapping("/url")
-    public String page(Model model) {
+    @RequestMapping("/index")
+    public String index(Model model) {
         model.addAttribute("attribute", "value");
-        return "view.name";
+       return "module/finance_banking/transactions/deposits";
     }
     
 }

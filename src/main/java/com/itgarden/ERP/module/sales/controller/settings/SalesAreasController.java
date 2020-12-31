@@ -5,7 +5,6 @@
  */
 package com.itgarden.ERP.module.sales.controller.settings;
 
-import com.itgarden.ERP.module.sales.model.settings.CreditStatusSetup;
 import com.itgarden.ERP.module.sales.model.settings.SalesAreas;
 import com.itgarden.ERP.module.sales.repository.settings.SalesAreasRepository;
 import javax.validation.Valid;

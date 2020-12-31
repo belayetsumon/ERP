@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  @RequestMapping("/purchaseordersinquiry")
 public class PurchaseOrdersInquiryController {
     
-    @RequestMapping("/url")
-    public String page(Model model) {
+   @RequestMapping(value = {"", "/", "/index"})
+    public String index(Model model) {
         model.addAttribute("attribute", "value");
-        return "view.name";
+        return "module/purchases/inquiriesandreports/purchaseordersinquiry";
     }
     
 }

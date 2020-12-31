@@ -28,46 +28,46 @@
                                     <table class="table table-condensed">
                                         <tbody>
 
-                                            <tr>
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
                                                 <td><span class="badge bg-light-blue">1</span></td>
-                                                <td>Sales Quotation Entry</td>               
+                                                <td><a th:href="@{/salesquotationentry/index}">Sales Quotation Entry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">2</span></td>
-                                                <td><a th:href="@{/salesorderentry/createorder}">Sales Order Entry</a></td>               
+                                                <td><a th:href="@{/salesorder/createorder}">Sales Order Entry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">3</span></td>
-                                                <td>Direct Delivery</td>               
+                                                <td><a th:href="@{/directdelivery/index}">Direct Delivery</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">4</span></td>
-                                                <td>Direct Invoice</td>               
+                                                <td><a th:href="@{/salesinvoice/index}">Direct Invoice</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">5</span></td>
-                                                <td>Delivery Against Sales Orders</td>               
+                                                <td><a th:href="@{/deliveryagainstsalesorders/index}">Delivery Against Sales Orders</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">6</span></td>
-                                                <td>Invoice Against Sales Delivery</td>               
+                                                <td><a th:href="@{/invoiceagainstsalesdelivery/index}">Invoice Against Sales Delivery</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">7</span></td>
-                                                <td>Invoice Prepaid Orders</td>               
+                                                <td><a th:href="@{/invoiceprepaidorders/index}">Invoice Prepaid Orders</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">8</span></td>
-                                                <td>Customer Payments</td>               
+                                                <td><a th:href="@{/customerpayments/index}">Customer Payments</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue">9</span></td>
-                                                <td>Customer Credit Notes</td>               
+                                                <td><a th:href="@{/customercreditnotes/index}">Customer Credit Notes</a></td>               
                                             </tr>
 
                                             <tr>
                                                 <td><span class="badge bg-light-blue">10</span></td>
-                                                <td>Allocate Customer Payments or Credit Notes</td>               
+                                                <td><a th:href="@{/allocatecustomerpayments/index}">Allocate Customer Payments or Credit Notes</a></td>               
                                             </tr>
 
                                         </tbody></table>
@@ -79,7 +79,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                      <table class="table table-condensed">
+                                    <table class="table table-condensed">
                                         <tbody>
 
                                             <tr>
@@ -92,7 +92,7 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-yellow">3</span></td>
-                                                <td><a th:href="@{/suppliers/index}">Sales Groups</a></td>               
+                                                <td><a th:href="@{/salesgroups/index}">Sales Groups</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-yellow">4</span></td>
@@ -114,7 +114,7 @@
                                                 <td><span class="badge bg-yellow">8</span></td>
                                                 <td><a th:href="@{/creditstatussetup/index}">Credit Status Setup</a></td>               
                                             </tr>
-                                         </tbody></table>
+                                        </tbody></table>
                                 </div>
                             </div> 
 
@@ -132,53 +132,67 @@
 
                                             <tr>
                                                 <td><span class="badge bg-green">1</span></td>
-                                                <td>Sales Quotation Inquiry</td>               
+                                                <td><a th:href="@{/salesquotationinquiry/index}">Sales Quotation Inquiry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">2</span></td>
-                                                <td>Sales Order Inquiry</td>               
+                                                <td><a th:href="@{/salesorderinquiry/index}">Sales Order Inquiry</a></td>               
                                             </tr>
+
+                                            <tr>
+                                                <td><span class="badge bg-green">2</span></td>
+                                                <td><a th:href="@{/salesdeliveryinquiry/index}">Sales Delivery Inquiry</a></td>               
+                                            </tr>
+
+
+                                            <tr>
+                                                <td><span class="badge bg-green">2</span></td>
+                                                <td><a th:href="@{/salesinvoiceinquiry/index}">Sales Invoice Inquiry</a></td>               
+                                            </tr>
+
+
+
                                             <tr>
                                                 <td><span class="badge bg-green">3</span></td>
-                                                <td>Customer Transaction Inquiry</td>               
+                                                <td><a th:href="@{/customertransactioninquiry/index}">Customer Transaction Inquiry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">4</span></td>
-                                                <td>Customer Allocation Inquiry</td>               
+                                                <td><a th:href="@{/customerallocationinquiry/index}">Customer Allocation Inquiry</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">5</span></td>
-                                                <td>Customer and Sales Reports</td>               
+                                                <td>Customer and Sales Reports</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">1</span>	Customer Balances</td>               
+                                                <td><span class="badge bg-green">1</span><a th:href="@{/customebalances/index}">	Customer Balances</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">2</span>	Aged Customer Analysis</td>               
+                                                <td><span class="badge bg-green">2</span><a th:href="@{/agedcustomeranalysis/index}">	Aged Customer Analysis</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">3</span>	Customer Detail Listing</td>               
+                                                <td><span class="badge bg-green">3</span><a th:href="@{/customerdetaillisting/index}">	Customer Detail Listing</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">4</span>	Sales Summary Report</td>               
+                                                <td><span class="badge bg-green">4</span><a th:href="@{/salessummaryreport/index}">	Sales Summary Report</a></td>               
                                             </tr>
 
 
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">5</span>	Price Listing</td>               
+                                                <td><span class="badge bg-green">5</span><a th:href="@{/pricelisting/index}">	Price Listing</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">6</span>	Order Status Listing</td>               
+                                                <td><span class="badge bg-green">6</span><a th:href="@{/orderstatuslisting/index}">Order Status Listing</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">7	</span>Salesman Listing</td>               
+                                                <td><span class="badge bg-green">7	</span> <a th:href="@{/salesmanlisting/index}">Salesman Listing</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>

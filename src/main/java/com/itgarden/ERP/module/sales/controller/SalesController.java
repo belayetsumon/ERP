@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SalesController {
 
     @RequestMapping("/index")
-    public String page(Model model) {
-        model.addAttribute("attribute", "value");
+    public String index(Model model) {
         return "module/sales/report/index";
     }
 

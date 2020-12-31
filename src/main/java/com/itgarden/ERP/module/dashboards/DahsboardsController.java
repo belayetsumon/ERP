@@ -5,6 +5,7 @@
  */
 package com.itgarden.ERP.module.dashboards;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author User
  */
 @Controller
- @RequestMapping("/dashboards")
+@RequestMapping("/dashboards")
 public class DahsboardsController {
-    
+
     @RequestMapping("/index")
     public String page(Model model) {
+
         model.addAttribute("attribute", "value");
+
         return "module/dashboards/deshboards";
     }
     
+    
+    @RequestMapping("/access-denied")
+    public String access_denied(Model model) {
+
+        model.addAttribute("attribute", "value");
+
+        return "module/dashboards/access_denied";
+    }
+
 }

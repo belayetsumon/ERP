@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Sales
+                    <small>Transactions</small>
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Customer Payments Ref: <span th:text="${customerPayments.paymentReference}"></span></h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <a th:href="@{/customerpayments/detail/{id}(id=${customerPayments.cuPaymentId})}"  class="btn  btn-primary btn-xs">PDF Create</a>
+                                <a th:href="@{/customerpayments/edit/{id}(id=${customerPayments.cuPaymentId})}" class="btn  btn-success btn-xs">Edit</a>
+                                <a th:href="@{/customerpayments/delete/{id}(id=${customerPayments.cuPaymentId})}"  class="btn  btn-danger btn-xs">Delete</a>
+                                <a type="button" th:href="@{/sales/index}" class="btn  btn-warning btn-xs">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+
+                        <table class="table  table-bordered">
+                            <tr>
+                                <th>From Customer</th>
+                                <td th:text="${customerPayments.customers.customerName}"></td>
+                                <th>Reference</th>
+                                <td th:text="${customerPayments.paymentReference}"></td>
+                                <th>Date of Deposit</th>
+                                <td th:text="${customerPayments.paymentDate}"> </td>
+                            </tr>
+
+                            <tr>
+                                <th>Amount</th>
+                                <td th:text="${customerPayments.amount}"></td>
+                                <th>Discount</th>
+                                <td th:text="${customerPayments.discount}"></td>
+                                <th>Into Bank Account</th>
+                                <td th:text="${customerPayments.bankAccounts.bankAccountName}"> </td>
+                            </tr>
+
+
+
+
+                        </table>
+
+
+
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="box-tools pull-right">
+                                <div class="btn-group">
+                                    <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                    <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                    <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                    <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-footer-->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

@@ -28,13 +28,13 @@
                                     <table class="table table-condensed">
                                         <tbody>
 
-                                            <tr>
+                                            <tr sec:authorize="hasAuthority('INVENTORY_LOCATION_TRANSFERS')">
                                                 <td><span class="badge bg-light-blue">1</span></td>
-                                                <td>Inventory Location Transfers</td>               
+                                                <td><a th:href="@{/inventorylocationtransfers/index}">Inventory Location Transfers</a></td>               
                                             </tr>
-                                            <tr>
+                                           <tr sec:authorize="hasAuthority('INVENTORY_ADJUSTMENTS')">
                                                 <td><span class="badge bg-light-blue">2</span></td>
-                                                <td>Inventory Adjustments</td>               
+                                                <td><a th:href="@{/inventoryadjustments/index}">Inventory Adjustments</a></td>               
                                             </tr>
                        
 
@@ -76,7 +76,7 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-yellow">7</span></td>
-                                                <td>Reorder Levels</td>               
+                                                <td><a th:href="@{/reorderlevels/index}">Reorder Levels</a></td>               
                                             </tr>
                                         </tbody></table>
                                 </div>
@@ -123,56 +123,56 @@
 
                                             <tr>
                                                 <td><span class="badge bg-green">1</span></td>
-                                                <td>Inventory Item Movements</td>               
+                                                <td><a th:href="@{/inventoryitemmovements/index}">Inventory Item Movements</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-green">2</span></td>
-                                                <td>Inventory Item Status</td>               
+                                                <td><a th:href="@{/inventoryitemstatus/index}">Inventory Item Status</a></td>               
                                             </tr>
                                    
                             
                                             <tr>
-                                                <td><span class="badge bg-green">5</span></td>
+                                                <td><span class="badge bg-green">3</span></td>
                                                 <td>Inventory Reports</td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">1</span>Inventory Valuation Report</td>               
+                                                <td><span class="badge bg-green">1</span><a th:href="@{/inventoryvaluationreport/index}">Inventory Valuation Report</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">2</span>Inventory Planning Report</td>               
+                                                <td><span class="badge bg-green">2</span><a th:href="@{/inventoryplanningreport/index}">Inventory Planning Report</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">3</span>Stock Check Sheets</td>               
+                                                <td><span class="badge bg-green">3</span><a th:href="@{/stockchecksheets/index}">Stock Check Sheets</a></td>               
                                             </tr>
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">4</span> Inventory Sales Report</td>               
+                                                <td><span class="badge bg-green">4</span> <a th:href="@{/inventorysalesreport/index}">Inventory Sales Report</a></td>               
                                             </tr>
 
-
-                                            <tr>
-                                                <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">5</span> GRN Valuation Report</td>               
-                                            </tr>
-                                            <tr>
-                                                <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">6</span> Inventory Purchasing Report</td>               
-                                            </tr>
-                                            <tr>
-                                                <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">7	</span> Inventory Movement Report</td>               
-                                            </tr>
-                                            <tr>
-                                                <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">8</span> Costed Inventory Movement Report</td>               
-                                            </tr>
 
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
-                                                <td><span class="badge bg-green">9</span> Item Sales Summary Report</td>               
+                                                <td><span class="badge bg-green">5</span> <a th:href="@{/grnvaluationreport/index}">GRN Valuation Report</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">6</span> <a th:href="@{/inventorypurchasingreport/index}">Inventory Purchasing Report</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">7	</span> <a th:href="@{/inventorymovementreport/index}">Inventory Movement Report</a></td>               
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">8</span><a th:href="@{/costedinventorymovementreport/index}"> Costed Inventory Movement Report</a></td>               
+                                            </tr>
+
+                                            <tr>
+                                                <td><span class="badge bg-light-blue"></span></td>
+                                                <td><span class="badge bg-green">9</span> <a th:href="@{/itemsalessummaryreport/index}">Item Sales Summary Report</a></td>               
                                             </tr>
 
                                         </tbody></table>

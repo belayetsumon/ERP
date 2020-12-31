@@ -8,10 +8,8 @@ package com.itgarden.ERP.audit;
 
 import com.itgarden.ERP.module.user.ripository.UsersRepository;
 import java.util.Optional;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *

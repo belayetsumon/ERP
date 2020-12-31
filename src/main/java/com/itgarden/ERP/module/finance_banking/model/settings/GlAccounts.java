@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 public class GlAccounts {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "This field cannot be blank.")
     int accountCode;

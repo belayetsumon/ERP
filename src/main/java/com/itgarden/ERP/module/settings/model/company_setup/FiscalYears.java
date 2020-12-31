@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 public class FiscalYears {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
@@ -28,17 +28,7 @@ public class FiscalYears {
     @NotEmpty
     String fiscalYearEnd;
     @NotNull
-    byte IsClosed;
-
-    public FiscalYears() {
-    }
-
-    public FiscalYears(Long id, String fiscalYearBegin, String fiscalYearEnd, byte IsClosed) {
-        this.id = id;
-        this.fiscalYearBegin = fiscalYearBegin;
-        this.fiscalYearEnd = fiscalYearEnd;
-        this.IsClosed = IsClosed;
-    }
+    byte isClosed;
 
     public Long getId() {
         return id;
@@ -65,12 +55,23 @@ public class FiscalYears {
     }
 
     public byte getIsClosed() {
-        return IsClosed;
+        return isClosed;
     }
 
-    public void setIsClosed(byte IsClosed) {
-        this.IsClosed = IsClosed;
+    public void setIsClosed(byte isClosed) {
+        this.isClosed = isClosed;
     }
+
+    public FiscalYears() {
+    }
+
+    public FiscalYears(Long id, String fiscalYearBegin, String fiscalYearEnd, byte isClosed) {
+        this.id = id;
+        this.fiscalYearBegin = fiscalYearBegin;
+        this.fiscalYearEnd = fiscalYearEnd;
+        this.isClosed = isClosed;
+    }
+
     
     
 

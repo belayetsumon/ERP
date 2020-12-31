@@ -5,41 +5,71 @@
  */
 package com.itgarden.ERP.module.inventory.model.settings;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  *
  * @author User
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class PurchasingPricing {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    int itemId;
+
+    @OneToOne
+    private Items itemId;
+
     int SupplierId;
-    int price;
+
+    private BigDecimal price;
+    
+    
     @ManyToOne
     Units suppliersUnitofMeasure;
     int ConversionFactorUom;
     String supplierCodeDescription;
+    
+    
+    
+    /// Audit /// 
+//    @Version
+//    private int version;
+//
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime created;
+
+    @LastModifiedBy
+    @Column(insertable = false, updatable = true)
+    private String modifiedBy;
+
+    @LastModifiedDate
+    @Column(insertable = false, updatable = true)
+    private LocalDateTime modified;
+    
 
     public PurchasingPricing() {
-    }
-
-    public PurchasingPricing(Long id, int itemId, int SupplierId, int price, Units suppliersUnitofMeasure, int ConversionFactorUom, String supplierCodeDescription) {
-        this.id = id;
-        this.itemId = itemId;
-        this.SupplierId = SupplierId;
-        this.price = price;
-        this.suppliersUnitofMeasure = suppliersUnitofMeasure;
-        this.ConversionFactorUom = ConversionFactorUom;
-        this.supplierCodeDescription = supplierCodeDescription;
     }
 
     public Long getId() {
@@ -50,11 +80,11 @@ public class PurchasingPricing {
         this.id = id;
     }
 
-    public int getItemId() {
+    public Items getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(Items itemId) {
         this.itemId = itemId;
     }
 
@@ -66,11 +96,11 @@ public class PurchasingPricing {
         this.SupplierId = SupplierId;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -97,6 +127,37 @@ public class PurchasingPricing {
     public void setSupplierCodeDescription(String supplierCodeDescription) {
         this.supplierCodeDescription = supplierCodeDescription;
     }
-    
-    
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public LocalDateTime getModified() {
+        return modified;
+    }
+
+    public void setModified(LocalDateTime modified) {
+        this.modified = modified;
+    }
+
 }

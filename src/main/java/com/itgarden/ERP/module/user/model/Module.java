@@ -24,7 +24,7 @@ import javax.validation.constraints.NotEmpty;
 public class Module {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "*Name cannot be blank.")
     public String name;

@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 public class GlAccountClasses {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "Class ID cannot be blank.")
     int classId;

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Company Setup
+                    <small></small>
+                </h1>
+                <!--                <ol class="breadcrumb">
+                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li><a href="#">Examples</a></li>
+                                    <li class="active">Blank page</li>
+                                </ol>-->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Settings</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+
+
+                        <!--                                   <div class="alert alert-danger alert-dismissible" th:if="!empty${success_messages}">
+                                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                                            <h4><i class="icon fa fa-ban"></i>  </h4>
+                                                                            <span th:text="${success_messages}"></span>>
+                                                                        </div>-->
+
+
+
+                        <div class="">
+                            <div class="box box-warning box-solid">
+                                <div class="box-header with-border">
+                                    <h4> System and General GL Setup</h4>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <div class="alert alert-success alert-dismissible" th:if="${success_messages != null}">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <h4><i class="icon fa fa-ban"></i> Success </h4>
+                                                <ul class="list-unstyled">
+                                                    <li  th:text="${success_messages}">Input is incorrect</li>
+                                                </ul>
+                                            </div>
+                                        </div></div>
+
+
+                                    <form  th:action="@{/systemandgeneralglsetup/save}"   enctype="multipart/form-data" th:object="${systemGeneralGlSetup}"  method="post" class="">
+
+                                        <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <h4><i class="icon fa fa-ban"></i> Error </h4>
+                                            <ul th:if="${#fields.hasErrors('*')}">
+                                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-sm-6">
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> General GL</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Past Due Days Interval: </td>
+                                                    <td> 
+                                                        <input   type="hidden"  class="" th:field="*{id}"  placeholder="">
+                                                        <input  type="number"  min="0" th:required="required" class="" th:field="*{pastDueDaysInterval}" placeholder=""> days
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('pastDueDaysInterval')}" th:errors="*{pastDueDaysInterval}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Accounts Type:</td>
+                                                    <td> <select class="" th:field="*{accountsType}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" accountstypelists :${accountstypelist}"
+                                                                    th:value=" ${accountstypelists}" 
+                                                                    th:text="${accountstypelists}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('accountsType')}" th:errors="*{accountsType}"> </span></td>
+                                                </tr><tr>
+                                                    <td> Retained Earnings:</td>
+                                                    <td> <select class="" th:field="*{retainedEarnings}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('retainedEarnings')}" th:errors="*{retainedEarnings}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Profit/Loss Year:</td>
+                                                    <td>
+
+                                                        <select class="" th:field="*{profitLossYear}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('profitLossYear')}" th:errors="*{profitLossYear}"> </span>    
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Exchange Variances Account:</td>
+                                                    <td><select class="" th:field="*{exchangeVariancesAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('exchangeVariancesAccount')}" th:errors="*{exchangeVariancesAccount}"> </span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Bank Charges Account:</td>
+                                                    <td><select class="" th:field="*{bankChargesAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankChargesAccount')}" th:errors="*{bankChargesAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tax Algorithm:</td>
+                                                    <td>
+                                                        <select class="" th:field="*{taxAlgorithm}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" taxalgorithmlists :${taxalgorithmlist}"
+                                                                    th:value=" ${taxalgorithmlists}" 
+                                                                    th:text="${taxalgorithmlists}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('taxAlgorithm')}" th:errors="*{taxAlgorithm}"> </span>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Dimension Defaults</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Dimension Required By After: </td>
+                                                    <!--                                                            <td><input  th:required="required" class="" th:field="*{pastDueDaysInterval}" placeholder="">days
+                                                                                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('pastDueDaysInterval')}" th:errors="*{pastDueDaysInterval}"> </span></td></td>-->
+                                                </tr>
+                                            </table>
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Customers and Sales</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Default Credit Limit: </td>
+                                                    <td><input  type="number"  min="0" th:required="required" class="" th:field="*{defaultCreditLimit}" placeholder="">
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('defaultCreditLimit')}" th:errors="*{defaultCreditLimit}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Invoice Identification:</td>
+                                                    <td>
+
+                                                        <select class="" th:field="*{invoiceIdentification}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" invoiceidentificationlists :${invoiceidentificationlist}"
+                                                                    th:value=" ${invoiceidentificationlists}" 
+                                                                    th:text="${invoiceidentificationlists}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('invoiceIdentification')}" th:errors="*{invoiceIdentification}"> </span>   
+
+
+                                                    </td>
+                                                </tr><tr>
+                                                    <td> Accumulate batch shipping:</td>
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{accumulateBatchShipping}" th:value="${0}"  />
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Print Item Image on Quote:</td>
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{printItemImageonQuote}" th:value="${0}"  />
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Legal Text on Invoice:</td>
+                                                    <td>
+
+                                                        <textarea  th:required="required" class="" th:field="*{legalTextonInvoice}" placeholder=""></textarea>
+
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('legalTextonInvoice')}" th:errors="*{legalTextonInvoice}"> </span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Shipping Charged Account:</td>
+                                                    <td><select class="" th:field="*{shippingChargedAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('shippingChargedAccount')}" th:errors="*{shippingChargedAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Deferred Income Account:</td>
+                                                    <td><select class="" th:field="*{deferredIncomeAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('deferredIncomeAccount')}" th:errors="*{deferredIncomeAccount}"> </span></td>
+                                                </tr>
+
+                                            </table>
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Customers and Sales Defaults</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Receivable Account: </td>
+                                                    <td><select class="" th:field="*{receivableAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('receivableAccount')}" th:errors="*{receivableAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sales Account:</td> 
+                                                    <td><select class="" th:field="*{salesAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('salesAccount')}" th:errors="*{salesAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sales Discount Account:</td> 
+                                                    <td><select class="" th:field="*{salesDiscountAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('salesDiscountAccount')}" th:errors="*{salesDiscountAccount}"> </span></td>
+                                                </tr><tr>
+                                                    <td> Prompt Payment Discount Account:</td>
+                                                    <td><select class="" th:field="*{promptPaymentDiscountAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('promptPaymentDiscountAccount')}" th:errors="*{promptPaymentDiscountAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Quote Valid Days:</td>
+                                                    <td><input  type="number" min="0" th:required="required" class="" th:field="*{quoteValidDays}" placeholder="">days
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('quoteValidDays')}" th:errors="*{quoteValidDays}"> </span></td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Delivery Required By:</td>
+                                                    <td><input  type="number" min="0" th:required="required" class="" th:field="*{deliveryRequiredBy}" placeholder="">days
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('deliveryRequiredBy')}" th:errors="*{deliveryRequiredBy}"> </span></td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="col-sm-6">               
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Suppliers and Purchasing</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Delivery Over-Receive Allowance: </td>
+                                                    <td><input type="number" min="0" th:required="required" class="" th:field="*{deliveryOverReceiveAllowance}" placeholder=""> %
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('deliveryOverReceiveAllowance')}" th:errors="*{deliveryOverReceiveAllowance}"> </span></td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Invoice Over-Charge Allowance:</td>
+                                                    <td><input  type="number" min="0" th:required="required" class="" th:field="*{invoiceOverChargeAllowance}" placeholder=""> %
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('invoiceOverChargeAllowance')}" th:errors="*{invoiceOverChargeAllowance}"> </span></td></td>
+                                                </tr>
+                                            </table>
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Suppliers and Purchasing Defaults</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Payable Account: </td>
+                                                    <td><select class="" th:field="*{payableAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red"
+                                                               th:if="${#fields.hasErrors('payableAccount')}" 
+                                                               th:errors="*{payableAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Purchase Discount Account:</td> 
+                                                    <td><select class="" th:field="*{purchaseDiscountAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('purchaseDiscountAccount')}" th:errors="*{purchaseDiscountAccount}"> </span></td>
+                                                </tr><tr>
+                                                    <td> GRN Clearing Account:</td>
+                                                    <td><select class="" th:field="*{grnClearingAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('grnClearingAccount')}" th:errors="*{grnClearingAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Receival Required By:</td>
+                                                    <td><input  type="number" min="0" th:required="required" class="" th:field="*{receivalRequiredBy}" placeholder="">days
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('receivalRequiredBy')}" th:errors="*{receivalRequiredBy}"> </span></td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Show PO item codes:</td>
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{showPoitemcodes}" th:value="${0}"  />
+
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Inventory</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Allow Negative Inventory: </td>
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{allowNegativeInventory}" th:value="${0}"  /> 
+                                                        <br> <span class="text-red">Warning: This may cause a delay in GL postings</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>No zero-amounts (Service):</td> 
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{nozeroAmountsService}" th:value="${0}"  />
+
+                                                    </td>
+                                                </tr><tr>
+                                                    <td> Location Notifications:</td>
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{locationNotifications}" th:value="${0}"  />
+
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Allow Negative Prices:</td>
+                                                    <td>
+                                                        <input type="checkbox" th:field="*{allowNegativePrices}" th:value="${0}"  />
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Items Defaults</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Sales Account:</td>
+                                                    <td><select class="" th:field="*{itemsDefaultsSalesAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemsDefaultsSalesAccount')}" th:errors="*{itemsDefaultsSalesAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inventory Account:</td> 
+                                                    <td><select class="" th:field="*{inventoryAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('inventoryAccount')}" th:errors="*{inventoryAccount}"> </span></td>
+                                                </tr><tr>
+                                                    <td>C.O.G.S. Account:</td>
+                                                    <td><select class="" th:field="*{cogsAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('cogsAccount')}" th:errors="*{cogsAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inventory Adjustments Account:</td>
+                                                    <td><select class="" th:field="*{inventoryAdjustmentsAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('inventoryAdjustmentsAccount')}" th:errors="*{inventoryAdjustmentsAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>WIP Account:</td>
+                                                    <td><select class="" th:field="*{wipAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('wipAccount')}" th:errors="*{wipAccount}"> </span></td>
+                                                </tr>
+                                            </table>
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Fixed Assets Defaults</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Loss On Asset Disposal Account:</td>
+                                                    <td><select class="" th:field="*{lossOnAssetDisposalAccount}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" glaccounts :${glaccounts}"
+                                                                    th:value=" ${glaccounts.id}" 
+                                                                    th:text="${glaccounts.accountCode+' - '+ glaccounts.accountName}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('lossOnAssetDisposalAccount')}" th:errors="*{lossOnAssetDisposalAccount}"> </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Depreciation Period:</td> 
+                                                    <td>
+
+                                                        <select class="" th:field="*{depreciationPeriod}">
+                                                            <option value=" "> Select one</option>
+                                                            <option th:each =" depreciationperiodlists :${depreciationperiodlist}"
+                                                                    th:value=" ${depreciationperiodlists}" 
+                                                                    th:text="${depreciationperiodlists}"> Select one</option>
+                                                        </select>
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('depreciationPeriod')}" th:errors="*{depreciationPeriod}"> </span>   
+
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <table class="table  table-bordered">
+                                                <tr>
+                                                    <th colspan="2" class="text-center"> Manufacturing Defaults</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Work Order Required By After:</td>
+                                                    <td><input type="number" min="0" th:required="required" class="" th:field="*{pastDueDaysInterval}" placeholder="">days
+                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('pastDueDaysInterval')}" th:errors="*{pastDueDaysInterval}"> </span></td></td>
+                                                </tr>
+                                            </table>
+
+
+                                        </div>      
+
+
+
+
+
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>                        
+                                </div>
+                            </div> 
+                        </div>
+
+
+
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>

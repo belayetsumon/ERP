@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itgarden.ERP.module.sales.model.enumvalue.SalesTypeName;
 import com.itgarden.ERP.module.sales.model.enumvalue.YesNoEnum;
-import com.itgarden.ERP.module.sales.model.settings.SalesPersons;
 import com.itgarden.ERP.module.sales.model.settings.SalesTypes;
 import com.itgarden.ERP.module.sales.repository.settings.SalesTypesRepository;
 
@@ -44,7 +43,8 @@ public class SalesTypesController {
 	}
 
 	@RequestMapping("/save")
-	public String save(Model model, @Valid SalesTypes salesTypes, BindingResult bindingResult,
+	public String save(Model model, @Valid SalesTypes salesTypes, 
+                BindingResult bindingResult,
 			RedirectAttributes redirectAttrs) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("salestypeslist", salesTypesRepository.findAll());

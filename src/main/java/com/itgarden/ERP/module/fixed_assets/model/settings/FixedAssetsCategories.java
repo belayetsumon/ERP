@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 public class FixedAssetsCategories {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = " Category Name cannot be blank")

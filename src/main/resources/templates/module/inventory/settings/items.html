@@ -60,8 +60,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" th:field="*{id}">
-                                                    <label for="itemCode">Item Code:<span class="text-red"> * </span>:</label>
-                                                    <input type="text" class="form-control" th:field="*{itemCode}" placeholder="">
+                                                    <label for="itemCode">Item Code<span class="text-red"> * </span>:</label>
+                                                    <input type="text" class="form-control" th:field="*{itemCode}" placeholder="" readonly="true">
                                                     <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemCode')}" th:errors="*{itemCode}"> </span>
                                                 </div>
                                                 <div class="form-group">
@@ -72,7 +72,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="name">Description:<span class="text-red"> * </span>:</label>
+                                                    <label for="name">Description<span class="text-red"> * </span>:</label>
                                                     <input type="text" class="form-control" th:field="*{description}" placeholder="">
                                                     <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> </span>
                                                 </div>
@@ -100,7 +100,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Item Type:<span class="text-red"> * </span>:</label>
+                                                    <label>Item Type<span class="text-red"> * </span>:</label>
                                                     <select class="form-control" th:field="*{itemType}">
                                                         <option value=" "> Select one</option>
                                                         <option th:each =" itemtypes :${itemtypes}"

@@ -9,6 +9,7 @@ import com.itgarden.ERP.module.inventory.DTO.ItemDTO;
 import com.itgarden.ERP.module.inventory.model.enumvalue.SalesType;
 import com.itgarden.ERP.module.inventory.model.settings.Items;
 import com.itgarden.ERP.module.inventory.repository.settings.ItemsRepository;
+import static java.lang.Integer.parseInt;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ public class ItemService {
 
         Items item = itemsRepository.findByItemCodeAndNoSaleAndItemstatus(itemCode, noSale, itemstatus);
         itemdto.setId(item.getId());
-        itemdto.setItemCode(item.getItemCode());
+        itemdto.setItemCode(parseInt(item.getItemCode()));
         itemdto.setName(item.getName());
         itemdto.setDescription(item.getDescription());
         return itemdto;
@@ -52,7 +53,7 @@ public class ItemService {
 
         itemdto.setId(item.getId());
 
-        itemdto.setItemCode(item.getItemCode());
+        itemdto.setItemCode(parseInt(item.getItemCode()));
 
         itemdto.setName(item.getName());
 
@@ -124,12 +125,34 @@ public class ItemService {
     }
 
     // last inserted id
-    public Long itemLastInsertedId() {
+    public Items itemLastInsertedId() {
 
         Items item = itemsRepository.findTopByOrderByIdDesc();
 
-        return item.getId();
+        return item;
 
     }
+    
+    
+   // Product Refarance Code  generate 
+    
+    
+    // last inserted id
+    public String itemCode() {
+
+        Items item = itemsRepository.findTopByOrderByIdDesc();
+        
+        Long lastid = item.getId()+1;
+        
+       // System.out.println(String.format("%06d", lastid));
+
+        return String.format("%06d", lastid);
+         
+
+    }
+    
+    
+    
+    
 
 }

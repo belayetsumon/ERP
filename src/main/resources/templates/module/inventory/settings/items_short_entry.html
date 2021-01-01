@@ -59,7 +59,7 @@
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" th:field="*{id}">
                                                     <label for="itemCode">Item/Product Code<span class="text-red"> * </span>:</label>
-                                                    <input type="text" class="form-control" th:field="*{itemCode}" placeholder="" readonly="true">
+                                                    <input type="text" class="form-control" name ="itemCode" th:value="${itemCode}" placeholder="" readonly="true">
                                                     <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemCode')}" th:errors="*{itemCode}"> </span>
                                                 </div>
                                                 <div class="form-group">
@@ -104,21 +104,21 @@
                                                 <div class="form-group">
 
                                                     <label for="name">Retail Price<span class="text-red"> * </span>:</label>
-                                                    <input type="number"  maxlength="0" step=".01" class="form-control" name="retailPrice" placeholder="" value="0.00" required="true">
+                                                    <input type="number"  maxlength="0" step=".01" class="form-control" name="retailPrice" placeholder="0.00" value="" required="true">
 
                                                 </div>
 
                                                 <div class="form-group">
 
                                                     <label for="name">Wholesale Price<span class="text-red"> * </span>:</label>
-                                                    <input type="number" min="0" step=".01" class="form-control" name="wholesalePrice" placeholder="" value="0.00" required="true">
+                                                    <input type="number" min="0" step=".01" class="form-control" name="wholesalePrice" placeholder="0.00" value="" required="true">
 
                                                 </div>
 
                                                 <div class="form-group">
 
                                                     <label for="name"> Purchase Price<span class="text-red"> * </span>:</label>
-                                                    <input type="number"  min="0" step=".01" class="form-control" name="purchasePrice" placeholder="" value="0.00" required="true">
+                                                    <input type="number"  min="0" step=".01" class="form-control" name="purchasePrice" placeholder="0.00" value="" required="true">
 
                                                 </div>
 
@@ -126,7 +126,7 @@
                                                 <div class="form-group">
 
                                                     <label for="name"> Standard Cost <span class="text-red"> * </span>:</label>
-                                                    <input type="number"  min="0" step=".01" class="form-control" name="standardCosting" placeholder="" value="0.00" required="true">
+                                                    <input type="number"  min="0" step=".01" class="form-control" name="standardCosting" placeholder="0.00" value="" required="true">
 
                                                 </div>
 

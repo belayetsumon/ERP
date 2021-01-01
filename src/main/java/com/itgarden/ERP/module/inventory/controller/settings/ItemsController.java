@@ -43,13 +43,19 @@ import com.itgarden.ERP.module.settings.repository.company_setup.ItemTaxTypesRep
 import com.itgarden.ERP.module.inventory.repository.settings.ItemCategoriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.itgarden.ERP.module.inventory.repository.settings.ItemsRepository;
+import com.itgarden.ERP.module.inventory.repository.settings.PurchasingPricingRepository;
+import com.itgarden.ERP.module.inventory.repository.settings.SalesPricingRepository;
+import com.itgarden.ERP.module.inventory.repository.settings.StandardCostsRepository;
+import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping({ "/items" })
-public class ItemsController
-{
+@RequestMapping({"/items"})
+public class ItemsController {
+
     @Autowired
     ItemsRepository itemsRepository;
     @Autowired
@@ -64,8 +70,17 @@ public class ItemsController
     ItemService itemService;
     @Autowired
     SalesPricingService salesPricingService;
-    
-    @RequestMapping({ "/index" })
+
+    @Autowired
+    SalesPricingRepository salesPricingRepository;
+
+    @Autowired
+    PurchasingPricingRepository purchasingPricingRepository;
+
+    @Autowired
+    StandardCostsRepository standardCostsRepository;
+
+    @RequestMapping({"/index"})
     public String index(final Model model, final Items items) {
         model.addAttribute("itemlist", itemService.allItems());
         model.addAttribute("itemCategorieslist", itemCategoriesRepository.findAll());
@@ -75,10 +90,15 @@ public class ItemsController
         model.addAttribute("glaccounts", glAccountsRepository.findAll());
         model.addAttribute("ststus", Itemstatus.values());
         model.addAttribute("yesno", YesNo.values());
+        
+       
+        
         return "module/inventory/settings/itemsIndex";
     }
     
-    @RequestMapping({ "/add" })
+    
+
+    @RequestMapping({"/add"})
     public String add(final Model model, final Items items) {
         model.addAttribute("itemCategorieslist", itemCategoriesRepository.findAll());
         model.addAttribute("itemtaxtypes", itemTaxTypesRepository.findAll());
@@ -87,10 +107,14 @@ public class ItemsController
         model.addAttribute("glaccounts", glAccountsRepository.findAll());
         model.addAttribute("ststus", Itemstatus.values());
         model.addAttribute("yesno", YesNo.values());
+       // items.setItemCode(itemService.itemCode());
         return "module/inventory/settings/items";
     }
     
-    @RequestMapping({ "/save" })
+    
+    
+
+    @RequestMapping({"/save"})
     public String save(final Model model, @Valid final Items items, final BindingResult bindingResult, final RedirectAttributes redirectAttrs) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("itemlist", itemsRepository.findAll());
@@ -101,6 +125,7 @@ public class ItemsController
             model.addAttribute("glaccounts", glAccountsRepository.findAll());
             model.addAttribute("ststus", Itemstatus.values());
             model.addAttribute("yesno", YesNo.values());
+           // items.setItemCode(itemService.itemCode());
             return "module/inventory/settings/items";
         }
         this.itemsRepository.save(items);
@@ -108,7 +133,10 @@ public class ItemsController
         return "redirect:/items/index";
     }
     
-    @RequestMapping({ "/edit/{id}" })
+    
+    
+
+    @RequestMapping({"/edit/{id}"})
     public String edit(final Model model, @PathVariable final Long id, final Items items) {
         model.addAttribute("items", this.itemsRepository.getOne(id));
         model.addAttribute("itemlist", itemsRepository.findAll());
@@ -121,17 +149,17 @@ public class ItemsController
         model.addAttribute("yesno", YesNo.values());
         return "module/inventory/settings/items";
     }
-    
-    @GetMapping({ "/delete/{id}" })
+
+    @GetMapping({"/delete/{id}"})
     public String delete(final Model model, @PathVariable final Long id, final Items items, final RedirectAttributes redirectAttrs) {
         redirectAttrs.addFlashAttribute("success_messages", " Successfully Delete.");
         this.itemsRepository.deleteById(id);
         return "redirect:/items/index";
     }
-    
-    @GetMapping({ "/details/{id}" })
+
+    @GetMapping({"/details/{id}"})
     public String details(final Model model, @PathVariable final Long id, Items items, final RedirectAttributes redirectAttrs) {
-        items = (Items)this.itemsRepository.getOne(id);
+        items = (Items) this.itemsRepository.getOne(id);
         model.addAttribute("items", items);
         final SalesPricing salesPricing = new SalesPricing();
         salesPricing.setItem(items);
@@ -142,22 +170,22 @@ public class ItemsController
         model.addAttribute("standardCosts", new StandardCosts());
         return "module/inventory/settings/itemsDetails";
     }
-    
-    @GetMapping(value = { "/itembyitemcode/{itemCode}" }, produces = { "application/json" })
+
+    @GetMapping(value = {"/itembyitemcode/{itemCode}"}, produces = {"application/json"})
     @ResponseBody
     public ItemDTO itemByItemCode(final Model model, @PathVariable final int itemCode) {
         final ItemDTO iteminfo = this.itemService.itemByItemCodeAndactiveSales(itemCode, false, true);
         return iteminfo;
     }
-    
-    @GetMapping(value = { "/itembyitemid/{id}" }, produces = { "application/json" })
+
+    @GetMapping(value = {"/itembyitemid/{id}"}, produces = {"application/json"})
     @ResponseBody
     public ItemDTO itemById(final Model model, @PathVariable final Long id) {
-        final ItemDTO iteminfo = this.itemService.itemById(id);
+        final ItemDTO iteminfo = itemService.itemById(id);
         return iteminfo;
     }
-    
-    @RequestMapping({ "/short_entry" })
+
+    @RequestMapping({"/short_entry"})
     public String itemShortEntry(final Model model, final Items items) {
         model.addAttribute("itemCategorieslist", itemCategoriesRepository.findAll());
         model.addAttribute("itemtaxtypes", itemTaxTypesRepository.findAll());
@@ -166,11 +194,22 @@ public class ItemsController
         model.addAttribute("glaccounts", glAccountsRepository.findAll());
         model.addAttribute("ststus", Itemstatus.values());
         model.addAttribute("yesno", YesNo.values());
+        model.addAttribute("itemCode", itemService.itemCode());
+       
         return "module/inventory/settings/items_short_entry";
     }
-    
-    @RequestMapping({ "/short_entry_save" })
-    public String shortEntrySave(final Model model, @Valid final Items items, final BindingResult bindingResult, final RedirectAttributes redirectAttrs) {
+
+    @RequestMapping({"/short_entry_save"})
+    public String shortEntrySave(final Model model,
+            @RequestParam(required = true)
+            @NotNull double retailPrice,
+            @RequestParam(required = true)
+            @NotNull double wholesalePrice,
+            @RequestParam(required = true)
+            @NotNull BigDecimal purchasePrice,
+            @RequestParam(required = true)
+            @NotNull BigDecimal standardCosting,
+            @Valid Items items, final BindingResult bindingResult, final RedirectAttributes redirectAttrs) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("itemlist", itemsRepository.findAll());
             model.addAttribute("itemCategorieslist", itemCategoriesRepository.findAll());
@@ -180,19 +219,65 @@ public class ItemsController
             model.addAttribute("glaccounts", glAccountsRepository.findAll());
             model.addAttribute("ststus", Itemstatus.values());
             model.addAttribute("yesno", YesNo.values());
+           // items.setItemCode(itemService.itemCode());
             return "module/inventory/settings/items_short_entry";
         }
         this.itemsRepository.save(items);
-        redirectAttrs.addFlashAttribute("success_messages", " Successfully Save.");
-        return "redirect:/items/index";
+
+        items = itemService.itemLastInsertedId();
+
+        //salse pricing save
+        SalesPricing retailPriceing = new SalesPricing();
+
+        retailPriceing.setItem(items);
+        retailPriceing.setSalesType(SalesType.Retail);
+        retailPriceing.setPrice(retailPrice);
+
+        salesPricingRepository.save(retailPriceing);
+
+        // whole sale price save
+        SalesPricing wholesalePriceing = new SalesPricing();
+
+        wholesalePriceing.setItem(items);
+        wholesalePriceing.setSalesType(SalesType.Wholesale);
+        wholesalePriceing.setPrice(wholesalePrice);
+
+        salesPricingRepository.save(wholesalePriceing);
+
+        // purchase price save  
+        PurchasingPricing purchasingPricing = new PurchasingPricing();
+
+        purchasingPricing.setItemId(items);
+        purchasingPricing.setPrice(purchasePrice);
+
+        purchasingPricingRepository.save(purchasingPricing);
+
+        //  standard coast save
+        StandardCosts standardCosts = new StandardCosts();
+
+        standardCosts.setItemId(items);
+
+        standardCosts.setPrice(purchasePrice);
+
+        standardCostsRepository.save(standardCosts);
+
+        //redirectAttrs.addFlashAttribute("success_messages", " Successfully Save.");
+        
+        redirectAttrs.addAttribute("id", items.getId()).addFlashAttribute("success_messages", "Successfully Save.");
+
+        return "redirect:/items/details/{id}";
     }
-    
-    @RequestMapping(value = { "/productlabel/{id}" }, method = { RequestMethod.GET }, produces = { "application/pdf" })
+
+    @RequestMapping(value = {"/productlabel/{id}"}, method = {RequestMethod.GET}, produces = {"application/pdf"})
     @ResponseBody
     public void createProductLabel(final Model model, @PathVariable final Long id, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
-        final String pdfFileName = "productLabel.pdf";
-        final Items item = (Items)this.itemsRepository.getOne(id);
-        final double retailSalesPricing = this.salesPricingService.pricebyItemAndType(item, SalesType.Retail);
+       
+       
+         Items item = (Items) this.itemsRepository.getOne(id);
+         double retailSalesPricing = this.salesPricingService.pricebyItemAndType(item, SalesType.Retail);
+       
+        
+         String pdfFileName = "productLabel.pdf";
         try {
             String text = request.getParameter("text");
             if (text == null || text.trim().length() == 0) {
@@ -200,11 +285,14 @@ public class ItemsController
             }
             final Document document = new Document();
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PdfWriter.getInstance(document, (OutputStream)baos);
+            PdfWriter.getInstance(document, (OutputStream) baos);
             document.open();
+            
+            
+            
             final Font fontSize_8_bold = FontFactory.getFont("Times", 8.0f, 1, BaseColor.DARK_GRAY);
-            final Paragraph profiletitle = new Paragraph("Full Profile", fontSize_8_bold);
-            document.add((Element)profiletitle);
+            final Paragraph profiletitle = new Paragraph("neelanchal shari", fontSize_8_bold);
+            document.add((Element) profiletitle);
             document.close();
             response.setHeader("Expires", "0");
             response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
@@ -212,12 +300,11 @@ public class ItemsController
             response.setContentType("application/pdf");
             response.setContentLength(baos.size());
             response.setHeader("Content-disposition", "inline; filename=" + pdfFileName);
-            final OutputStream os = (OutputStream)response.getOutputStream();
+            final OutputStream os = (OutputStream) response.getOutputStream();
             baos.writeTo(os);
             os.flush();
             os.close();
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             throw new IOException(e.getMessage());
         }
     }

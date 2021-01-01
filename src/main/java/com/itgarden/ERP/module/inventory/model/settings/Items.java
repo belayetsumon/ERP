@@ -47,16 +47,16 @@ public class Items {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @NotNull(message = "This field cannot be blank.")
-    public int itemCode; // item code  bar code
+    @NotNull(message = "Item Code cannot be blank.")
+    public String itemCode; // item code  bar code
 
-    @NotEmpty(message = "This field cannot be blank.")
+    @NotEmpty(message = "Item/Product Name cannot be blank.")
     public String name;
 
     @Lob
     public String description;
 
-    @NotNull(message = "This field cannot be blank.")
+    @NotNull(message = "Product category cannot be blank.")
     @ManyToOne
     public ItemCategories category;
 
@@ -167,7 +167,7 @@ public class Items {
     public Items() {
     }
 
-    public Items(Long id, int itemCode, String name, String description, ItemCategories category, Manufacturer manufacturer, Brand brand, ItemTaxTypes itemTaxType, ItemType itemType, String unitsofMeasure, boolean editable, boolean noSale, boolean noPurchase, GlAccounts salesAccount, GlAccounts cogsAccount, GlAccounts inventoryAccount, GlAccounts inventoryAdjustmentAccount, GlAccounts wipAccount, double purchaseCost, double materialCost, double labourCost, double overheadCost, double discount, char depreciationMethod, double depreciationRate, double depreciationFactor, Date depreciationStart, Date depreciationDate, Dimension dimension, boolean itemstatus, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<SalesPricing> salesPrice, PurchasingPricing purchasingPricing, StandardCosts standardCosts, List<ReorderLevels> ReorderLevels) {
+    public Items(Long id, String itemCode, String name, String description, ItemCategories category, Manufacturer manufacturer, Brand brand, ItemTaxTypes itemTaxType, ItemType itemType, String unitsofMeasure, boolean editable, boolean noSale, boolean noPurchase, GlAccounts salesAccount, GlAccounts cogsAccount, GlAccounts inventoryAccount, GlAccounts inventoryAdjustmentAccount, GlAccounts wipAccount, double purchaseCost, double materialCost, double labourCost, double overheadCost, double discount, char depreciationMethod, double depreciationRate, double depreciationFactor, Date depreciationStart, Date depreciationDate, Dimension dimension, boolean itemstatus, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<SalesPricing> salesPrice, PurchasingPricing purchasingPricing, StandardCosts standardCosts, List<ReorderLevels> ReorderLevels) {
         this.id = id;
         this.itemCode = itemCode;
         this.name = name;
@@ -208,8 +208,6 @@ public class Items {
         this.ReorderLevels = ReorderLevels;
     }
 
-    
-
     public Long getId() {
         return id;
     }
@@ -218,11 +216,11 @@ public class Items {
         this.id = id;
     }
 
-    public int getItemCode() {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(int itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
 
@@ -490,14 +488,6 @@ public class Items {
         this.salesPrice = salesPrice;
     }
 
-    public List<ReorderLevels> getReorderLevels() {
-        return ReorderLevels;
-    }
-
-    public void setReorderLevels(List<ReorderLevels> ReorderLevels) {
-        this.ReorderLevels = ReorderLevels;
-    }
-
     public PurchasingPricing getPurchasingPricing() {
         return purchasingPricing;
     }
@@ -514,4 +504,13 @@ public class Items {
         this.standardCosts = standardCosts;
     }
 
+    public List<ReorderLevels> getReorderLevels() {
+        return ReorderLevels;
+    }
+
+    public void setReorderLevels(List<ReorderLevels> ReorderLevels) {
+        this.ReorderLevels = ReorderLevels;
+    }
+
+    
 }

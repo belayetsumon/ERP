@@ -6,17 +6,21 @@
 package com.itgarden.ERP.module.inventory.controller.settings;
 
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.DocumentException;
 import java.io.IOException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.BaseColor;
-import java.io.OutputStream;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.ByteArrayOutputStream;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.Barcode39;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,8 +50,10 @@ import com.itgarden.ERP.module.inventory.repository.settings.ItemsRepository;
 import com.itgarden.ERP.module.inventory.repository.settings.PurchasingPricingRepository;
 import com.itgarden.ERP.module.inventory.repository.settings.SalesPricingRepository;
 import com.itgarden.ERP.module.inventory.repository.settings.StandardCostsRepository;
+
 import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,13 +96,9 @@ public class ItemsController {
         model.addAttribute("glaccounts", glAccountsRepository.findAll());
         model.addAttribute("ststus", Itemstatus.values());
         model.addAttribute("yesno", YesNo.values());
-        
-       
-        
+
         return "module/inventory/settings/itemsIndex";
     }
-    
-    
 
     @RequestMapping({"/add"})
     public String add(final Model model, final Items items) {
@@ -107,12 +109,9 @@ public class ItemsController {
         model.addAttribute("glaccounts", glAccountsRepository.findAll());
         model.addAttribute("ststus", Itemstatus.values());
         model.addAttribute("yesno", YesNo.values());
-       // items.setItemCode(itemService.itemCode());
+        // items.setItemCode(itemService.itemCode());
         return "module/inventory/settings/items";
     }
-    
-    
-    
 
     @RequestMapping({"/save"})
     public String save(final Model model, @Valid final Items items, final BindingResult bindingResult, final RedirectAttributes redirectAttrs) {
@@ -125,16 +124,13 @@ public class ItemsController {
             model.addAttribute("glaccounts", glAccountsRepository.findAll());
             model.addAttribute("ststus", Itemstatus.values());
             model.addAttribute("yesno", YesNo.values());
-           // items.setItemCode(itemService.itemCode());
+            // items.setItemCode(itemService.itemCode());
             return "module/inventory/settings/items";
         }
         this.itemsRepository.save(items);
         redirectAttrs.addFlashAttribute("success_messages", " Successfully Save.");
         return "redirect:/items/index";
     }
-    
-    
-    
 
     @RequestMapping({"/edit/{id}"})
     public String edit(final Model model, @PathVariable final Long id, final Items items) {
@@ -195,7 +191,7 @@ public class ItemsController {
         model.addAttribute("ststus", Itemstatus.values());
         model.addAttribute("yesno", YesNo.values());
         model.addAttribute("itemCode", itemService.itemCode());
-       
+
         return "module/inventory/settings/items_short_entry";
     }
 
@@ -219,7 +215,7 @@ public class ItemsController {
             model.addAttribute("glaccounts", glAccountsRepository.findAll());
             model.addAttribute("ststus", Itemstatus.values());
             model.addAttribute("yesno", YesNo.values());
-           // items.setItemCode(itemService.itemCode());
+            // items.setItemCode(itemService.itemCode());
             return "module/inventory/settings/items_short_entry";
         }
         this.itemsRepository.save(items);
@@ -262,7 +258,6 @@ public class ItemsController {
         standardCostsRepository.save(standardCosts);
 
         //redirectAttrs.addFlashAttribute("success_messages", " Successfully Save.");
-        
         redirectAttrs.addAttribute("id", items.getId()).addFlashAttribute("success_messages", "Successfully Save.");
 
         return "redirect:/items/details/{id}";
@@ -270,40 +265,78 @@ public class ItemsController {
 
     @RequestMapping(value = {"/productlabel/{id}"}, method = {RequestMethod.GET}, produces = {"application/pdf"})
     @ResponseBody
-    public void createProductLabel(final Model model, @PathVariable final Long id, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
-       
-       
-         Items item = (Items) this.itemsRepository.getOne(id);
-         double retailSalesPricing = this.salesPricingService.pricebyItemAndType(item, SalesType.Retail);
-       
-        
-         String pdfFileName = "productLabel.pdf";
+    public void createProductLabel(Model model, @PathVariable Long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Items item = itemsRepository.getOne(id);
+
+        double retailSalesPricing = salesPricingService.pricebyItemAndType(item, SalesType.Retail);
+
+        String pdfFileName = "item_code" + item.getItemCode() + ".pdf";
+
         try {
             String text = request.getParameter("text");
             if (text == null || text.trim().length() == 0) {
                 text = "You didn't enter any text.";
             }
-            final Document document = new Document();
-            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PdfWriter.getInstance(document, (OutputStream) baos);
+
+            Rectangle rect = new Rectangle(150, 108);
+            rect.enableBorderSide(1);
+            rect.enableBorderSide(2);
+            rect.enableBorderSide(4);
+            rect.enableBorderSide(8);
+            rect.setBorder(2);
+            rect.setBorderColor(BaseColor.BLACK);
+
+            Document document = new Document(rect, 5, 5, 5, 5);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, baos);
+
             document.open();
-            
-            
-            
-            final Font fontSize_8_bold = FontFactory.getFont("Times", 8.0f, 1, BaseColor.DARK_GRAY);
-            final Paragraph profiletitle = new Paragraph("neelanchal shari", fontSize_8_bold);
-            document.add((Element) profiletitle);
+            PdfContentByte cb = pdfWriter.getDirectContent();
+            Font fontSize_8_bold = FontFactory.getFont("Times", 8.0f, 1, BaseColor.DARK_GRAY);
+
+            Paragraph item_label = new Paragraph("Price:" + retailSalesPricing + "+VAT", fontSize_8_bold);
+
+            document.add(item_label);
+
+            //   barcode //
+//            Barcode39 barcode39 = new Barcode39();
+//            barcode39.setCode("123456789");
+//            barcode39.setCode(item.getItemCode());
+//
+//            Image codeEANImage = barcode39.createImageWithBarcode(cb, null, null);
+//
+//            document.add(codeEANImage);
+
+            Barcode128 code128 = new Barcode128();
+            code128.setGenerateChecksum(true);
+            code128.setCode(item.getItemCode());
+
+            //Add Barcode to PDF document
+            document.add(code128.createImageWithBarcode(cb, null, null));
+
+            // end barcode
             document.close();
+
             response.setHeader("Expires", "0");
+
             response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+
             response.setHeader("Pragma", "public");
+
             response.setContentType("application/pdf");
+
             response.setContentLength(baos.size());
+
             response.setHeader("Content-disposition", "inline; filename=" + pdfFileName);
-            final OutputStream os = (OutputStream) response.getOutputStream();
+
+            OutputStream os = (OutputStream) response.getOutputStream();
             baos.writeTo(os);
             os.flush();
             os.close();
+
         } catch (DocumentException e) {
             throw new IOException(e.getMessage());
         }

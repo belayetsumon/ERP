@@ -39,12 +39,19 @@
                         </div>
 
                         <form  th:action="@{/inventoryadjustments/save}"   enctype="multipart/form-data" th:object="${inventoryAdjustments}"  method="post" class=""> 
+
+                           
+
                             <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <h4><i class="icon fa fa-ban"></i> Error </h4>
                                 <ul th:if="${#fields.hasErrors('*')}">
                                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
                                 </ul>
+                            </div>
+                            
+                             <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-sm pull-right">Submit</button>
                             </div>
 
                             <div class="col-sm-12">
@@ -87,29 +94,18 @@
                                         </div>
                                         <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('adDate')}" th:errors="*{adDate}"> </span></td>
                                 </tr>
+
+                                <tr>
+                                    <td scope="row">Memo<span class="text-red">  </span>:</td>
+                                    <td> 
+                                        <textarea  class="form-control input-sm" th:field="*{memo}" placeholder="" value="0.00"></textarea>
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}"> </span>
+                                    </td>
+                                    <td> </td>
+                                </tr>
+
                             </table>                 
 
-
-                            <div class=" col-sm-12"> 
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td scope="row">Memo<span class="text-red">  </span>:</td>
-                                            <td> 
-                                                <textarea  class="form-control input-sm" th:field="*{memo}" placeholder="" value="0.00"></textarea>
-                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}"> </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>  
-
-                                <div class="col-sm-12">
-
-
-                                    <button type="submit" class="btn btn-primary btn-sm col-sm-offset-5">Submit</button>
-
-                                </div>
-                            </div>
                         </form>
 
 

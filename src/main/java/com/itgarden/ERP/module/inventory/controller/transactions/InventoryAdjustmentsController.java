@@ -9,6 +9,7 @@ import com.itgarden.ERP.module.inventory.model.transactions.InventoryAdjustments
 import com.itgarden.ERP.module.inventory.repository.transactions.InventoryAdjustmentsRepository;
 import com.itgarden.ERP.module.inventory.settings.services.InventoryLocationsService;
 import com.itgarden.ERP.module.inventory.settings.services.ItemService;
+import com.itgarden.ERP.module.inventory.transactions.service.InventoryAdjustmentsService;
 import com.itgarden.ERP.module.sales.cart.model.SalesCartItem;
 import com.itgarden.ERP.module.settings.model.company_setup.TransactionsType;
 import com.itgarden.ERP.module.settings.repository.company_setup.TransactionsTypeRepository;
@@ -43,8 +44,13 @@ public class InventoryAdjustmentsController {
     @Autowired
     InventoryAdjustmentsRepository inventoryAdjustmentsRepository;
 
+    @Autowired
+    InventoryAdjustmentsService inventoryAdjustmentsService;
+
     @RequestMapping(value = {"", "/", "/index"})
     public String index(Model model, InventoryAdjustments inventoryAdjustments) {
+
+        inventoryAdjustments.setInAdReference(inventoryAdjustmentsService.refarance());
 
         ///   set  transactions Type
         TransactionsType transactionsType = new TransactionsType();
@@ -66,6 +72,8 @@ public class InventoryAdjustmentsController {
     public String save(Model model, @Valid InventoryAdjustments inventoryAdjustments, BindingResult bindingResult, RedirectAttributes redirectAttrs) {
 
         if (bindingResult.hasErrors()) {
+
+            inventoryAdjustments.setInAdReference(inventoryAdjustmentsService.refarance());
             ///   set  transactions Type
             TransactionsType transactionsType = new TransactionsType();
 
@@ -89,7 +97,6 @@ public class InventoryAdjustmentsController {
 
         return "redirect:/inventoryadjustments/view/{id}";
     }
-    
 
     @GetMapping(value = "/view/{id}")
     public String view(Model model, @PathVariable Long id, InventoryAdjustments inventoryAdjustments) {
@@ -97,8 +104,6 @@ public class InventoryAdjustmentsController {
 
         return "module/inventory/transactions/inventoryadjustments_view";
     }
-    
-    
 
     @RequestMapping("/details/{id}")
     public String salesorderdetails(Model model, @PathVariable Long id, InventoryAdjustments inventoryAdjustments) {
@@ -107,8 +112,6 @@ public class InventoryAdjustmentsController {
 
         return "module/inventory/transactions/inventoryadjustments_details";
     }
-    
-    
 
 //    @RequestMapping("/edit/{id}")
 //
@@ -177,5 +180,5 @@ public class InventoryAdjustmentsController {
 //        }
 
         return "redirect:/inventory/index";
-    } 
+    }
 }

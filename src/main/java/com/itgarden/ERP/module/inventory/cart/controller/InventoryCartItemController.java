@@ -43,15 +43,17 @@ public class InventoryCartItemController {
 
             List<InventoryCartItem> cartItemList = (List<InventoryCartItem>) inventoryItemSession.getAttribute("inventoryItemCartSession");
 
-            Predicate<InventoryCartItem> condition = ici -> ici.getId() == inventoryCartItem.getId();
-
-            cartItemList.removeIf(condition);
+//            Predicate<InventoryCartItem> condition = ici -> ici.getId() == inventoryCartItem.getId();
+//
+//            cartItemList.removeIf(condition);
 
             cartItemList.add(inventoryCartItem);
 
             inventoryItemSession.setAttribute("inventoryItemCartSession", cartItemList);
 
         }
+        
+        
 
         InventoryCartAjaxResponse inventoryCartAjaxResponse = new InventoryCartAjaxResponse();
 

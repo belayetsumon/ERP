@@ -28,5 +28,7 @@ public interface ItemsRepository extends JpaRepository<Items, Long> {
     Page<Items> findAll(Pageable pageable);
 
     Items findTopByOrderByIdDesc();
+    
+   Items findByItemCode(String itemCode);
 
 }

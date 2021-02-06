@@ -6,6 +6,7 @@
 package com.itgarden.ERP.module.inventory.repository.transactions;
 
 import com.itgarden.ERP.module.inventory.model.transactions.InventoryLocationTransfers;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,4 +15,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface InventoryLocationTransfersRepository extends JpaRepository<InventoryLocationTransfers, Long> {
    InventoryLocationTransfers findTopByOrderByIdDesc();
+   
+   List<InventoryLocationTransfers>   findAllByOrderByIdDesc(); 
+   
+   InventoryLocationTransfers findByIltReference(String iltReference);
 }

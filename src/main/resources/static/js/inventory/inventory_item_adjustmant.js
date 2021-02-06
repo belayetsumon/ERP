@@ -10,12 +10,18 @@ $(document).ready(function () {
 
     $(function () {
         $("#adDate").datepicker({
-
             dateFormat: 'dd/mm/yy'
-
         });
     });
 
+});
+
+
+
+$(document).ready(function () {
+    $('.inventory_adjust_item_select').select2({
+        placeholder: 'Select a item'
+    });
 });
 
 
@@ -38,13 +44,12 @@ $(document).ready(function () {
                 $("#iadj_quantity").val(1);
 
 
-                $("#iadj_price").val(data.purchasePrice);
+                $("#iadj_price").val(data.retailPrice);
 
 
                 $("#iadj_unit").val(data.unitsofMeasureName);
 
-                $("#iadju_itemTotal").val(data.purchasePrice);
-
+                $("#iadju_itemTotal").val(data.retailPrice);
 
                 //alert(data);
             },
@@ -72,8 +77,6 @@ $(document).ready(function () {
 
         var itemTotal = quantity * price;
 
-
-
         $("#iadju_itemTotal").val(itemTotal);
 
     });
@@ -97,8 +100,8 @@ $(document).ready(function () {
 
         var formData = {
             'id': $('#iadj_id').val(),
-            'itemCode': $('.inventory_adjust_item_selectt').val(),
-            'itemDescription': $('#didescription').val(),
+            'itemCode': $('.inventory_adjust_item_select').val(),
+//            'itemDescription': $('#didescription').val(),
             'quantity': $('#iadj_quantity').val(),
             'unit': $('#iadj_unit').val(),
             'price': $('#iadj_price').val(),
@@ -137,7 +140,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    $('.salesPriceListTable').on('click', '#salesPriceEdit', function (event) {
+    $('.adj_itemTable').on('click', '#adj_itemEdit', function (event) {
         event.preventDefault();
         var tr = $(this).closest("tr");
         var salesPriceId = $(tr).find("#salesPriceId").val();
@@ -155,20 +158,22 @@ $(document).ready(function () {
 
 });
 
-
-
 //Item sales price delete
 
 $(document).ready(function () {
 
-    $('.adj_itemTable').on('click', '#adj_itemDelete', function (event) {
-        event.preventDefault();
+    $('#adj_itemTable').on('click', '#adj_itemDelete', function () {
+        
+        
         var tr = $(this).closest("tr");
-        var itemId = $(tr).find("#itemId").val();
-        //   alert(salesPriceId);
+        
+       var itemId = $(tr).find("#itemId").html();
+        
+          // alert(itemId);
+           
         $.ajax({
             type: 'GET',
-            url: "/inventorycartitem/delete/" + salesPriceId,
+            url: "/inventorycartitem/itemdelete/" + itemId,
             success: function () {
                 alert("Successfully deleted");
                 $(tr).remove();

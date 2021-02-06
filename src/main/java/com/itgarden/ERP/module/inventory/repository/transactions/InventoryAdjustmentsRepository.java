@@ -6,6 +6,7 @@
 package com.itgarden.ERP.module.inventory.repository.transactions;
 
 import com.itgarden.ERP.module.inventory.model.transactions.InventoryAdjustments;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,5 +15,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface InventoryAdjustmentsRepository extends JpaRepository<InventoryAdjustments, Long> {
     
- InventoryAdjustments   findTopByOrderByIdDesc();
+ InventoryAdjustments   findTopByOrderByIdDesc(); 
+ 
+List<InventoryAdjustments>   findAllByOrderByIdDesc(); 
+ 
+ 
+  InventoryAdjustments   findByInAdReference( String inAdReference);
 }

@@ -7,16 +7,21 @@ package com.itgarden.ERP.module.inventory.model.transactions;
 
 import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
 import com.itgarden.ERP.module.settings.model.company_setup.TransactionsType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedBy;
@@ -44,6 +49,7 @@ public class InventoryAdjustments {
     @ManyToOne(optional = false)
     public InventoryLocations inventoryLocations;
 
+   @Column(unique = true,updatable = false)
     public String inAdReference;
 
     @Column(nullable = false)
@@ -51,8 +57,8 @@ public class InventoryAdjustments {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = " Inventory adjustment date cannot be blank.")
     private Date adDate;
-    
-    
+
+    private BigDecimal total;
 
     @Lob
     private String memo;
@@ -77,20 +83,25 @@ public class InventoryAdjustments {
     @Column(insertable = false, updatable = true)
     private LocalDateTime modified;
 
-    public InventoryAdjustments(Long id, TransactionsType transType, InventoryLocations inventoryLocations, String inAdReference, Date adDate, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
+    @OneToMany(mappedBy = "inventoryAdjustments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InventoryAdjustmentItem> inventoryAdjustmentItem;
+
+    public InventoryAdjustments() {
+    }
+
+    public InventoryAdjustments(Long id, TransactionsType transType, InventoryLocations inventoryLocations, String inAdReference, Date adDate, BigDecimal total, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<InventoryAdjustmentItem> inventoryAdjustmentItem) {
         this.id = id;
         this.transType = transType;
         this.inventoryLocations = inventoryLocations;
         this.inAdReference = inAdReference;
         this.adDate = adDate;
+        this.total = total;
         this.memo = memo;
         this.createdBy = createdBy;
         this.created = created;
         this.modifiedBy = modifiedBy;
         this.modified = modified;
-    }
-
-    public InventoryAdjustments() {
+        this.inventoryAdjustmentItem = inventoryAdjustmentItem;
     }
 
     public Long getId() {
@@ -133,6 +144,14 @@ public class InventoryAdjustments {
         this.adDate = adDate;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     public String getMemo() {
         return memo;
     }
@@ -172,5 +191,13 @@ public class InventoryAdjustments {
     public void setModified(LocalDateTime modified) {
         this.modified = modified;
     }
-    
+
+    public List<InventoryAdjustmentItem> getInventoryAdjustmentItem() {
+        return inventoryAdjustmentItem;
+    }
+
+    public void setInventoryAdjustmentItem(List<InventoryAdjustmentItem> inventoryAdjustmentItem) {
+        this.inventoryAdjustmentItem = inventoryAdjustmentItem;
+    }
+
 }

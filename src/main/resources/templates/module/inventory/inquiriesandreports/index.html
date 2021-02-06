@@ -27,7 +27,6 @@
                                 <div class="box-body">
                                     <table class="table table-condensed">
                                         <tbody>
-
                                             <tr sec:authorize="hasAuthority('INVENTORY_LOCATION_TRANSFERS')">
                                                 <td><span class="badge bg-light-blue">1</span></td>
                                                 <td><a th:href="@{/inventorylocationtransfers/index}">Inventory Location Transfers</a></td>               
@@ -36,8 +35,6 @@
                                                 <td><span class="badge bg-light-blue">2</span></td>
                                                 <td><a th:href="@{/inventoryadjustments/index}">Inventory Adjustments</a></td>               
                                             </tr>
-                       
-
                                         </tbody></table>
                                 </div>
                             </div>  
@@ -82,11 +79,11 @@
                                 </div>
                             </div> 
                             
-                              <div class="box box-warning box-solid">
+<!--                              <div class="box box-warning box-solid">
                                 <div class="box-header with-border">
                                     <h4>    Pricing and Costs</h4>
                                 </div>
-                                <!-- /.box-header -->
+                                 /.box-header 
                                 <div class="box-body">
                                       <table class="table table-condensed">
                                         <tbody>
@@ -107,7 +104,7 @@
                                             
                                         </tbody></table>
                                 </div>
-                            </div> 
+                            </div> -->
 
                         </div>
 
@@ -120,18 +117,32 @@
                                 <div class="box-body">
                                     <table class="table table-condensed">
                                         <tbody>
-
+                                            
                                             <tr>
                                                 <td><span class="badge bg-green">1</span></td>
-                                                <td><a th:href="@{/inventoryitemmovements/index}">Inventory Item Movements</a></td>               
+                                                <td><a th:href="@{/inventoryadjustments/list}">Inventory Adjustments List </a></td>               
                                             </tr>
+                                            <tr>
+                                                <td><span class="badge bg-green">2</span></td>
+                                                <td><a th:href="@{/inventorylocationtransfers/list}">Inventory Location Transfers List</a></td>               
+                                            </tr>                        
+
+<!--                                            <tr>
+                                                <td><span class="badge bg-green">1</span></td>
+                                                <td><a th:href="@{/inventoryitemmovements/index}">Inventory Item Movements</a></td>               
+                                            </tr>-->
+                                            <tr>
+                                                <td><span class="badge bg-green">2</span></td>
+                                                <td><a th:href="@{/stokmoves/index}">Stock Movement</a></td>               
+                                            </tr>
+                                            
                                             <tr>
                                                 <td><span class="badge bg-green">2</span></td>
                                                 <td><a th:href="@{/inventoryitemstatus/index}">Inventory Item Status</a></td>               
                                             </tr>
                                    
                             
-                                            <tr>
+<!--                                            <tr>
                                                 <td><span class="badge bg-green">3</span></td>
                                                 <td>Inventory Reports</td>               
                                             </tr>
@@ -173,7 +184,7 @@
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
                                                 <td><span class="badge bg-green">9</span> <a th:href="@{/itemsalessummaryreport/index}">Item Sales Summary Report</a></td>               
-                                            </tr>
+                                            </tr>-->
 
                                         </tbody></table>
                                 </div>

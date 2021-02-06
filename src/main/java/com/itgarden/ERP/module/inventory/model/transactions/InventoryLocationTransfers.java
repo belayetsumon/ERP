@@ -7,16 +7,21 @@ package com.itgarden.ERP.module.inventory.model.transactions;
 
 import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
 import com.itgarden.ERP.module.settings.model.company_setup.TransactionsType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedBy;
@@ -43,10 +48,11 @@ public class InventoryLocationTransfers {
 
     @ManyToOne(optional = false)
     public InventoryLocations fromLocation;
-    
-     @ManyToOne(optional = false)
+
+    @ManyToOne(optional = false)
     public InventoryLocations toLocation;
 
+    
     public String iltReference;
 
     @Column(nullable = false)
@@ -54,6 +60,8 @@ public class InventoryLocationTransfers {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = " Inventory adjustment date cannot be blank.")
     private Date iltDate;
+
+    private BigDecimal total;
 
     @Lob
     private String memo;
@@ -78,19 +86,26 @@ public class InventoryLocationTransfers {
     @Column(insertable = false, updatable = true)
     private LocalDateTime modified;
 
-    public InventoryLocationTransfers(Long id, TransactionsType transType, InventoryLocations fromLocation, InventoryLocations toLocation, String iltReference, Date iltDate, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
+    @OneToMany(mappedBy = "inventoryLocationTransfers", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InventoryLocationTransfersItem> inventoryLocationTransfersItem;
+
+    public InventoryLocationTransfers(Long id, TransactionsType transType, InventoryLocations fromLocation, InventoryLocations toLocation, String iltReference, Date iltDate, BigDecimal total, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<InventoryLocationTransfersItem> inventoryLocationTransfersItem) {
         this.id = id;
         this.transType = transType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.iltReference = iltReference;
         this.iltDate = iltDate;
+        this.total = total;
         this.memo = memo;
         this.createdBy = createdBy;
         this.created = created;
         this.modifiedBy = modifiedBy;
         this.modified = modified;
+        this.inventoryLocationTransfersItem = inventoryLocationTransfersItem;
     }
+
+    
 
     public InventoryLocationTransfers() {
     }
@@ -182,5 +197,21 @@ public class InventoryLocationTransfers {
     public void setModified(LocalDateTime modified) {
         this.modified = modified;
     }
-    
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public List<InventoryLocationTransfersItem> getInventoryLocationTransfersItem() {
+        return inventoryLocationTransfersItem;
+    }
+
+    public void setInventoryLocationTransfersItem(List<InventoryLocationTransfersItem> inventoryLocationTransfersItem) {
+        this.inventoryLocationTransfersItem = inventoryLocationTransfersItem;
+    }
+
 }

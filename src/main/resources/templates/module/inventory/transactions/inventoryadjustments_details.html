@@ -7,7 +7,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Sales
+                    Inventory
                     <small>Transactions</small>
                 </h1>
             </section>
@@ -17,12 +17,12 @@
                 <!-- Default box -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Sales invoice Ref: <span th:text="${inventoryAdjustment.inAdReference}"></span></h3>
+                        <h3 class="box-title">Inventory Adjustments Details Ref: <span th:text="${inventoryAdjustment.inAdReference}"></span></h3>
                         <div class="box-tools pull-right">
                             <div class="btn-group">
-                                  <a th:href="@{/salesquotationentry/detail/{id}(id=${inventoryAdjustment.id})}"  class="btn  btn-primary btn-xs">PDF Create</a>
-                                  <a th:href="@{/salesquotationentry/edit/{id}(id=${inventoryAdjustment.id})}" class="btn  btn-success btn-xs">Edit</a>
-                                  <a th:href="@{/salesquotationentry/delete/{id}(id=${inventoryAdjustment.id})}"  class="btn  btn-danger btn-xs">Delete</a>
+                                <a th:href="@{/inventoryadjustments/print/{id}(id=${inventoryAdjustment.id})}" target="_blank" class="btn  btn-primary btn-xs">Print</a>
+<!--                                <a th:href="@{/salesquotationentry/edit/{id}(id=${inventoryAdjustment.id})}" class="btn  btn-success btn-xs">Edit</a>
+                                <a th:href="@{/salesquotationentry/delete/{id}(id=${inventoryAdjustment.id})}"  class="btn  btn-danger btn-xs">Delete</a>-->
                                 <a type="button" th:href="@{/inventory/index}" class="btn  btn-warning btn-xs">Close</a>
                             </div>
                         </div>
@@ -33,69 +33,64 @@
                             <tr>
                                 <th>Location </th>
                                 <td th:text="${inventoryAdjustment.inventoryLocations.locationName}"></td>
-                              
-                             
+
+
                                 <th>Date</th>
                                 <td th:text="${inventoryAdjustment.adDate}"> </td>
-                                   <th>Reference </th>
+                                <th>Reference </th>
                                 <td th:text="${inventoryAdjustment.inAdReference}"></td>
+                                <th>Total </th>
+                                <td><b th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![itemTotal])}" /> Taka</td>
 
                             </tr>
                             <tr>
-  
+
                         </table>
-<!--                        <div class=" col-sm-12"> 
-                            <h4 class="text-center"> Inventory Items</h4>
+                        <div class=" col-sm-12"> 
+                            <h4 class="text-center"> Inventory Adjustment Items</h4>
 
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Item Code</th>
-                                        <th scope="col">Item Description</th>
+                                        <th scope="col">Name</th>
+
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Unit</th>
-                                        <th scope="col">Price after Tax</th>
-                                        <th scope="col">Discount %</th>
+                                        <th scope="col">Price</th>
+
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each=" salesInvoiceItemList :${salesInvoice.salesInvoiceItem}">           
-                                        <th><span th:text="${salesInvoiceItemList.itemId.id}"></span></th>
-                                        <td><span th:text="${salesInvoiceItemList.itemId.itemCode}"></span></td>
-                                        <td><span th:text="${salesInvoiceItemList.itemId.name}"></span></td>
-                                        <td><span th:text="${salesInvoiceItemList.quantity}"></span></td>
-                                        <td><span th:text="${salesInvoiceItemList.itemId.unitsofMeasure}"></span></td>
-                                        <td><span th:text="${salesInvoiceItemList.unitPrice}"></span></td>
-                                        <td><span th:text="${salesInvoiceItemList.discount_percent}"></span></td>
-                                        <td><span th:text="${salesInvoiceItemList.itemTotal}"></span></td>
+                                    <tr th:if="${#lists.isEmpty(inventoryAdjustment.inventoryAdjustmentItem)}" >           
+                                        <th colspan="6"  class="text-center"> Sorry no item found.</th>
+
                                     </tr>
-                                    
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Sub-total</td>
-                                        <td>50.00</td>
+                                    <tr th:if="${not #lists.isEmpty(inventoryAdjustment.inventoryAdjustmentItem)}" th:each=" lists,status :${inventoryAdjustment.inventoryAdjustmentItem}">           
+                                        <th><span th:text="${status.count}"></span></th>
+                                        <td><span th:text="${lists.itemCode.itemCode}"></span></td>
+                                        <td><span th:text="${lists.itemCode.name}"></span></td>
+                                        <td><span th:text="${lists.quantity}"></span></td>
+                                        <td><span th:text="${lists.unit}"></span></td>
+                                        <td><span th:text="${lists.price}"></span></td>
+                                        <td><span th:text="${lists.itemTotal}"></span></td>
                                     </tr>
 
                                     <tr>
-                                        <th scope="row"></th>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>Total Item</td>
+                                        <td><b th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![quantity])}" /></td>
                                         <td></td>
                                         <td>Amount Total</td>
-                                        <td> </td>
+                                        <td><b th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![itemTotal])}" /> Taka</td>
+
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>-->
+                        </div>
 
 
                         <!-- /.box-body -->

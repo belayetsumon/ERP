@@ -5,58 +5,62 @@
  */
 package com.itgarden.ERP.module.inventory.controller.settings;
 
-import org.springframework.web.bind.annotation.RequestMethod;
-import java.io.IOException;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import java.io.OutputStream;
-import java.io.ByteArrayOutputStream;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.Barcode128;
-import com.itextpdf.text.pdf.Barcode39;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfWriter;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.itgarden.ERP.module.inventory.DTO.ItemDTO;
-import com.itgarden.ERP.module.inventory.model.settings.StandardCosts;
-import com.itgarden.ERP.module.inventory.model.settings.PurchasingPricing;
-import com.itgarden.ERP.module.inventory.model.enumvalue.SalesType;
-import com.itgarden.ERP.module.inventory.model.settings.SalesPricing;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.validation.BindingResult;
-import javax.validation.Valid;
-import com.itgarden.ERP.module.settings.model.enumvalue.YesNo;
-import com.itgarden.ERP.module.inventory.model.enumvalue.Itemstatus;
-import com.itgarden.ERP.module.inventory.model.enumvalue.ItemType;
-import com.itgarden.ERP.module.inventory.model.settings.Items;
-import org.springframework.ui.Model;
-import com.itgarden.ERP.module.inventory.settings.services.SalesPricingService;
-import com.itgarden.ERP.module.inventory.settings.services.ItemService;
+import com.itextpdf.barcodes.Barcode128;
+import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.TextAlignment;
 import com.itgarden.ERP.module.finance_banking.repository.settings.GlAccountsRepository;
-import com.itgarden.ERP.module.inventory.repository.settings.UnitsRepository;
-import com.itgarden.ERP.module.settings.repository.company_setup.ItemTaxTypesRepository;
+import com.itgarden.ERP.module.inventory.DTO.ItemDTO;
+import com.itgarden.ERP.module.inventory.model.enumvalue.ItemType;
+import com.itgarden.ERP.module.inventory.model.enumvalue.Itemstatus;
+import com.itgarden.ERP.module.inventory.model.enumvalue.SalesType;
+import com.itgarden.ERP.module.inventory.model.settings.Items;
+import com.itgarden.ERP.module.inventory.model.settings.PurchasingPricing;
+import com.itgarden.ERP.module.inventory.model.settings.SalesPricing;
+import com.itgarden.ERP.module.inventory.model.settings.StandardCosts;
 import com.itgarden.ERP.module.inventory.repository.settings.ItemCategoriesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.itgarden.ERP.module.inventory.repository.settings.ItemsRepository;
 import com.itgarden.ERP.module.inventory.repository.settings.PurchasingPricingRepository;
 import com.itgarden.ERP.module.inventory.repository.settings.SalesPricingRepository;
 import com.itgarden.ERP.module.inventory.repository.settings.StandardCostsRepository;
-
+import com.itgarden.ERP.module.inventory.repository.settings.UnitsRepository;
+import com.itgarden.ERP.module.inventory.settings.services.ItemService;
+import com.itgarden.ERP.module.inventory.settings.services.SalesPricingService;
+import com.itgarden.ERP.module.settings.model.enumvalue.YesNo;
+import com.itgarden.ERP.module.settings.repository.company_setup.ItemTaxTypesRepository;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping({"/items"})
@@ -206,6 +210,20 @@ public class ItemsController {
             @RequestParam(required = true)
             @NotNull BigDecimal standardCosting,
             @Valid Items items, final BindingResult bindingResult, final RedirectAttributes redirectAttrs) {
+        
+        boolean itemcheck = itemService.itemCodeCheck(items.getItemCode());
+        
+          if (itemcheck ==true) {
+
+            ObjectError itemCodeError;
+
+            itemCodeError = new ObjectError("itemCode", "This code "+items.getItemCode()+"exists. Please  Refresh your browser and try again.");
+
+            bindingResult.addError(itemCodeError);
+        }
+        
+        
+        
         if (bindingResult.hasErrors()) {
             model.addAttribute("itemlist", itemsRepository.findAll());
             model.addAttribute("itemCategorieslist", itemCategoriesRepository.findAll());
@@ -216,6 +234,7 @@ public class ItemsController {
             model.addAttribute("ststus", Itemstatus.values());
             model.addAttribute("yesno", YesNo.values());
             // items.setItemCode(itemService.itemCode());
+            model.addAttribute("itemCode", itemService.itemCode());
             return "module/inventory/settings/items_short_entry";
         }
         this.itemsRepository.save(items);
@@ -260,10 +279,10 @@ public class ItemsController {
         //redirectAttrs.addFlashAttribute("success_messages", " Successfully Save.");
         redirectAttrs.addAttribute("id", items.getId()).addFlashAttribute("success_messages", "Successfully Save.");
 
-        return "redirect:/items/details/{id}";
+        return "redirect:/items/productlabel/{id}";
     }
 
-    @RequestMapping(value = {"/productlabel/{id}"}, method = {RequestMethod.GET}, produces = {"application/pdf"})
+    @RequestMapping(value = {"/productlabel-2/{id}"}, method = {RequestMethod.GET}, produces = {"application/pdf"})
     @ResponseBody
     public void createProductLabel(Model model, @PathVariable Long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -273,72 +292,124 @@ public class ItemsController {
 
         String pdfFileName = "item_code" + item.getItemCode() + ".pdf";
 
-        try {
-            String text = request.getParameter("text");
-            if (text == null || text.trim().length() == 0) {
-                text = "You didn't enter any text.";
-            }
-
-            Rectangle rect = new Rectangle(150, 108);
-            rect.enableBorderSide(1);
-            rect.enableBorderSide(2);
-            rect.enableBorderSide(4);
-            rect.enableBorderSide(8);
-            rect.setBorder(2);
-            rect.setBorderColor(BaseColor.BLACK);
-
-            Document document = new Document(rect, 5, 5, 5, 5);
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-            PdfWriter pdfWriter = PdfWriter.getInstance(document, baos);
-
-            document.open();
-            PdfContentByte cb = pdfWriter.getDirectContent();
-            Font fontSize_8_bold = FontFactory.getFont("Times", 8.0f, 1, BaseColor.DARK_GRAY);
-
-            Paragraph item_label = new Paragraph("Price:" + retailSalesPricing + "+VAT", fontSize_8_bold);
-
-            document.add(item_label);
-
-            //   barcode //
-//            Barcode39 barcode39 = new Barcode39();
-//            barcode39.setCode("123456789");
-//            barcode39.setCode(item.getItemCode());
-//
-//            Image codeEANImage = barcode39.createImageWithBarcode(cb, null, null);
-//
-//            document.add(codeEANImage);
-
-            Barcode128 code128 = new Barcode128();
-            code128.setGenerateChecksum(true);
-            code128.setCode(item.getItemCode());
-
-            //Add Barcode to PDF document
-            document.add(code128.createImageWithBarcode(cb, null, null));
-
-            // end barcode
-            document.close();
-
-            response.setHeader("Expires", "0");
-
-            response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-
-            response.setHeader("Pragma", "public");
-
-            response.setContentType("application/pdf");
-
-            response.setContentLength(baos.size());
-
-            response.setHeader("Content-disposition", "inline; filename=" + pdfFileName);
-
-            OutputStream os = (OutputStream) response.getOutputStream();
-            baos.writeTo(os);
-            os.flush();
-            os.close();
-
-        } catch (DocumentException e) {
-            throw new IOException(e.getMessage());
+        // try{
+        String text = request.getParameter("text");
+        if (text == null || text.trim().length() == 0) {
+            text = "You didn't enter any text.";
         }
+
+        //  Rectangle rect = new Rectangle(219, 144);
+        // Rectangle rect = new Rectangle(219, 144);
+        Rectangle rect = new Rectangle(140, 120);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        ///  PdfWriter pdfWriter = PdfWriter.getInstance(document, baos);
+        // PdfWriter writer = new PdfWriter(pdfFileName);
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
+        pdfDoc.addNewPage();
+        Document document = new Document(pdfDoc, new PageSize(rect));
+
+        document.setMargins(5, 5, 0, 0);
+
+//// Price
+        Style price = new Style();
+        PdfFont font = PdfFontFactory.createFont(FontConstants.TIMES_BOLD);
+        price.setFont(font);
+        Paragraph pra = new Paragraph();
+
+        pra.add("Price:" + (int) Math.round(retailSalesPricing) + "+VAT" + "\n").addStyle(price).setMargins(0, 0, 0, 0).setFontSize(16).setTextAlignment(TextAlignment.CENTER);
+        /// barcode
+        Style barcode = new Style();
+        Barcode128 code128 = new Barcode128(pdfDoc);
+        // code128.setGenerateChecksum(true);
+        code128.setCode(item.getItemCode());
+        code128.setX(1f);
+        code128.setFont(null);
+        code128.setCodeType(Barcode128.CODE128);
+        Image code128Image = new Image(code128.createFormXObject(pdfDoc));
+        pra.add(code128Image).addStyle(barcode).setMargins(0, 0, 0, 0);
+        //// code
+        Style code = new Style();
+        PdfFont fontcode = PdfFontFactory.createFont(FontConstants.COURIER_BOLD);
+        price.setFont(fontcode);
+        pra.add("\n" + item.getItemCode() + "\n").addStyle(code).setMargins(0, 0, 0, 0).setFontSize(10);
+
+/// Product Name
+        Style productnameStyle = new Style();
+
+        //Resource resource = new ClassPathResource("ARIALUNI.TTF");
+        // Resource resource = new ClassPathResource("ArialUnicodeMS.ttf");
+        Resource resource = new ClassPathResource("Noto_Sans_Bengali-Regular.ttf");
+
+        //        Resource resource = new ClassPathResource("unicode.timesu.ttf");
+        // Resource resource = new ClassPathResource("NikoshBAN.ttf");
+        //Resource resource = new ClassPathResource("SolaimanLipi.ttf");
+        // System.out.println("ffffffffffffffffffffffffffffffffffffffffffffff"+resource.getFilename());
+        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffff" + resource.getURI());
+
+        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffff" + resource.getURL());
+
+        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffff" + resource.getFile());
+
+        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffff" + resource.getInputStream());
+
+        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffff" + item.getName());
+
+        PdfFont namefont = PdfFontFactory.createFont(resource.getFile().getPath(), PdfEncodings.IDENTITY_H, true);
+
+        //PdfFont namefont = PdfFontFactory.createFont(FontConstants.COURIER_BOLD);
+        productnameStyle.setFont(namefont);
+
+        pra.add(item.getName() + "\n").addStyle(productnameStyle).setMargins(0, 0, 0, 0).setFontSize(12);
+
+        // discount 
+        if (item.getDiscount() > 0.00) {
+            pra.add("Discount:" + item.getDiscount() + "%");
+        }
+
+        document.add(pra);
+//
+//            // end barcode
+
+        document.close();
+
+        /// header settings 
+        response.setHeader("Expires", "0");
+
+        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+
+        response.setHeader("Pragma", "public");
+
+        response.setContentType("application/pdf; charset=UTF-8");
+
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
+        response.setContentLength(baos.size());
+
+        response.setHeader("Content-disposition", "inline; filename=" + pdfFileName);
+
+        OutputStream os = (OutputStream) response.getOutputStream();
+
+        baos.writeTo(os);
+
+        os.flush();
+
+        os.close();
+
+    }
+
+    @RequestMapping(value = {"/productlabel/{id}"})
+
+    public String itemShortEntry(Model model, @PathVariable Long id) {
+        Items item = itemsRepository.getOne(id);
+        model.addAttribute("item", item);
+
+        model.addAttribute("retailSalesPricing", (int) Math.round(salesPricingService.pricebyItemAndType(item, SalesType.Retail)));
+        // discount 
+        if (item.getDiscount() > 0.00) {
+            model.addAttribute("discount", item.getDiscount());
+        }
+        return "module/inventory/settings/items_print";
     }
 }

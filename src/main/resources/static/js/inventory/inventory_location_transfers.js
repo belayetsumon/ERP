@@ -18,6 +18,49 @@ $(document).ready(function () {
 });
 
 
+$(document).ready(function () {
+    $('.inventory_location_transfer_item_select').select2({
+        placeholder: 'Select a item'
+    });
+});
+
+
+
+
+// Quteation item search By Name 
+
+$(document).ready(function () {
+
+    $('.inventory_location_transfer_item_select').on('change', function () {
+        var itemId = $(this).val();
+        // alert("Item-Id");
+        $.ajax({
+            type: 'GET',
+            url: "/items/itembyitemid/" + itemId,
+            dataType: 'json',
+            success: function (data) {
+                $("#iadj_id").val(data.id);
+
+                $("#iadj_quantity").val(1);
+
+
+                $("#iadj_price").val(data.retailPrice);
+
+
+                $("#iadj_unit").val(data.unitsofMeasureName);
+
+                $("#iadju_itemTotal").val(data.retailPrice);
+
+                //alert(data);
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+        });
+
+    });
+
+});
 
 
 

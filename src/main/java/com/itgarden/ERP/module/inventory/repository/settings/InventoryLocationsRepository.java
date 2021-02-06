@@ -14,4 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface InventoryLocationsRepository extends JpaRepository<InventoryLocations, Long> {
     
+    InventoryLocations findByLocationCode(String locationCode);
+      
 }

@@ -5,6 +5,7 @@
  */
 package com.itgarden.ERP.module.inventory.transactions.service;
 
+import com.itgarden.ERP.module.inventory.model.settings.Items;
 import com.itgarden.ERP.module.inventory.model.transactions.InventoryAdjustments;
 import com.itgarden.ERP.module.inventory.repository.transactions.InventoryAdjustmentsRepository;
 import java.util.Calendar;
@@ -17,25 +18,45 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class InventoryAdjustmentsService {
-    
+
     @Autowired
     InventoryAdjustmentsRepository inventoryAdjustmentsRepository;
-    
-    
-    
-    public String refarance(){
-    
-    
-    InventoryAdjustments refe = inventoryAdjustmentsRepository.findTopByOrderByIdDesc();
-    
-    int year = Calendar.getInstance().get(Calendar.YEAR);
-    
-    StringBuilder sb=new StringBuilder();  
-    sb.append(String.format("%05d", refe.getId()+1));
-    sb.append("/");
-    sb.append(year);
-    return sb.toString();
+
+    public String refarance() {
+
+        InventoryAdjustments refe = inventoryAdjustmentsRepository.findTopByOrderByIdDesc();
+
+        Long lastid;
+
+        if (refe != null) {
+
+            lastid = refe.getId() + 1;
+
+        } else {
+
+            lastid = 1l;
+        }
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%05d", lastid));
+        sb.append("/");
+        sb.append(year);
+        return sb.toString();
     }
-    
-    
+
+    public boolean referCodeCheck(String inAdReference) {
+
+        InventoryAdjustments ref = inventoryAdjustmentsRepository.findByInAdReference(inAdReference);
+
+        if (ref != null) {
+
+            return true;
+
+        } else {
+            return false;
+        }
+
+    }
 }

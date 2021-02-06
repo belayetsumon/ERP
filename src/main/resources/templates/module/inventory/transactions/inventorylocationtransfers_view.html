@@ -7,8 +7,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Sales
-                    <small></small>
+                    Inventory 
+                    <small> Transactions</small>
                 </h1>
 
             </section>
@@ -18,7 +18,7 @@
                 <!-- Default box -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Invoice Details</h3>
+                        <h3 class="box-title">Locations Transfers Details</h3>
                         <div class="box-tools pull-right">
                             <div class="btn-group">
 
@@ -30,29 +30,24 @@
                         <h3 class="bg-green text-center"th:text="${success_messages}"></h3>
 
                         <table class="table table-bordered">
+                            
                             <tr>
                                 <td  class="text-center">
-                                    <a  th:href="@{/salesinvoice/index}"> New Sales Invoice Entry</a>
+                                    <a  th:href="@{/inventorylocationtransfers/index}"> Enter another location transfer</a>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td  class="text-center">
-                                    <a  th:href="@{/salesinvoice/detail/{id}(id=${inId})}"> View This Invoice</a>
+                                    <a  th:href="@{/inventorylocationtransfers/details/{id}(id=${itId})}"> View This Location Transfers</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-center"> <a  th:href="@{/salesorder/createorder}"> Make Delivery Against This Invoice</a></td> 
-                            </tr>
+                         
                             
                              <tr>
-                                <td class="text-center"> <a  th:href="@{/salesorder/createorder}"> View the GL Journal Entries for this Invoice</a></td> 
+                                <td class="text-center"> <a  th:href="@{/}"> View the GL</a></td> 
                             </tr>
-                            
-                                  <tr>
-                                <td class="text-center"> <a  th:href="@{/salesorder/createorder}"> Entry customer payment for this invoice</a></td> 
-                            </tr>
-
+ 
 <!--                            <tr>
                                 <td class="text-center"> <a  th:href="@{/salesorder/createorder}"> Work Order Entry</a></td> 
                             </tr>-->
@@ -66,8 +61,6 @@
                         </div>
 
                     </div>
-
-
             </section>
             <!-- /.content -->
         </div>

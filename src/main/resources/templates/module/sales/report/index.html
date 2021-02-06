@@ -16,8 +16,6 @@
                 <div class="box ">
 
                     <div class="box-body">
-
-
                         <div class="col-sm-6">
                             <div class="box box-primary box-solid">
                                 <div class="box-header with-border">
@@ -27,8 +25,12 @@
                                 <div class="box-body">
                                     <table class="table table-condensed">
                                         <tbody>
-
                                             <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                                <td><span class="badge bg-light-blue">1</span></td>
+                                                <td><a th:href="@{/pos/index}">POS</a></td>               
+                                            </tr>
+
+<!--                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
                                                 <td><span class="badge bg-light-blue">1</span></td>
                                                 <td><a th:href="@{/salesquotationentry/index}">Sales Quotation Entry</a></td>               
                                             </tr>
@@ -51,8 +53,8 @@
                                             <tr>
                                                 <td><span class="badge bg-light-blue">6</span></td>
                                                 <td><a th:href="@{/invoiceagainstsalesdelivery/index}">Invoice Against Sales Delivery</a></td>               
-                                            </tr>
-                                            <tr>
+                                            </tr>-->
+<!--                                            <tr>
                                                 <td><span class="badge bg-light-blue">7</span></td>
                                                 <td><a th:href="@{/invoiceprepaidorders/index}">Invoice Prepaid Orders</a></td>               
                                             </tr>
@@ -68,7 +70,7 @@
                                             <tr>
                                                 <td><span class="badge bg-light-blue">10</span></td>
                                                 <td><a th:href="@{/allocatecustomerpayments/index}">Allocate Customer Payments or Credit Notes</a></td>               
-                                            </tr>
+                                            </tr>-->
 
                                         </tbody></table>
                                 </div>
@@ -152,7 +154,7 @@
 
 
 
-                                            <tr>
+<!--                                            <tr>
                                                 <td><span class="badge bg-green">3</span></td>
                                                 <td><a th:href="@{/customertransactioninquiry/index}">Customer Transaction Inquiry</a></td>               
                                             </tr>
@@ -223,7 +225,7 @@
                                             <tr>
                                                 <td><span class="badge bg-light-blue"></span></td>
                                                 <td><span class="badge bg-green">14</span>	Print Receipts</td>               
-                                            </tr>
+                                            </tr>-->
 
                                         </tbody></table>
                                 </div>

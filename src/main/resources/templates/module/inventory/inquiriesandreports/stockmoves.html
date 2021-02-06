@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Inventory Report
+                    <small>Report</small>
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+
+                <!-- Default box -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Stock Moves List, Total: <span th:text="${list.content.size()}"></span></h3>
+
+                                    <div class="box-tools pull-right">
+                                        <div class="btn-group">
+
+                                            <a type="button"  th:href="@{/inventory/index}" class="btn  btn-danger btn-xs">Close</a>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="box-body">
+
+
+
+                                        <table class="table  table-bordered">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Item/Product Name </th>
+                                                <th>Date</th>
+                                                <th>Trans Type </th>
+                                                <th>Trans No </th>
+                                                <th>Reference</th>
+                                                <th>Locations </th>
+                                                <th>Quantity </th>
+                                                 <th>Unit</th>
+                                                <th>Price </th>
+                                                <th>Total </th>
+                                                <th>Memo</th>
+                                            </tr>
+
+                                            <tr th:if="${#lists.isEmpty(list)}" >           
+                                                <th colspan="11"  class="text-center"> Sorry no information found.</th>
+                                            </tr>
+
+                                            <tr th:if="${not#lists.isEmpty(list)}" th:each="lists:${list}">
+
+                                                <td th:text="${lists.id}"></td>
+                                                <td th:text="${lists.items.name}"> </td>
+                                                 <td th:text="${lists.tranDate}"></td>
+                                                <td th:text="${lists.transType.name}"></td>
+                                                <td th:text="${lists.transNo}"></td>
+                                               
+                                                <td th:text="${lists.reference}"></td>
+                                                <td th:text="${lists.inventoryLocations.locationName}"></td>
+                                                <td th:text="${lists.qty}"></td>
+                                                <td th:text="${lists.items.unitsofMeasure}"></td>
+                                                 <td th:text="${lists.price}"></td>
+                                                <td th:text="${lists.totalPrice}"></td>
+                                                <td th:text="${lists.memo}"></td>
+
+                                            </tr>
+
+                                            <tr>
+                                        </table> 
+
+
+
+
+
+                                    </div>
+
+
+
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <div class="box-tools pull-right">
+                                            <div class="btn-group">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-footer-->
+                                    </div>
+                                    <!-- /.box -->
+
+                                    </section>
+                                    <!-- /.content -->
+                                    </div> 
+
+
+
+                                    </div>
+
+                                    </div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout-label-print">
+
+    <div layout:fragment = "main_content">
+             <div  style=" text-align:center;
+              height:140px;
+              width:180px;
+              background: #fff;
+              border: 1px solid #f4f4f4;
+              padding: 10px 0px 0px 0px ;
+              margin: 5px 0px;">
+           
+            <strong> <span style=" font-size: 18px;">Price:<span th:text="${retailSalesPricing}"></span>+VAT</span></strong>
+            <span style=" font-family: 'Libre Barcode 128 Text', cursive;font-size: 48px; margin: 0px 0px 0px 0px; color: #000; line-height: 48px;" th:text="${item.itemCode}"></span><br>
+            <span style=" font-size: 16px;" th:text="${item.name}"></span><br>
+          
+            <div  th:if="${discount>0}">
+                <span style=" font-size: 16px;">Discount:</span> <span th:text="${discount}"></span>%
+            </div>
+        </div>
+    </div>
+</div>

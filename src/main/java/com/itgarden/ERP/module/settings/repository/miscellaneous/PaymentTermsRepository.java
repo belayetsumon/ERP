@@ -14,6 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PaymentTermsRepository extends JpaRepository<PaymentTerms, Long> {
 
-
+PaymentTerms findBySlug(String slug);
 
 }

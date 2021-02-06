@@ -116,7 +116,7 @@ public class ItemService {
     // All item 
     public Page<Items> allItems() {
 
-        Pageable pageable = new PageRequest(0, 50, Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(0, 10000, Sort.Direction.DESC, "id");
 
         Page<Items> itemList = itemsRepository.findAll(pageable);
 
@@ -132,27 +132,42 @@ public class ItemService {
         return item;
 
     }
-    
-    
-   // Product Refarance Code  generate 
-    
-    
+
+    // Product Refarance Code  generate 
     // last inserted id
     public String itemCode() {
 
         Items item = itemsRepository.findTopByOrderByIdDesc();
-        
-        Long lastid = item.getId()+1;
-        
-       // System.out.println(String.format("%06d", lastid));
 
+        Long lastid;
+
+        if (item != null) {
+
+            lastid = item.getId() + 1;
+
+        } else {
+
+            lastid = 1l;
+        }
+
+        // System.out.println(String.format("%06d", lastid));
         return String.format("%06d", lastid);
-         
 
     }
+
+    public boolean itemCodeCheck(String itemCode) {
+
+        Items iCode = itemsRepository.findByItemCode(itemCode);
+
+        if (iCode != null) {
+
+            return true;
+            
+        } else{
+        return false;
+        }
     
-    
-    
-    
+
+    }
 
 }

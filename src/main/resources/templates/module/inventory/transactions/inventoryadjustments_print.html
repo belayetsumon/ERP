@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout-print">
+
+    <div layout:fragment = "main_content">
+        <div class="print_section">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <td colspan="7" > <h4 class="text-center">Inventory Adjustment </h4></td>
+                </tr>
+                <tr>
+                    <th>Location </th>
+                    
+
+                    <th>Reference </th>
+                    
+
+                    <th>Date</th>
+                   
+                    
+                    <th>Total Qty</th>
+                   
+
+                    <th>Total Amount</th>
+                   
+                
+                <tr>
+                    
+                    <td th:text="${inventoryAdjustment.inventoryLocations.locationName}"></td>
+
+                    
+                    <td th:text="${inventoryAdjustment.inAdReference}"></td>
+
+                   
+                    <td th:text="${inventoryAdjustment.adDate}"> </td>
+                    
+                   
+                    <td class="text-right"><span th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![quantity])}" /> </span></td>
+
+                  
+                    <td class="text-right"><span th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![itemTotal])}" />/-</span></td>
+                </tr>
+                
+                
+                 </table>
+
+            <h4 class="text-center"> Inventory Adjustment Items</h4>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(inventoryAdjustment.inventoryAdjustmentItem)}" >           
+                        <th colspan="6"  class="text-center"> Sorry no item found.</th>
+                    </tr>
+                    <tr th:if="${not #lists.isEmpty(inventoryAdjustment.inventoryAdjustmentItem)}" th:each=" lists, status:${inventoryAdjustment.inventoryAdjustmentItem}">           
+                        <th><span th:text="${status.count}"></span></th>
+                        <td><span th:text="${lists.itemCode.itemCode}"></span></td>
+                        <td class="text-left"><span th:text="${lists.itemCode.name}"></span></td>
+                        <td class="text-right"><span th:text="${lists.quantity}"></span></td>
+                        <td><span th:text="${lists.unit}"></span></td>
+                        <td class="text-right"><span th:text="${lists.price}"></span></td>
+                        <td class="text-right"><span th:text="${lists.itemTotal}"></span></td>
+                    </tr>
+                    <tr>
+
+                        <td class="text-right" colspan="3">Total Quantity</td>
+                        <td class="text-right"><span th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![quantity])}" /></span></td>
+                        <td></td>
+                        <td class="text-right"> Total Amount</td>
+                        <td class="text-right"><span th:text="${#aggregates.sum(inventoryAdjustment.inventoryAdjustmentItem.![itemTotal])}" />/-</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7"> Created By : <span th:text="${user_name}"></span> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -24,7 +24,9 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
         <!--        Datatable-->
-        <!--        <link rel="stylesheet" type="text/css" th:href="@{/plugins/DataTables/datatables.min.css}"/>-->
+        <!--        <link rel="stylesheet" type="text/css" th:href="@{/webjars/DataTables/1.10.23/datatables.min.css}"/>-->
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.23/b-1.6.5/b-print-1.6.5/fh-3.1.7/r-2.2.7/sp-1.2.2/datatables.min.css"/>
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +35,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <link th:href="@{css/app.css}"  rel="stylesheet" type="text/css"  />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
 
 
     </head>
@@ -73,12 +75,12 @@
         <!--        <script type="text/javascript" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}">...</script>-->
         <!--        <script   type="text/javascript"  th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>  -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <!--        <script th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}"></script>-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-        <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
         <!-- Bootstrap 3.3.6 -->
 
         <!-- SlimScroll -->
@@ -86,12 +88,20 @@
         <!-- FastClick -->
         <!--<script th:src="@{/plugins/fastclick/fastclick.js}">...</script>-->
         <!-- AdminLTE App -->
-        <script th:src="@{/webjars/adminlte/2.3.11/dist/js/app.min.js}">...</script>
+        <script type="text/javascript" th:src="@{/webjars/adminlte/2.3.11/dist/js/app.min.js}">...</script>
 
         <!--        Datatable-->
 
-        <!--        <script type="text/javascript" th:src="@{/plugins/DataTables/datatables.min.js}"></script>
-                <script th:src="@{/js/app_datatable.js}">...</script>-->
+        <!--        <script type="text/javascript" th:src="@{/webjars/DataTables/datatables.min.js}">...</script>-->
+
+       <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.23/b-1.6.5/b-print-1.6.5/fh-3.1.7/r-2.2.7/sp-1.2.2/datatables.min.js"></script>
+
+
+        <!--        <script th:src="@{assets/datatable/datatables.js}"></script>-->
+
+        <script type="text/javascript" th:src="@{/js/app_datatable.js}">...</script>
+
+
         <!-- All Date -->
 
         <!--        select 2-->
@@ -106,6 +116,8 @@
         <!-- Custom Sales Order -->
 
         <script th:src="@{/js/sales/sales_order.js}"></script>
+
+        <script th:src="@{/js/sales/sales_pos.js}"></script>
 
         <script th:src="@{/js/sales/sales_quotation.js}"></script>
 

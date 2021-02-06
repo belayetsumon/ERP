@@ -41,10 +41,10 @@ public class StockMoves {
     public Long id;
 
     
-    public int trans_no;
+    public Long transNo;
 
     @ManyToOne(optional = false)
-    public Items stock_id;
+    public Items items;
 
     @ManyToOne(optional = false)
     public TransactionsType transType;
@@ -66,6 +66,8 @@ public class StockMoves {
     private BigDecimal qty;
 
     private BigDecimal standardCost;
+    
+   private BigDecimal totalPrice;
     
     @Lob
     private String memo;
@@ -93,10 +95,10 @@ public class StockMoves {
     public StockMoves() {
     }
 
-    public StockMoves(Long id, int trans_no, Items stock_id, TransactionsType transType, InventoryLocations inventoryLocations, Date tranDate, BigDecimal price, String reference, BigDecimal qty, BigDecimal standardCost, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
+    public StockMoves(Long id, Long transNo, Items items, TransactionsType transType, InventoryLocations inventoryLocations, Date tranDate, BigDecimal price, String reference, BigDecimal qty, BigDecimal standardCost, BigDecimal totalPrice, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
         this.id = id;
-        this.trans_no = trans_no;
-        this.stock_id = stock_id;
+        this.transNo = transNo;
+        this.items = items;
         this.transType = transType;
         this.inventoryLocations = inventoryLocations;
         this.tranDate = tranDate;
@@ -104,11 +106,15 @@ public class StockMoves {
         this.reference = reference;
         this.qty = qty;
         this.standardCost = standardCost;
+        this.totalPrice = totalPrice;
+        this.memo = memo;
         this.createdBy = createdBy;
         this.created = created;
         this.modifiedBy = modifiedBy;
         this.modified = modified;
     }
+
+    
 
     public Long getId() {
         return id;
@@ -118,20 +124,20 @@ public class StockMoves {
         this.id = id;
     }
 
-    public int getTrans_no() {
-        return trans_no;
+    public Long getTransNo() {
+        return transNo;
     }
 
-    public void setTrans_no(int trans_no) {
-        this.trans_no = trans_no;
+    public void setTransNo(Long transNo) {
+        this.transNo = transNo;
     }
 
-    public Items getStock_id() {
-        return stock_id;
+    public Items getItems() {
+        return items;
     }
 
-    public void setStock_id(Items stock_id) {
-        this.stock_id = stock_id;
+    public void setItems(Items items) {
+        this.items = items;
     }
 
     public TransactionsType getTransType() {
@@ -190,6 +196,14 @@ public class StockMoves {
         this.standardCost = standardCost;
     }
 
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -222,4 +236,13 @@ public class StockMoves {
         this.modified = modified;
     }
 
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    
 }

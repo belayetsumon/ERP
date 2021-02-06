@@ -12,6 +12,7 @@ import com.itgarden.ERP.module.settings.model.company_setup.ItemTaxTypes;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -48,6 +49,7 @@ public class Items {
     public Long id;
 
     @NotNull(message = "Item Code cannot be blank.")
+    
     public String itemCode; // item code  bar code
 
     @NotEmpty(message = "Item/Product Name cannot be blank.")
@@ -152,16 +154,16 @@ public class Items {
     private LocalDateTime modified;
 
 //    Relation s
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     public List<SalesPricing> salesPrice;
 
-    @OneToOne(mappedBy = "itemId", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "itemId", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     public PurchasingPricing purchasingPricing;
 
-    @OneToOne(mappedBy = "itemId", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "itemId", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     public StandardCosts standardCosts;
 
-    @OneToMany(mappedBy = "itemId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "itemId", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     public List<ReorderLevels> ReorderLevels;
 
     public Items() {
@@ -512,5 +514,4 @@ public class Items {
         this.ReorderLevels = ReorderLevels;
     }
 
-    
 }

@@ -22,7 +22,7 @@
                 <!-- Default box -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Settings</h3>
+                        <h3 class="box-title">Add Product</h3>
                         <div class="box-tools pull-right">
                             <div class="btn-group">
                                 <!--    <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
@@ -34,115 +34,140 @@
                     </div>
                     <div class="box-body">
 
-                        <div class="box ">
+                        <h3 class="bg-green text-center"th:text="${success_messages}"></h3>
 
-                            <div class="box-body">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <div class="box box-warning box-solid">
-                                        <div class="box-header with-border">
-                                            <h4> Item Short Entry </h4>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body">
-                                            <h3 class="bg-green text-center"th:text="${success_messages}"></h3>
-
-                                            <form  th:action="@{/items/short_entry_save}"   enctype="multipart/form-data" th:object="${items}"  method="post" class="">
-                                                <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                    <h4><i class="icon fa fa-ban"></i> Error </h4>
-                                                    <ul th:if="${#fields.hasErrors('*')}">
-                                                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
-                                                    </ul>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" th:field="*{id}">
-                                                    <label for="itemCode">Item/Product Code<span class="text-red"> * </span>:</label>
-                                                    <input type="text" class="form-control" name ="itemCode" th:value="${itemCode}" placeholder="" readonly="true">
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemCode')}" th:errors="*{itemCode}"> </span>
-                                                </div>
-                                                <div class="form-group">
-
-                                                    <label for="name">Item/Product Name<span class="text-red"> * </span>:</label>
-                                                    <input type="text" class="form-control" th:field="*{name}" placeholder="">
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> </span>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="name">Description<span class="text-red">  </span>:</label>
-                                                    <input type="text" class="form-control" th:field="*{description}" placeholder="">
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> </span>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Product Category<span class="text-red"> * </span>:</label>
-                                                    <select class="form-control" th:field="*{category}">
-                                                        <option value=" "> Select one</option>
-                                                        <option th:each =" itemCategorieslist :${itemCategorieslist}"
-                                                                th:value=" ${itemCategorieslist.id}" 
-                                                                th:text="${itemCategorieslist.categoryName}"> Select one</option>
-                                                    </select>
-                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"> </span>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input type="hidden" name="itemTaxType" th:value="${1}" >
-                                                    <input type="hidden" name="itemTaxType" value="1" >
-                                                    <input type="hidden" name="itemType" value="Purchased" >
-                                                    <input type="hidden" name="unitsofMeasure" value="PCS" >
-                                                    <input type="hidden" name="discount" value="0.00" >
-                                                    <input type="hidden" name="salesAccount" value="17" >
-                                                    <input type="hidden" name="inventoryAccount" value="17" >
-                                                    <input type="hidden" name="cogsAccount" value="17" >
-                                                    <input type="hidden" name="inventoryAdjustmentAccount" value="17" >
-                                                    <input type="hidden" name="itemstatus" value="0" >
-                                                </div>
-
-
-
-                                                <div class="form-group">
-
-                                                    <label for="name">Retail Price<span class="text-red"> * </span>:</label>
-                                                    <input type="number"  maxlength="0" step=".01" class="form-control" name="retailPrice" placeholder="0.00" value="" required="true">
-
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <label for="name">Wholesale Price<span class="text-red"> * </span>:</label>
-                                                    <input type="number" min="0" step=".01" class="form-control" name="wholesalePrice" placeholder="0.00" value="" required="true">
-
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <label for="name"> Purchase Price<span class="text-red"> * </span>:</label>
-                                                    <input type="number"  min="0" step=".01" class="form-control" name="purchasePrice" placeholder="0.00" value="" required="true">
-
-                                                </div>
-
-
-                                                <div class="form-group">
-
-                                                    <label for="name"> Standard Cost <span class="text-red"> * </span>:</label>
-                                                    <input type="number"  min="0" step=".01" class="form-control" name="standardCosting" placeholder="0.00" value="" required="true">
-
-                                                </div>
-
-                                                <div class="box-footer">
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>  
-                                        </div>
-                                    </div> 
-                                </div>
-
+                        <form  th:action="@{/items/short_entry_save}"   enctype="multipart/form-data" th:object="${items}"  method="post" class="">
+                            <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-ban"></i> Error </h4>
+                                <ul th:if="${#fields.hasErrors('*')}">
+                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                                </ul>
                             </div>
-                        </div>
 
 
 
+                            <table class="table table-condensed">
+
+
+                                <tr> 
+                                    <td>    
+                                        <label for="name">Retail Price<span class="text-red"> * </span>:</label>
+                                    </td>
+
+                                    <td>
+                                        <input type="number"  maxlength="0" step=".01" class="form-control" name="retailPrice" placeholder="0.00" value="" required="true">
+
+                                    </td>
+                                    <td>
+
+                                        <label for="name">Wholesale Price<span class="text-red"> * </span>:</label>
+                                    </td>
+
+                                    <td>
+                                        <input type="number" min="0" step=".01" class="form-control" name="wholesalePrice" placeholder="0.00" value="" required="true">
+
+                                    </td>
+
+
+
+                                </tr> 
+                                <tr>
+
+                                    <td>
+
+
+                                        <label for="name"> Purchase Price<span class="text-red"> * </span>:</label>
+
+                                    </td>
+
+                                    <td>
+                                        <input type="number"  min="0" step=".01" class="form-control" name="purchasePrice" placeholder="0.00" value="" required="true">
+
+                                    </td>
+
+                                    <td>
+
+
+                                        <label for="name">Item/Product Name<span class="text-red"> * </span>:</label>
+                                    </td><td>
+                                        <input type="text" class="form-control" th:field="*{name}" placeholder="">
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> </span>
+
+                                    </td>
+
+                                </tr>  <tr>
+
+
+                                    <td> 
+                                        <label>Product Category<span class="text-red"> * </span>:</label>
+                                    </td>
+
+                                    <td>
+                                        <select class="form-control" th:field="*{category}">
+                                            <option value=" "> Select one</option>
+                                            <option th:each =" itemCategorieslist :${itemCategorieslist}"
+                                                    th:value=" ${itemCategorieslist.id}" 
+                                                    th:text="${itemCategorieslist.categoryName}"> Select one</option>
+                                        </select>
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"> </span>
+                                    </td>
+
+                                    <td>
+
+                                        <input type="hidden" class="form-control" th:field="*{id}">
+                                        <label for="itemCode">Item/Product Code<span class="text-red"> * </span>:</label>
+                                    </td><td>
+
+                                        <input type="text" class="form-control" name ="itemCode" th:value="${itemCode}" placeholder="" readonly="true">
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('itemCode')}" th:errors="*{itemCode}"> </span>
+
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+
+
+
+                                    <td>
+
+                                        <label for="name">Description<span class="text-red">  </span>:</label>
+
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" th:field="*{description}" placeholder="">
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> </span>
+
+                                    </td>
+                                    <td>  
+
+                                        <label for="name">Discount <span class="text-red">  </span>:</label>
+                                    </td>
+
+                                    <td>
+                                        <input type="number"  min="0" step=".01" class="form-control" name="discount" placeholder="0.00" value="0.00">
+                                    </td>
+                                <tr>
+                            </table> 
+
+
+
+                            <input type="hidden" name="itemTaxType" th:value="${1}" >
+                            <input type="hidden" name="itemTaxType" value="1" >
+                            <input type="hidden" name="itemType" value="Purchased" >
+                            <input type="hidden" name="unitsofMeasure" value="PCS" >
+                            <input type="hidden" name="standardCosting" value="0.00" >
+                            <input type="hidden" name="salesAccount" value="17" >
+                            <input type="hidden" name="inventoryAccount" value="17" >
+                            <input type="hidden" name="cogsAccount" value="17" >
+                            <input type="hidden" name="inventoryAdjustmentAccount" value="17" >
+                            <input type="hidden" name="itemstatus" value="0" >
+
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-primary">Submit & Print</button>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

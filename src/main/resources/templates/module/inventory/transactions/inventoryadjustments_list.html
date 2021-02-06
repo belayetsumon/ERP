@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout">
+
+    <div layout:fragment = "main_content">
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Inventory Report
+                    <small></small>
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Inventory Adjustments List  Total : <span th:text="${list.size()}"></span></h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <a type="button" th:href="@{/inventory/index}" class="btn  btn-warning btn-xs">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="responsive">
+                        
+                        <table id="table_search_pagination" class="table  table-bordered">
+                            <tr>
+                                  <th>#</th>
+                                  <th>Date</th>
+                                      <th>Reference </th>
+                                <th>Location </th>
+                                
+                            
+                                <th>Qnty</th>
+                                <th>Total </th>
+                                <th>Details</th>
+                            </tr>
+                            <tr th:each="lists, status:${list}">
+                                <td th:text="${status.count}"></td>
+                                <td th:text="${lists.adDate}"> </td>
+                                <td th:text="${lists.inAdReference}"></td>
+                                <td th:text="${lists.inventoryLocations.locationName}"></td>
+                                
+                                <td> <span th:text="${#aggregates.sum(lists.inventoryAdjustmentItem.![quantity])}" /></span></td>
+                                <td> <span th:text="${#aggregates.sum(lists.inventoryAdjustmentItem.![itemTotal])}" />/-</span></td>
+                                <td><a th:href="@{/inventoryadjustments/details/{id}(id=${lists.id})}">Details</a></td>
+                            </tr>
+                            <tr>
+                        </table>
+                        </div>
+
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="box-tools pull-right">
+                                <div class="btn-group">
+                                    <!--                                <button type="button" class="btn  btn-primary btn-xs">Add/Save</button>
+                                                                    <button type="button" class="btn  btn-success btn-xs">Edit/Save</button>
+                                                                    <button type="button" class="btn  btn-danger btn-xs">delete</button>
+                                                                    <button type="button" class="btn  btn-warning btn-xs">Close</button>-->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-footer-->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </section>
+            <!-- /.content -->
+        </div> 
+
+
+
+    </div>
+
+</div>

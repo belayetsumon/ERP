@@ -145,6 +145,8 @@ public class SalesInvoiceController {
 
             return "module/sales/transactions/salesinvoice";
         }
+        
+        
 
         salesInvoiceRepository.save(salesInvoice);
 

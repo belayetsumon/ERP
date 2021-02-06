@@ -34,6 +34,9 @@ public class InventoryAdjustmentItem {
     private long id;
 
     @ManyToOne(optional = false)
+    InventoryAdjustments inventoryAdjustments;
+
+    @ManyToOne(optional = false)
     private Items itemCode;
 
     private BigDecimal quantity;
@@ -64,8 +67,9 @@ public class InventoryAdjustmentItem {
     @Column(insertable = false, updatable = true)
     private LocalDateTime modified;
 
-    public InventoryAdjustmentItem(long id, Items itemCode, BigDecimal quantity, String unit, BigDecimal price, BigDecimal itemTotal, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
+    public InventoryAdjustmentItem(long id, InventoryAdjustments inventoryAdjustments, Items itemCode, BigDecimal quantity, String unit, BigDecimal price, BigDecimal itemTotal, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
         this.id = id;
+        this.inventoryAdjustments = inventoryAdjustments;
         this.itemCode = itemCode;
         this.quantity = quantity;
         this.unit = unit;
@@ -76,6 +80,8 @@ public class InventoryAdjustmentItem {
         this.modifiedBy = modifiedBy;
         this.modified = modified;
     }
+
+    
 
     public long getId() {
         return id;
@@ -155,6 +161,14 @@ public class InventoryAdjustmentItem {
 
     public void setModified(LocalDateTime modified) {
         this.modified = modified;
+    }
+
+    public InventoryAdjustments getInventoryAdjustments() {
+        return inventoryAdjustments;
+    }
+
+    public void setInventoryAdjustments(InventoryAdjustments inventoryAdjustments) {
+        this.inventoryAdjustments = inventoryAdjustments;
     }
 
     public InventoryAdjustmentItem() {

@@ -17,6 +17,7 @@ import com.itgarden.ERP.module.inventory.repository.transactions.StockMovesRepos
 import com.itgarden.ERP.module.inventory.settings.services.InventoryLocationsService;
 import com.itgarden.ERP.module.inventory.settings.services.ItemService;
 import com.itgarden.ERP.module.inventory.transactions.service.InventoryLocationTransfersService;
+import com.itgarden.ERP.module.inventory.transactions.service.StockMoveService;
 import com.itgarden.ERP.module.sales.cart.model.SalesCartItem;
 import com.itgarden.ERP.module.settings.model.company_setup.TransactionsType;
 import com.itgarden.ERP.module.settings.repository.company_setup.TransactionsTypeRepository;
@@ -24,6 +25,7 @@ import com.itgarden.ERP.module.user.services.LoggedUserService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +45,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/inventorylocationtransfers")
 public class InventoryLocationTransfersController {
-    
-    
-     @Autowired
+
+    @Autowired
     LoggedUserService loggedUserService;
 
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    StockMoveService stockMoveService;
 
     @Autowired
     TransactionsTypeRepository transactionsTypeRepository;
@@ -68,18 +72,16 @@ public class InventoryLocationTransfersController {
 
     @Autowired
     StockMovesRepository stockMovesRepository;
-    
+
     @Autowired
     InventoryLocationTransfersService inventoryLocationTransfersService;
-    
 
     @RequestMapping(value = {"", "/", "/index"})
     public String index(Model model, InventoryLocationTransfers inventoryLocationTransfers) {
-        
+
         /// ser refe
-        
         inventoryLocationTransfers.setIltReference(inventoryLocationTransfersService.refarance());
-        
+
         ///   set  transactions Type
         TransactionsType transactionsType = new TransactionsType();
 
@@ -99,19 +101,33 @@ public class InventoryLocationTransfersController {
     public String save(Model model, @Valid InventoryLocationTransfers inventoryLocationTransfers, BindingResult bindingResult,
             RedirectAttributes redirectAttrs, HttpSession inventoryItemSession) {
 
-        
-          boolean referCheck = inventoryLocationTransfersService.referCodeCheck(inventoryLocationTransfers.getIltReference());
-        
-          if (referCheck ==true) {
+        boolean referCheck = inventoryLocationTransfersService.referCodeCheck(inventoryLocationTransfers.getIltReference());
+
+        /// referance check start
+        if (referCheck == true) {
 
             ObjectError referCodeError;
 
-            referCodeError = new ObjectError("inAdReference", "This code "+inventoryLocationTransfers.getIltReference()+" is exists. Please  refresh your browser and try again.");
+            referCodeError = new ObjectError("inAdReference", "This code " + inventoryLocationTransfers.getIltReference() + " is exists. Please  refresh your browser and try again.");
 
             bindingResult.addError(referCodeError);
         }
-  
         
+     // location check 
+        
+       if (inventoryLocationTransfers.getFromLocation() == inventoryLocationTransfers.getToLocation()) {
+
+            ObjectError locationError;
+
+            locationError = new ObjectError("fromLocation"," The locations to transfer from and to must be different.");
+
+            bindingResult.addError(locationError);
+        } 
+        
+        
+
+        /// referance check end
+        /// cart check start
         List<InventoryCartItem> cartItemList = (List<InventoryCartItem>) inventoryItemSession.getAttribute("inventoryItemCartSession");
 
         if (cartItemList == null || cartItemList.size() == 0) {
@@ -123,6 +139,34 @@ public class InventoryLocationTransfersController {
             bindingResult.addError(cartItemListError);
         }
 
+        /// cart check end
+        /// quantity check start
+//        if (cartItemList != null || cartItemList.size() != 0) {
+//
+//            for (InventoryCartItem inventoryCartItemlist : cartItemList) {
+//
+//                inventoryCartItemlist.getItemId();
+//
+//                Items item = new Items();
+//                item.setId(inventoryCartItemlist.getItemId());
+//
+//                BigDecimal quantityStatus = stockMoveService.quantityStatusByLocationAndItem(inventoryLocationTransfers.getFromLocation(), item);
+//
+//                int res = quantityStatus.compareTo(inventoryCartItemlist.getQuantity());
+//
+//                if (res == -1) {
+//
+//                    ObjectError quantityerror;
+//
+//                    quantityerror = new ObjectError("inventoryLocationTransfersItem", inventoryCartItemlist.getItemName() + "items have insufficient quantities in stock as on day of transfer.");
+//
+//                    bindingResult.addError(quantityerror);
+//                } // end if
+//
+//            } // end fore each
+//        } /// end if 
+
+/// quantity check end  
         if (bindingResult.hasErrors()) {
             ///   set  transactions Type
             TransactionsType transactionsType = new TransactionsType();
@@ -164,17 +208,15 @@ public class InventoryLocationTransfersController {
             inventoryLocationTransfersItem.setItemTotal(inventoryCartItemlist.getItemTotal());
 
             inventoryLocationTransfersItemList.add(inventoryLocationTransfersItem);
-            
-            
-            
+
             //  stock moves From
             StockMoves stockMovesFrom = new StockMoves();
 
             stockMovesFrom.setTranDate(inventoryLocationTransfers.getIltDate());
 
             stockMovesFrom.setItems(itemCode);
-            
-             TransactionsType transactionsType = new TransactionsType();
+
+            TransactionsType transactionsType = new TransactionsType();
 
             transactionsType = transactionsTypeRepository.findBySlug("location-transfer");
 
@@ -204,7 +246,7 @@ public class InventoryLocationTransfersController {
             stockMovesFrom.setMemo(inventoryLocationTransfers.getMemo());
 
             stockMoveslist.add(stockMovesFrom);
-    
+
             //  stock moves to
             StockMoves stockMovesTo = new StockMoves();
 
@@ -264,6 +306,19 @@ public class InventoryLocationTransfersController {
 
         model.addAttribute("list", inventoryLocationTransfersRepository.findAllByOrderByIdDesc());
 
+        List<InventoryLocationTransfersItem> inventoryLocationTransfersItem = inventoryLocationTransfersItemRepository.findAll();
+
+        Function<InventoryLocationTransfersItem, BigDecimal> totalQuantityMapper = inventoryAdjustmentItem -> inventoryAdjustmentItem.getQuantity();
+        BigDecimal totalquantity = inventoryLocationTransfersItem.stream().map(totalQuantityMapper).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        model.addAttribute("totalquantity", totalquantity);
+
+        Function<InventoryLocationTransfersItem, BigDecimal> totalPriceMapper = inventoryAdjustmentItem -> inventoryAdjustmentItem.getItemTotal();
+
+        BigDecimal totalPrice = inventoryLocationTransfersItem.stream().map(totalPriceMapper).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        model.addAttribute("totalPrice", totalPrice);
+
         return "module/inventory/transactions/inventorylocationtransfers_list";
     }
 
@@ -279,7 +334,7 @@ public class InventoryLocationTransfersController {
     public String print(Model model, @PathVariable Long id, InventoryLocationTransfers inventoryLocationTransfers) {
 
         model.addAttribute("user_name", loggedUserService.activeUserName());
-        
+
         model.addAttribute("inventoryAdjustment", inventoryLocationTransfersRepository.getOne(id));
 
         return "module/inventory/transactions/inventorylocationtransfers_print";

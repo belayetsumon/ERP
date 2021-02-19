@@ -6,7 +6,11 @@
 package com.itgarden.ERP.module.finance_banking.model.settings;
 
 import com.itgarden.ERP.module.finance_banking.model.enumvalue.AccountType;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -16,12 +20,18 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  *
  * @author User
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class BankAccounts {
 
     @Id
@@ -30,12 +40,16 @@ public class BankAccounts {
     @NotEmpty(message = "This field cannot be blank.")
     String bankAccountName;
     @NotNull(message = "This field cannot be blank.")
+//
+//    @NotEmpty(message = "Slug cannot be blank.")
+//    public String slug;
+
     @Enumerated(EnumType.STRING)
     AccountType accountType;
     @NotNull(message = "This field cannot be blank.")
     @ManyToOne
     GlAccounts bankAccountGLCode;
-    
+
     @NotNull(message = "This field cannot be blank.")
     @ManyToOne
     GlAccounts bankChargesAccount;
@@ -44,13 +58,39 @@ public class BankAccounts {
     @NotEmpty(message = "This field cannot be blank.")
     String bankAccountNumber;
     String bankAddress;
+
+    private BigDecimal bankcharge;
     @Lob
     String remark;
 
-    public BankAccounts() {
+    /// Audit /// 
+//    @Version
+//    private int version;
+//
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime created;
+
+    @LastModifiedBy
+    @Column(insertable = false, updatable = true)
+    private String modifiedBy;
+
+  
+
+    @LastModifiedDate
+    @Column(insertable = false, updatable = true)
+    private LocalDateTime modified;
+
+    /// End Audit //// 
+   
+     public BankAccounts() {
     }
 
-    public BankAccounts(Long id, String bankAccountName, AccountType accountType, GlAccounts bankAccountGLCode, GlAccounts bankChargesAccount, String bankName, String bankAccountNumber, String bankAddress, String remark) {
+    public BankAccounts(Long id, String bankAccountName, AccountType accountType, GlAccounts bankAccountGLCode, GlAccounts bankChargesAccount, String bankName, String bankAccountNumber, String bankAddress, BigDecimal bankcharge, String remark, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified) {
         this.id = id;
         this.bankAccountName = bankAccountName;
         this.accountType = accountType;
@@ -59,7 +99,12 @@ public class BankAccounts {
         this.bankName = bankName;
         this.bankAccountNumber = bankAccountNumber;
         this.bankAddress = bankAddress;
+        this.bankcharge = bankcharge;
         this.remark = remark;
+        this.createdBy = createdBy;
+        this.created = created;
+        this.modifiedBy = modifiedBy;
+        this.modified = modified;
     }
 
     public Long getId() {
@@ -102,9 +147,6 @@ public class BankAccounts {
         this.bankChargesAccount = bankChargesAccount;
     }
 
-   
-   
-
     public String getBankName() {
         return bankName;
     }
@@ -129,6 +171,14 @@ public class BankAccounts {
         this.bankAddress = bankAddress;
     }
 
+    public BigDecimal getBankcharge() {
+        return bankcharge;
+    }
+
+    public void setBankcharge(BigDecimal bankcharge) {
+        this.bankcharge = bankcharge;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -137,4 +187,37 @@ public class BankAccounts {
         this.remark = remark;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public LocalDateTime getModified() {
+        return modified;
+    }
+
+    public void setModified(LocalDateTime modified) {
+        this.modified = modified;
+    }
+
+   
 }

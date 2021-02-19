@@ -21,7 +21,9 @@ and open the template in the editor.
         size: A4;
     }
 
-
+    #new_pos_sales_entry_button{
+        display: none;
+    }
 
     .print_section{
         max-width: 250mm;

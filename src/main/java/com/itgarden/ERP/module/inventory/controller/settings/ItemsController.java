@@ -48,6 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -64,6 +65,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping({"/items"})
+@CacheConfig(cacheNames={"items"})
 public class ItemsController {
 
     @Autowired
@@ -173,8 +175,8 @@ public class ItemsController {
 
     @GetMapping(value = {"/itembyitemcode/{itemCode}"}, produces = {"application/json"})
     @ResponseBody
-    public ItemDTO itemByItemCode(final Model model, @PathVariable final int itemCode) {
-        final ItemDTO iteminfo = this.itemService.itemByItemCodeAndactiveSales(itemCode, false, true);
+    public ItemDTO itemByItemCode(final Model model, @PathVariable String itemCode) {
+        final ItemDTO iteminfo = this.itemService.itemByItemCode(itemCode);
         return iteminfo;
     }
 
@@ -184,6 +186,9 @@ public class ItemsController {
         final ItemDTO iteminfo = itemService.itemById(id);
         return iteminfo;
     }
+    
+    
+    
 
     @RequestMapping({"/short_entry"})
     public String itemShortEntry(final Model model, final Items items) {

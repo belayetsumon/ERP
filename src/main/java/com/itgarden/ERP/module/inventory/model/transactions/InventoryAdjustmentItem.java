@@ -44,6 +44,8 @@ public class InventoryAdjustmentItem {
     private String unit;
 
     private BigDecimal price;
+    
+    
 
     private BigDecimal itemTotal;
 

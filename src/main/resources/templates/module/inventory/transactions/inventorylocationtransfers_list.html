@@ -27,6 +27,16 @@
                     <div class="box-body">
                         <div class="responsive">
 
+                            <table class="table  table-bordered">
+                                <tr>
+                                    <th> Total Quantity</th>
+                                    <td> <span th:text="${totalquantity}"></span></td>
+                                    <th> Total Price</th>
+                                    <td> <span th:text="${totalPrice}"></span>  </td>
+                                </tr>
+                            </table>
+
+
                             <table id="table_search_pagination" class="table  table-bordered">
                                 <tr>
                                     <th> #</th>
@@ -34,23 +44,22 @@
                                     <th>Reference </th>
                                     <th> From  </th>
                                     <th> To </th>
-
-                                    <th>Qnty</th>
+                                    <th>Qty.</th>
                                     <th>Total </th>
                                     <th>Details</th>
                                 </tr>
                                 <tr th:each="lists, status:${list}">
                                     <td th:text="${status.count}"></td>
-                                     <td th:text="${lists.iltDate}"> </td>
+                                    <td th:text="${lists.iltDate}"> </td>
                                     <td th:text="${lists.iltReference}"></td>
                                     <td th:text="${lists.fromLocation.locationName}"></td>
                                     <td th:text="${lists.toLocation.locationName}"></td>
-                                   
+
                                     <td> <span th:text="${#aggregates.sum(lists.inventoryLocationTransfersItem.![quantity])}" /></span></td>
                                     <td> <span th:text="${#aggregates.sum(lists.inventoryLocationTransfersItem.![itemTotal])}" />/-</span></td>
                                     <td><a th:href="@{/inventorylocationtransfers/details/{id}(id=${lists.id})}">Details</a></td>
                                 </tr>
-                                <tr>
+
                             </table>
                         </div>
 

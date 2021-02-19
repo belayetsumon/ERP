@@ -6,6 +6,7 @@
 package com.itgarden.ERP.module.inventory.model.settings;
 
 import java.time.LocalDateTime;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -26,6 +29,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Cacheable
+@Cache(usage =CacheConcurrencyStrategy.TRANSACTIONAL,region = "RreorderLlevels")
 public class ReorderLevels {
 
     @Id

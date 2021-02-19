@@ -32,15 +32,15 @@
 
                         <form  th:action="@{/inventoryitemstatus/itembylocation}" method="post" class=""> 
 
-                            <table id="table_search_pagination" class="table table-bordered">
+                            <table id="" class="table table-bordered">
 
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td>  
 
-                                        <select class="form-control " name="inventoryLocations">
-                                            <option value="0">Select Location</option>
+                                        <select class="form-control " name="inventoryLocations" required="true">
+                                            <option value="">Select Location</option>
                                             <option th:each=" inventoryLocationlists :${locationsList}"
                                                     th:value=" ${inventoryLocationlists.id}"
                                                     th:text="${inventoryLocationlists.locationName}">
@@ -64,45 +64,50 @@
 
                         <h4 class="text-center bg-green "> <span th:text="${location_name}"> </span> Inventory Status </h4>
 
-                        <table class="table  table-bordered">
-
+                      
+                         <table id="" class="table  table-bordered">
+                            <tr th:if="${not#lists.isEmpty(list)}">           
+                                <th colspan="2" > Total Quantity</th>
+                                <td><span th:text="${#aggregates.sum(list.![quantity])}"> </span> </td>
+                                <th colspan="2"> Total Retail Price</th>
+                                <td> <span th:text="${#aggregates.sum(list.![itemTotal])}"> </span></td>
+                            </tr>
+                        </table>
+                        <br>
+                                <table id="table_search_pagination" class="table  table-bordered">
+     <thead>
+                            <tr th:if="${#lists.isEmpty(list)}" >           
+                                <th colspan="6"  class="text-center"> Sorry no information found.</th>
+                            </tr>
                             <tr>
                                 <th>#</th>
+                                <th>Item Code </th>
                                 <th>Item/Product Name </th>
+
                                 <th>Quantity </th>
-<!--                                <th>Unit</th>
-                                <th> Retail Price </th>
-                                <th> Total </th>-->
-
-                            </tr>
-
-
-                            <tr th:if="${#lists.isEmpty(list)}" >           
-                                <th colspan="11"  class="text-center"> Sorry no information found.</th>
-                            </tr>
-
-                            <tr th:if="${not#lists.isEmpty(list)}" th:each="lists,status:${list}">
-
-                                <td th:text="${status.count}"></td>
-
-                                <td th:text="${lists.key.name}"></td>
-
-                                <td th:text="${lists.value}"> </td>
-
-
-                                <!--                                <td th:text="${lists.qty}"></td>-->
-                                <!--                                <td th:text="${lists.standardCost}"></td>-->
                                
+                                <th>Retail Price</th>
+                                <th>Total</th>
+
+                            </tr>
+                            
+                                </thead>
+                            <tbody>
+                            <tr th:if="${not#lists.isEmpty(list)}" th:each="lists,status:${list}">
+                                <td th:text="${status.count}"></td>
+                                <td th:text="${lists.itemCode}"></td>
+                                <td th:text="${lists.name}"></td>
+                                <td th:text="${lists.quantity}"> </td>
+
+                               
+
+                                <td th:text="${lists.retailPrice}"> </td>
+                                <td th:text="${lists.itemTotal}"> </td>
                             </tr>
 
-                         
-                        </table> 
-
-
-
-
-
-                    </div>
+                      </tbody></table>
+                        
+                        </div>
 
 
 

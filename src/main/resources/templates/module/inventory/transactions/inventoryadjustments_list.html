@@ -26,31 +26,44 @@
                     </div>
                     <div class="box-body">
                         <div class="responsive">
-                        
-                        <table id="table_search_pagination" class="table  table-bordered">
-                            <tr>
-                                  <th>#</th>
-                                  <th>Date</th>
-                                      <th>Reference </th>
-                                <th>Location </th>
-                                
+
+<table class="table  table-bordered">
+                                <tr>
+                                    <th> Total Quantity</th>
+                                    <td> <span th:text="${totalquantity}"></span></td>
+                                    <th> Total Price</th>
+                                    <td> <span th:text="${totalPrice}"></span>  </td>
+                                </tr>
+                            </table>
+
+
+                            <table id="table_search_pagination" class="table  table-bordered">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Reference </th>
+                                    <th>Location </th>
+
+
+                                    <th>Qnty</th>
+                                    <th>Total </th>
+                                    <th>Details</th>
+                                </tr>
+                                <tr th:each="lists, status:${list}">
+                                    <td th:text="${status.count}"></td>
+                                    <td th:text="${lists.adDate}"> </td>
+                                    <td th:text="${lists.inAdReference}"></td>
+                                    <td th:text="${lists.inventoryLocations.locationName}"></td>
+
+                                    <td> <span th:text="${#aggregates.sum(lists.inventoryAdjustmentItem.![quantity])}" /></span></td>
+                                    <td> <span th:text="${#aggregates.sum(lists.inventoryAdjustmentItem.![itemTotal])}" />/-</span></td>
+                                    <td><a th:href="@{/inventoryadjustments/details/{id}(id=${lists.id})}">Details</a></td>
+                                </tr>
+                            </table>
+
                             
-                                <th>Qnty</th>
-                                <th>Total </th>
-                                <th>Details</th>
-                            </tr>
-                            <tr th:each="lists, status:${list}">
-                                <td th:text="${status.count}"></td>
-                                <td th:text="${lists.adDate}"> </td>
-                                <td th:text="${lists.inAdReference}"></td>
-                                <td th:text="${lists.inventoryLocations.locationName}"></td>
-                                
-                                <td> <span th:text="${#aggregates.sum(lists.inventoryAdjustmentItem.![quantity])}" /></span></td>
-                                <td> <span th:text="${#aggregates.sum(lists.inventoryAdjustmentItem.![itemTotal])}" />/-</span></td>
-                                <td><a th:href="@{/inventoryadjustments/details/{id}(id=${lists.id})}">Details</a></td>
-                            </tr>
-                            <tr>
-                        </table>
+                            
+                            <br>
                         </div>
 
                         <!-- /.box-body -->

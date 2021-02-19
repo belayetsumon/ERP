@@ -53,8 +53,7 @@ public class BranchExpenseController {
 
     @RequestMapping(value = {"", "/", "/index"})
     public String index(Model model, BranchExpense branchExpense) {
-        
-        
+               
         /// set refe 
         
         branchExpense.setExpenseReference(branchExpenseService.refarance());

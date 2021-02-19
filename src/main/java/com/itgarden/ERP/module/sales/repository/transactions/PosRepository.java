@@ -6,6 +6,8 @@
 package com.itgarden.ERP.module.sales.repository.transactions;
 
 import com.itgarden.ERP.module.sales.model.transactions.Pos;
+import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,7 +15,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author User
  */
 public interface PosRepository extends JpaRepository<Pos, Long> {
+
+    Pos findTopByOrderByInvoicenoDesc();
+
+    Pos findByPosReference(String posReference);
     
-  Pos  findTopByOrderByInvoicenoDesc();
-    
+     List<Pos> findByAllocIsNullOrderByInvoicenoDesc();
+
 }

@@ -9,7 +9,9 @@ import com.itgarden.ERP.module.inventory.repository.settings.ItemsRepository;
 import com.itgarden.ERP.module.sales.cart.model.SalesCartItem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import javax.servlet.http.HttpSession;
@@ -52,12 +54,15 @@ public class SalesCartController {
 //
 //        return "redirect:/salesquotationentry/index";
 //    }
-    @PostMapping(value = "/hello")
+    @PostMapping(value = "/save")
     public ResponseEntity<SalesCartAjaxResponse> hello(@RequestBody(required = false) SalesCartItem salesCartItem, HttpSession salesItemSession) {
 
         if (salesItemSession.getAttribute("salesItemCartSession") == null) {
 
             List<SalesCartItem> cartItemList = new ArrayList<SalesCartItem>();
+
+            salesCartItem.setId(1l);
+
             cartItemList.add(salesCartItem);
 
             salesItemSession.setAttribute("salesItemCartSession", cartItemList);
@@ -75,6 +80,20 @@ public class SalesCartController {
             Predicate<SalesCartItem> condition = sci -> sci.getId() == salesCartItem.getId();
 
             cartItemList.removeIf(condition);
+            
+
+           
+
+            if (salesCartItem.getId() == 0l) {
+                
+                Optional<SalesCartItem> id = cartItemList.stream().max(Comparator.comparing(SalesCartItem::getId));
+        
+                salesCartItem.setId(  id.get().getId()+1l);
+            }else{
+            
+                salesCartItem.setId(salesCartItem.getId());
+            
+            }
 
             cartItemList.add(salesCartItem);
 
@@ -118,8 +137,8 @@ public class SalesCartController {
 
     //////////////////  start total discount;
     public BigDecimal totaldiscount(List<SalesCartItem> cartItemList) {
-        
-         BigDecimal totaldiscount = BigDecimal.ZERO;
+
+        BigDecimal totaldiscount = BigDecimal.ZERO;
 
         if (cartItemList != null) {
 
@@ -160,9 +179,8 @@ public class SalesCartController {
 
     //////////////////  start itemTotal;
     public BigDecimal itemTotal(List<SalesCartItem> cartItemList) {
-        
-        
-         BigDecimal itemTotal = BigDecimal.ZERO;
+
+        BigDecimal itemTotal = BigDecimal.ZERO;
 
         if (cartItemList != null) {
 

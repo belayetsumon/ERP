@@ -6,9 +6,9 @@
 package com.itgarden.ERP.module.inventory.repository.transactions;
 
 import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
+import com.itgarden.ERP.module.inventory.model.settings.Items;
 import com.itgarden.ERP.module.inventory.model.transactions.StockMoves;
 import java.util.List;
-import javax.persistence.EntityManager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +20,7 @@ import org.springframework.stereotype.Repository;
 public interface StockMovesRepository extends JpaRepository<StockMoves, Long> {
     
 List<StockMoves> findByInventoryLocations(InventoryLocations inventoryLocations);
+
+List<StockMoves> findByInventoryLocationsAndItems(InventoryLocations inventoryLocations,Items item);
 
 }

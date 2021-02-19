@@ -5,130 +5,118 @@
  */
 
 //Date Start
-
-//Quotation Item Search
-$(document).ready(function () {
-    $('#diCustomers').select2({
-        placeholder: 'Select a month'
-    });
-});
-
-$(document).ready(function () {
-
-    $(function () {
-        $("#invoiceDate").datepicker({
-
-            dateFormat: 'dd/mm/yy'
-
-        });
-    });
-
-    $(function () {
-        $("#diDueDate").datepicker(
-                {
-                    dateFormat: 'dd/mm/yy'
-                });
-    });
-
-});
-
-
+//
+//$(document).ready(function () {
+//
+//
+//
+//    $(function () {
+//        $("#invoiceDate").datepicker({
+//            update: new Date(),
+//            dateFormat: 'dd/mm/yy'
+//
+//        });
+//    });
+//});
 //Date End
 
 
-//Customer Search
 
-$(document).ready(function () {
-
-    $('#diCustomers').on('change', function () {
-
-        var customerId = $(this).val();
-//alert(customerId);
-        $.ajax({
-            type: 'GET',
-            url: "/customers/customerbyid/" + customerId,
-            dataType: 'json',
-            success: function (data) {
-
-                // $("#contactPersonsName").val("");
-                $("#discount").val("");
-
-                $("#contactPersonsName").val(data.contactPersonsName);
-
-                $("#discount").val(data.discountPercent);
-
-                $("#priceType").append(new Option(data.salesTypeOrPriceList, data.salesTypeOrPriceList, true, true));
-
-                //alert(data);
-            },
-            error: function (request, status, error) {
-                alert(request.responseText);
-            }
-        });
-
-    });
-
-
-
-});
-
-
-//End Customer And order Information
 
 //Start Item Information
 //
 //Quotation Item Search
-$(document).ready(function () {
-    $('.diitemselect').select2({
-        placeholder: 'Select a item'
-    });
-});
-
-
 
 // Quteation item search By Name 
 
 $(document).ready(function () {
 
-    $('.diitemselect').on('change', function () {
-        var itemId = $(this).val();
-        // alert("Item-Id");
-        $.ajax({
-            type: 'GET',
-            url: "/items/itembyitemid/" + itemId,
-            dataType: 'json',
-            success: function (data) {
-                $("#diid").val(data.id);
+    /// barcode
 
-                $("#diquantity").val(1);
+    $('.p_itemBarCode').focusout(function () {
+        var itemBarCode = $(this).val().trim();
 
-                if ($("#priceType").val() === "Wholesale") {
-                    $("#diprice").val(data.wholesalePrice);
-                } else {
 
-                    $("#diprice").val(data.retailPrice);
+        if (itemBarCode != '') {
+            $.ajax({
+                type: 'GET',
+                url: "/items/itembyitemcode/" + itemBarCode,
+                dataType: 'json',
+                success: function (data) {
+
+                    $("#p_itemId").val(data.id);
+
+                    $("#p_itemBarCode").val();
+
+                    $("#p_name").val(data.name);
+
+                    $("#p_quantity").val(1);
+
+                    $("#p_price").val(data.retailPrice);
+
+                    $("#p_unit").val(data.unitsofMeasureName);
+
+                    $("#p_discount").val(data.discount);
+
+                    $("#p_vat").val(7.5);
+
+
+                    if (data.discount != null) {
+
+                        var discount = data.discount / 100;
+
+                    } else {
+
+                        var discount = 0.00;
+                    }
+                   var tdiscount = data.retailPrice * discount;
+
+                    var afterDiscTotal = data.retailPrice - tdiscount;
+
+                    var vat = 7.5 /100;
+
+                    var tVat = afterDiscTotal * vat;
+
+
+                    var afterVatTotal = afterDiscTotal + (afterDiscTotal * 7.5 / 100);
+
+                    $("#p_totalDiscount").val(tdiscount.toFixed(2));
+
+                    $("#p_totalVat").val(tVat.toFixed(2));
+
+
+                    $("#p_itemTotal").val(afterVatTotal.toFixed(2));
+
+                    //alert(data);
+                },
+                error: function (request, status, error) {
+                    // alert(request.responseText);
+
+                    alert("Something wrong!");
                 }
-                $("#diunit").val(data.unitsofMeasureName);
-                $("#didiscount").val(data.discount);
+            });
 
-                //alert(data);
-            },
-            error: function (request, status, error) {
-                alert(request.responseText);
-            }
-        });
+            /// Ajax end
+        } else {
+
+            alert("Product/Item barcode is empty");
+
+        }
+
+        //null condition end
+
 
     });
 
 
-//Price Calculation
+    //Price Calculation
 
-    $('#diprice,#diquantity,#didiscount,#diVat').on('change', function () {
+    $('.p_itemBarCode,#p_price,#p_quantity,#p_discount,#p_vat').on('change', function () {
 
-        var qtquantity = $("#diquantity").val();
-        var qtiprice = $("#diprice").val();
-        var qtidis = $("#didiscount").val();
-        var qtVat = $("#diVat").val();
+        var qtquantity = $("#p_quantity").val();
+        var qtiprice = $("#p_price").val();
+        var qtidis = $("#p_discount").val();
+        var qtVat = $("#p_vat").val();
 
 //        var dis = (qtidis / 100);
 
@@ -143,13 +131,11 @@ $(document).ready(function () {
 
         var afterTaxTotal = afterDiscount + totalTax;
 
+        $("#p_totalDiscount").val(totaldis.toFixed(2));
 
+        $("#p_totalVat").val(totalTax.toFixed(2));
 
-        $("#ditotalDiscount").val(totaldis.toFixed(2));
-
-        $("#ditotalVat").val(totalTax.toFixed(2));
-
-        $("#diitemTotal").val(afterTaxTotal.toFixed(2));
+        $("#p_itemTotal").val(afterTaxTotal.toFixed(2));
 
     });
 });
@@ -160,29 +146,31 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    $("#invoiceItemSaveButton").on("click", quotationItemSave);
+    $("#p_itemSaveButton").on("click", posItemSave);
 
-    function quotationItemSave() {
+    function posItemSave() {
         //  var url = $("#qTsalesCartItem").attr("action");
 
         var formData = {
-            'id': $('#diid').val(),
-            'itemCode': $('.diitemselect').val(),
-            'itemDescription': $('#didescription').val(),
-            'quantity': $('#diquantity').val(),
-            'unit': $('#diunit').val(),
-            'price': $('#diprice').val(),
-            'discountPercent': $('#didiscount').val(),
-            'discountTotal': $('#ditotalDiscount').val(),
-            'taxPercent': $('#diVat').val(),
-            'taxTotal': $('#ditotalVat').val(),
-            'itemTotal': $('#diitemTotal').val(),
+            'id': $('#p_id').val(),
+            'itemId': $('#p_itemId').val(),
+            'itemCode': $('.p_itemBarCode').val(),
+            'name': $('#p_name').val(),
+            'itemDescription': $('#p_description').val(),
+            'quantity': $('#p_quantity').val(),
+            'unit': $('#p_unit').val(),
+            'price': $('#p_price').val(),
+            'discountPercent': $('#p_discount').val(),
+            'discountTotal': $('#p_totalDiscount').val(),
+            'taxPercent': $('#p_vat').val(),
+            'taxTotal': $('#p_totalVat').val(),
+            'itemTotal': $('#p_itemTotal').val(),
         };
 
         // alert(JSON.stringify(formData));
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url: "/salescart/hello",
+            url: "/salescart/save",
             data: JSON.stringify(formData), // our data object
             dataType: 'json',
             contentType: 'application/json',
@@ -190,8 +178,19 @@ $(document).ready(function () {
             success: function (data) {
                 window.location.reload();
 
-                //  alert(JSON.stringify(data.msg));
-                // $('#qTitemTable').html(data).delay(1000);
+                $("#p_id").val("");
+                $("#p_itemId").val("");
+                $(".p_itemBarCode").val("");
+                $("#p_name").val("");
+                $("#p_description").val("");
+                $("#p_quantity").val("");
+                $("#p_price").val("");
+                $("#p_unit").val("");
+                $("#p_discount").val("");
+                $("#p_totalDiscount").val("");
+                $("#p_vat").val("");
+                $("#p_totalVat").val("");
+                $("#p_itemTotal").val("");
             },
             error: function (request, status, error) {
                 alert(error);
@@ -203,25 +202,24 @@ $(document).ready(function () {
 });
 
 
-
 //qutation item delete
 
 $(document).ready(function () {
 
-    $("#diitemTable").on("click", '#diitemDelete', function () {
+    $("#p_itemTable").on("click", '#p_itemDelete', function () {
 //        alert("hello");
 
         var tr = $(this).closest("tr");
-        var itemId = $(tr).find("#itemId").html();
+        var id = $(tr).find("#id").html();
 //        alert(itemId);
 
         $.ajax({
             type: 'GET',
-            url: "/salescart/itemdelete/" + itemId,
+            url: "/salescart/itemdelete/" + id,
             success: function (data) {
-                alert(data);
+                // alert(data);
                 $(tr).remove();
-                 window.location.reload();
+                window.location.reload();
             },
             error: function (request, status, error) {
                 alert('Delete error !!');
@@ -237,32 +235,59 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    $("#diitemTable").on("click", '#diitemEdit', function () {
+    $("#p_itemTable").on("click", '#p_itemEdit', function () {
 
-        alert("hello");
+        //   alert("hello");
 
         var tr = $(this).closest("tr");
-
-        var itemId = $(tr).find("#itemId").html();
+        var id = $(tr).find("#id").html();
+        var itemId = $(tr).find("#itemId").val();
         var itemCode = $(tr).find("#itemCode").html();
+        var itemName = $(tr).find("#itemName").html();
         var itemQuantity = $(tr).find("#itemQuantity").html();
         var itemUnit = $(tr).find("#itemUnit").html();
         var itemPrice = $(tr).find("#itemPrice").html();
         var itemDiscount = $(tr).find("#itemDiscount").html();
         var itemTax = $(tr).find("#itemTax").html();
         var itemItemTotal = $(tr).find("#itemItemTotal").html();
-        $('#diid').val(itemId);
-        $('.diitemselect').val(itemCode);
 
-        $(".diitemselect").append(new Option(itemCode, itemId, true, true));
+        $('#p_id').val(id);
+        $('#p_itemId').val(itemId);
+        $('.p_itemBarCode').val(itemCode);
+        $('#p_name').val(itemName);
+        $('#p_description').val();
+        $('#p_quantity').val(itemQuantity);
+        $('#p_unit').val(itemUnit);
+        $('#p_price').val(itemPrice);
+        $('#p_discount').val(itemDiscount);
+        $('#p_vat').val(itemTax);
+        $('#p_itemTotal').val(itemItemTotal);
 
-        $('#didescription').val();
-        $('#diquantity').val(itemQuantity);
-        $('#diunit').val(itemUnit);
-        $('#diprice').val(itemPrice);
-        $('#didiscount').val(itemDiscount);
-        $('#diVat').val(itemTax);
-        $('#diitemTotal').val(itemItemTotal);
+    });
+
+});
+
+/// bank charge
+
+$(document).ready(function () {
+
+    $("#bankAccounts").on("change", function () {
+
+        var bankId = $(this).val().trim();
+//        alert(itemId);
+
+        $.ajax({
+            type: 'GET',
+            url: "/branchpos/bankcharge/" + bankId,
+            success: function (data) {
+
+                $("#bankCharge").val(data);
+
+            },
+            error: function (request, status, error) {
+                alert('Something wrong!');
+            }
+        });
 
     });
 

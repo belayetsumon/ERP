@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" layout:decorator="theme/admin-layout-label-print">
+
+    <div layout:fragment = "main_content">
+         <a id="new_pos_sales_entry_button" type="button"  
+            th:href="@{/branchpos/clean}"  class="btn  btn-primary btn-sm">New POS Sales Entry</a>
+        
+            <div  style=" 
+              width:288px;
+              background: #fff;
+              border: 1px solid #f4f4f4;
+              padding: 5px 2px 0px 2px ;
+              margin: 5px 0px;
+              font-size: 14px;
+              /*              line-height: 0px;*/
+              font-family: 'Times New Roman', Times, serif;           
+              ">
+
+
+            <h1 style='text-align: center;'>  Neel Anchal Sarees</h1>
+            <b> Location:</b><span th:text="${pos.fromStkLoc.locationName}"></span><br>
+            <b> Ref.: </b><span th:text="${pos.posReference}"></span><br>
+            <b>Date: </b><span th:text="${pos.invoiceDate}"></span><br>
+            <b>SM:</b> <span th:text="${pos.salesPersons.salesPersonName}"></span><br>
+
+            <table>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Code&Name</th>
+
+                    <th scope="col">Qty.</th>
+
+                    <th scope="col">Price</th>
+
+                    <th scope="col">Disc%</th>
+
+
+                    <th scope="col">Total</th>
+                </tr>
+
+                <tr th:each=" posItemList, status :${pos.posItem}">           
+                    <th><span th:text="${status.count}"></span></th>
+                    <td><span th:text="${posItemList.itemId.itemCode}"></span>,<span th:text="${posItemList.itemId.name}"></span></td>
+                    <td><span th:text="${posItemList.quantity}"></span></td>
+                    <!--                    <td><span th:text="${posItemList.itemId.unitsofMeasure}"></span></td>-->
+                    <td style="text-align: right;"><span th:text="${posItemList.unitPrice}"></span></td>
+                    <td style="text-align: right;"><span th:text="${posItemList.discount_percent}"></span></td>
+
+                    <td style="text-align: right;"><span th:text="${posItemList.itemTotal}"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: right;"><b>Total Discount:</b></td>
+                    <td colspan="2" style="text-align: right;"><span th:text="${pos.totalDiscount}"></span></td>
+
+
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: right;"><b>Total VAT(7.5%):</b></td>
+                    <td colspan="2" style="text-align: right;"><span th:text="${pos.totalVat}"></span></td>
+
+
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: right;"> <b>Grand Total:</b></td>
+                    <td colspan="2" style="text-align: right;"><span th:text="${pos.grandTotal}"></span></td>
+
+
+                </tr>
+
+                <tr>
+                    <td colspan="6" style="text-align:left;"><b>Created By:</b><span th:text="${pos.createdBy}"></span></td>
+                   
+                </tr>
+
+
+            </table>
+            <h3 style='text-align: center;'>Thank You!</h4>
+
+            <div style='text-align: center;'> **Powered By: Liberty ERP.**</div>
+
+
+            <!--            <strong> <span style=" font-size: 18px;">Price:<span th:text="${retailSalesPricing}"></span>+VAT</span></strong>
+                        <span style=" font-family: 'Libre Barcode 128 Text', cursive;font-size: 48px; margin: 0px 0px 0px 0px; color: #000; line-height: 48px;" th:text="${item.itemCode}"></span><br>
+                        <span style=" font-size: 16px;" th:text="${item.name}"></span><br>
+                      
+                        <div  th:if="${discount>0}">
+                            <span style=" font-size: 16px;">Discount:</span> <span th:text="${discount}"></span>%
+                        </div>-->
+        </div>
+    </div>
+</div>

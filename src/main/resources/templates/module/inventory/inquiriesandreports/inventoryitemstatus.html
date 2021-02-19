@@ -22,7 +22,7 @@
 
                         <div class="box-tools pull-right">
                             <div class="btn-group">
-                                
+
                                 <a type="button"  th:href="@{/inventory/index}" class="btn  btn-danger btn-xs">Close</a>
                             </div>
                         </div>
@@ -34,10 +34,8 @@
                         <form  th:action="@{/inventoryitemstatus/itembylocation}" method="post" class=""> 
 
                             <table class="table table-bordered">
-
                                 <tr>
                                     <td>  
-
                                         <select class="form-control" name="inventoryLocations">
                                             <option value="0">Select Location</option>
                                             <option th:each=" inventoryLocationlists :${locationsList}"
@@ -45,50 +43,55 @@
                                                     th:text="${inventoryLocationlists.locationName}">
                                                 Select one</option>
                                         </select> 
-                                     </td>
+                                    </td>
                                     <td>
-
                                         <button type="submit" class="btn btn-primary btn-sm pull-right">Submit</button> 
-
                                     </td>
                                 </tr>
-
                             </table>
                         </form>
 
+
+                        <table id="" class="table  table-bordered">
+                            <tr th:if="${not#lists.isEmpty(list)}">           
+                                <th colspan="2" > Total Quantity</th>
+                                <td><span th:text="${#aggregates.sum(list.![quantity])}"> </span> </td>
+                                <th colspan="2"> Total Retail Price</th>
+                                <td> <span th:text="${#aggregates.sum(list.![itemTotal])}"> </span></td>
+                            </tr>
+                        </table>
+                        <br>
                         <table id="table_search_pagination" class="table  table-bordered">
+                            <thead>
+                                <tr th:if="${#lists.isEmpty(list)}" >           
+                                    <th colspan="6"  class="text-center"> Sorry no information found.</th>
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Item Code </th>
+                                    <th>Item/Product Name </th>
 
-                            <tr>
-                                <!--                                <th>#</th>-->
-                                <th>Item/Product Name </th>
+                                    <th>Quantity </th>
 
-                                <th>Quantity </th>
-<!--                                 <th>Unit</th>
-                                 <th>Retail Price</th>
-                                   <th>Total</th>-->
-            
-                            </tr>
+                                    <th>Retail Price</th>
+                                    <th>Total</th>
+                                </tr>
 
 
-                            <tr th:if="${#lists.isEmpty(list)}" >           
-                                <th colspan="11"  class="text-center"> Sorry no information found.</th>
-                            </tr>
+                            </thead>
+                            <tbody>
 
-                            <tr th:if="${not#lists.isEmpty(list)}" th:each="lists,status:${list}">
+                                <tr th:if="${not#lists.isEmpty(list)}" th:each="lists,status:${list}">
+                                    <td th:text="${status.count}"></td>
+                                    <td th:text="${lists.itemCode}"></td>
+                                    <td th:text="${lists.name}"></td>
+                                    <td th:text="${lists.quantity}"> </td>
 
-                                <td th:text="${lists.key.name}"></td>
+                                    <td th:text="${lists.retailPrice}"> </td>
+                                    <td th:text="${lists.itemTotal}"> </td>
+                                </tr>
 
-                                <td th:text="${lists.value}"> </td>
-<!--                             <td th:text="${lists.key.unitsofMeasure}"> </td>
-                              <td th:text="${lists.value}"> </td>-->
-                                
-
-                                <!--                                <td th:text="${lists.qty}"></td>-->
-                                <!--                                <td th:text="${lists.standardCost}"></td>-->
-                         
-                            </tr>
-                      
-                        </table> 
+                            </tbody></table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

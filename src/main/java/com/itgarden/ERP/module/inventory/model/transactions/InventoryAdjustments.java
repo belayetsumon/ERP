@@ -58,6 +58,8 @@ public class InventoryAdjustments {
     @NotNull(message = " Inventory adjustment date cannot be blank.")
     private Date adDate;
 
+     private BigDecimal totalQuantity;
+     
     private BigDecimal total;
 
     @Lob
@@ -89,12 +91,13 @@ public class InventoryAdjustments {
     public InventoryAdjustments() {
     }
 
-    public InventoryAdjustments(Long id, TransactionsType transType, InventoryLocations inventoryLocations, String inAdReference, Date adDate, BigDecimal total, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<InventoryAdjustmentItem> inventoryAdjustmentItem) {
+    public InventoryAdjustments(Long id, TransactionsType transType, InventoryLocations inventoryLocations, String inAdReference, Date adDate, BigDecimal totalQuantity, BigDecimal total, String memo, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<InventoryAdjustmentItem> inventoryAdjustmentItem) {
         this.id = id;
         this.transType = transType;
         this.inventoryLocations = inventoryLocations;
         this.inAdReference = inAdReference;
         this.adDate = adDate;
+        this.totalQuantity = totalQuantity;
         this.total = total;
         this.memo = memo;
         this.createdBy = createdBy;
@@ -142,6 +145,14 @@ public class InventoryAdjustments {
 
     public void setAdDate(Date adDate) {
         this.adDate = adDate;
+    }
+
+    public BigDecimal getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(BigDecimal totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public BigDecimal getTotal() {
@@ -199,5 +210,7 @@ public class InventoryAdjustments {
     public void setInventoryAdjustmentItem(List<InventoryAdjustmentItem> inventoryAdjustmentItem) {
         this.inventoryAdjustmentItem = inventoryAdjustmentItem;
     }
+
+   
 
 }

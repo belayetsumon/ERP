@@ -7,7 +7,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Sales
+                    Branch
                     <small>Transactions</small>
                 </h1>
             </section>
@@ -17,13 +17,18 @@
                 <!-- Default box -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Sales Quotation Ref: <span th:text="${salesQuotation.qtReference}"></span></h3>
+                        <h3 class="box-title"> POS Ref: <span th:text="${pos.posReference}"></span></h3>
                         <div class="box-tools pull-right">
                             <div class="btn-group">
-                                  <a th:href="@{/salesquotationentry/detail/{id}(id=${salesQuotation.qtno})}"  class="btn  btn-primary btn-xs">PDF Create</a>
-                                  <a th:href="@{/salesquotationentry/edit/{id}(id=${salesQuotation.qtno})}" class="btn  btn-success btn-xs">Edit</a>
-                                  <a th:href="@{/salesquotationentry/delete/{id}(id=${salesQuotation.qtno})}"  class="btn  btn-danger btn-xs">Delete</a>
-                                <a type="button" th:href="@{/sales/index}" class="btn  btn-warning btn-xs">Close</a>
+
+                                <a th:href="@{/branchpos/print/{id}(id=${pos.invoiceno})}"  class="btn  btn-primary btn-xs">Print</a>
+
+                                <a th:href="@{/branchpos/edit/{id}(id=${pos.invoiceno})}" class="btn  btn-success btn-xs">Edit</a>
+
+                                <a th:href="@{/branchpos/delete/{id}(id=${pos.invoiceno})}"  class="btn  btn-danger btn-xs">Delete</a>
+
+                                <a type="button" th:href="@{/branchpos/index}" class="btn  btn-warning btn-xs">Close</a>
+
                             </div>
                         </div>
                     </div>
@@ -31,37 +36,25 @@
 
                         <table class="table  table-bordered">
                             <tr>
-                                <th>Customer </th>
-                                <td th:text="${salesQuotation.customers.customerName}"></td>
-                                <th>Current Credit</th>
-                                <td th:text="${salesQuotation.customers.creditLimit}"></td>
-                                <th>Payment Terms</th>
-                                <td th:text="${salesQuotation.customers.paymentTerms}"></td>
-                                <th>Order Date</th>
-                                <td th:text="${salesQuotation.qtDate}"> </td>
-
+                                <th>Mobile </th>
+                                <td th:text="${pos.contactPhone}"></td>
+                                <th>Refe:</th>
+                                <td th:text="${pos.posReference}"></td>
+                                <th>Date</th>
+                                <td th:text="${pos.invoiceDate}"></td>
+                                <th>Location</th>
+                                <td th:text="${pos.fromStkLoc.locationName}"> </td>
+                                <th>Received By</th>
+                                <td> 
+                                    <span th:if="${pos.bankAccounts != null}" th:text="${pos.bankAccounts.bankAccountName}"></span>
+                                    <span th:if="${pos.bankAccounts == null}" th:text="'NULL'"></span>
+                                </td>
+                                <th>Bank Charge</th>
+                                <td th:text="${pos.bankCharge}"> </td>
                             </tr>
-                            <tr>
-
-                            <tr>
-                                <th>Branch </th>
-                                <td ></td>
-                                <th>Customer Discount</th>
-                                <td th:text="${salesQuotation.customers.discountPercent}"></td>
-                                <th>Price Type</th>
-                                <td th:text="${salesQuotation.customers.paymentTerms}"></td>
-                                <th></th>
-                                <td > </td>
-                            </tr>  
-                            <tr>
-                            <tr>
-                                <th>Reference </th>
-                                <td th:text="${salesQuotation.qtReference}"></td>
-                            </tr>  
                         </table>
                         <div class=" col-sm-12"> 
-                            <h4 class="text-center"> Sales Order Items</h4>
-
+                            <h4 class="text-center"> POS Items</h4>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -75,18 +68,18 @@
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr th:each=" salesQuotationItemList :${salesQuotation.salesQuotationItem}">           
-                                        <th><span th:text="${salesQuotationItemList.itemId.id}"></span></th>
-                                        <td><span th:text="${salesQuotationItemList.itemId.itemCode}"></span></td>
-                                        <td><span th:text="${salesQuotationItemList.itemId.name}"></span></td>
-                                        <td><span th:text="${salesQuotationItemList.quantity}"></span></td>
-                                        <td><span th:text="${salesQuotationItemList.itemId.unitsofMeasure}"></span></td>
-                                        <td><span th:text="${salesQuotationItemList.unitPrice}"></span></td>
-                                        <td><span th:text="${salesQuotationItemList.discount_percent}"></span></td>
-                                        <td><span th:text="${salesQuotationItemList.itemTotal}"></span></td>
-                                    </tr>
 
+                                <tbody>
+                                    <tr th:each="posItemList ,status:${pos.posItem}">           
+                                        <th><span th:text="${status.count}"></span></th>
+                                        <td><span th:text="${posItemList.itemId.itemCode}"></span></td>
+                                        <td><span th:text="${posItemList.itemId.name}"></span></td>
+                                        <td><span th:text="${posItemList.quantity}"></span></td>
+                                        <td><span th:text="${posItemList.itemId.unitsofMeasure}"></span></td>
+                                        <td><span th:text="${posItemList.unitPrice}"></span></td>
+                                        <td><span th:text="${posItemList.discount_percent}"></span></td>
+                                        <td><span th:text="${posItemList.itemTotal}"></span></td>
+                                    </tr>
 
                                     <tr>
                                         <th scope="row"></th>
@@ -96,7 +89,7 @@
                                         <td></td>
                                         <td></td>
                                         <td>Sub-total</td>
-                                        <td>50.00</td>
+                                        <td></td>
                                     </tr>
 
                                     <tr>
@@ -109,63 +102,13 @@
                                         <td>Amount Total</td>
                                         <td> </td>
                                     </tr>
+                                    
+                                    
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class=" col-sm-12"> 
-                            <h4 class="text-center"> Order Delivery Details</h4>
 
-
-
-
-                            <div class="col-sm-6">
-
-                                <table class="table  table-bordered">
-                                    <tr>
-                                        <th>Deliver from Location</th>
-                                        <td th:text="${salesQuotation.fromStkLoc.locationName}"></td>
-                                    </tr><tr>
-                                        <th>prepAmount</th>
-                                        <td th:text="${salesQuotation.prepAmount}"></td>
-                                    </tr><tr>
-                                        <th>Required Delivery Date</th>
-                                        <td th:text="${salesQuotation.deliveryDate}"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Deliver To</th>
-                                        <td th:text="${salesQuotation.deliverTo}"> </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Delivery Address</th>
-                                        <td th:text="${salesQuotation.deliveryAddress}"> </td>
-                                    </tr>
-                                </table>           
-                            </div>
-
-                            <div class="col-sm-6">
-                                <table class="table  table-bordered">
-                                    <tr>
-                                        <th>Contact Phone Number</th>
-                                        <td th:text="${salesQuotation.contactPhone}"></td>
-                                    </tr><tr>
-                                        <th>Contact Email</th>
-                                        <td th:text="${salesQuotation.contactEmail}"></td>
-                                    </tr><tr>
-                                        <th>Customer Reference</th>
-                                        <td th:text="${salesQuotation.customers.paymentTerms}"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Comments</th>
-                                        <td th:text="${salesQuotation.comments}"> </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Shipping Company</th>
-                                        <td th:text="${salesQuotation.shipVia.name}"> </td>
-                                    </tr>
-                                </table>   
-                            </div>
-                        </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <div class="box-tools pull-right">

@@ -12,6 +12,7 @@ import com.itgarden.ERP.module.settings.model.company_setup.ItemTaxTypes;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -36,12 +39,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 /**
  *
  * @author User
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Cacheable
+@Cache(usage =CacheConcurrencyStrategy.TRANSACTIONAL,region = "items")
 public class Items {
 
     @Id
@@ -154,6 +160,7 @@ public class Items {
     private LocalDateTime modified;
 
 //    Relation s
+   
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     public List<SalesPricing> salesPrice;
 

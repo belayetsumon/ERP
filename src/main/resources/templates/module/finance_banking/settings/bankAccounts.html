@@ -46,14 +46,15 @@
                                         <div class="box-body">
 
                                             <form  th:action="@{/bankaccounts/save}"   enctype="multipart/form-data" th:object="${bankAccounts}"  method="post" class="">
-                                                   <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                               
+                                                <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
                                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                                     <h4><i class="icon fa fa-ban"></i> Error </h4>
                                                     <ul th:if="${#fields.hasErrors('*')}">
                                                         <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
                                                     </ul>
                                                 </div>
-                                                                                                
+
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" th:field="*{id}">
                                                     <label for="bankAccountName">Bank Account Name:</label>
@@ -90,9 +91,9 @@
                                                                 th:value=" ${glaccounts.id}" 
                                                                 th:text="${glaccounts.accountName}"> Select one</option>
                                                     </select>
-                                                    
+
                                                     <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankChargesAccount')}" th:errors="*{bankChargesAccount}"> </span>
-                                                
+
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="name">Bank Name:</label>
@@ -104,6 +105,13 @@
                                                     <label for="name">Bank Account Number:</label>
                                                     <input type="text" class="form-control" th:field="*{bankAccountNumber}" placeholder="">
                                                     <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankAccountNumber')}" th:errors="*{bankAccountNumber}"> </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="name">Bank Charge:</label>
+
+                                                    <input type="number" min="0" value="0" step=".01"  size="10" th:field="*{bankcharge}" class="form-control" placeholder="">
+                                                    <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('bankcharge')}" th:errors="*{bankcharge}"> </span>
                                                 </div>
 
                                                 <div class="form-group">
@@ -132,19 +140,18 @@
                                         </div>
                                         <!-- /.box-header -->
                                         <div class="box-body">
-                                            <table class="table table-condensed">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                 <th><span class="badge bg-green">No</span></th>
                                                 <th>Bank Account Name</th>   
                                                 <th>Account Type:</th>
-                                                <th>Bank Account Currency:</th>
+                                              
                                                 <th>Bank Account GL Code:</th>
                                                 <th>Bank Charges Account:</th>
                                                 <th>Bank Name:</th>
                                                 <th>Bank Account Number:</th>
-                                                <th>Bank Address:</th>
-                                                
-                                                
+                                                <th>Bank Charge:</th>
+                                                <th>Remark</th>
                                                 <th>View</th>  
                                                 <th>Edit</th>
                                                 <th>Delete</th>
@@ -153,13 +160,14 @@
                                                     <tr th:each="list,status:${bankaccounts}">
                                                         <td><span class="badge bg-green">1</span></td>
                                                         <td th:text="${list.bankAccountName}">Name</td>   
-                                                      <td th:text="${list.accountType}">Name</td> 
-                                                     <td th:text="${list.bankAccountGLCode.accountName}">Name</td> 
-                                                     <td th:text="${list.bankChargesAccount.accountName}">Name</td> 
-                                                     <td th:text="${list.bankName}">Name</td> 
-                                                     <td th:text="${list.bankAccountNumber}">Name</td> 
-                                                     <td th:text="${list.bankAddress}">Name</td> 
-                                                     <td th:text="${list.remark}">Name</td> 
+                                                        <td th:text="${list.accountType}">Name</td> 
+                                                      
+                                                        <td th:text="${list.bankAccountGLCode.accountName}">Name</td> 
+                                                        <td th:text="${list.bankChargesAccount.accountName}">Name</td> 
+                                                        <td th:text="${list.bankName}">Name</td> 
+                                                        <td th:text="${list.bankAccountNumber}">Name</td> 
+                                                        <td th:text="${list.bankcharge}">Name</td> 
+                                                        <td th:text="${list.remark}">Name</td> 
                                                         <td><a th:href="@{/bankaccounts/view/{id} (id=${list.id})}" class="label bg-yellow"><i class="fa fa-fw fa-eye"></i></a></td>   
                                                         <td><a th:href="@{/bankaccounts/edit/{id} (id=${list.id})}" class="label  bg-green"><i class="fa fa-fw fa-edit"></i></a></td>   
                                                         <td><a th:href="@{/bankaccounts/delete/{id} (id=${list.id})}"  class="label bg-red" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-fw fa-trash-o"></i></a></td>   

@@ -35,6 +35,8 @@ public class InventoryCartItemController {
 
             List<InventoryCartItem> cartItemList = new ArrayList<InventoryCartItem>();
 
+//            inventoryCartItem.setId(1l);
+
             cartItemList.add(inventoryCartItem);
 
             inventoryItemSession.setAttribute("inventoryItemCartSession", cartItemList);
@@ -46,14 +48,17 @@ public class InventoryCartItemController {
 //            Predicate<InventoryCartItem> condition = ici -> ici.getId() == inventoryCartItem.getId();
 //
 //            cartItemList.removeIf(condition);
+//            Long longValue = null;
+//            if (inventoryCartItem.getId() == longValue) {
+//
+//                inventoryCartItem.setId(cartItemList.size() + 1l);
+//            }
 
             cartItemList.add(inventoryCartItem);
 
             inventoryItemSession.setAttribute("inventoryItemCartSession", cartItemList);
 
         }
-        
-        
 
         InventoryCartAjaxResponse inventoryCartAjaxResponse = new InventoryCartAjaxResponse();
 

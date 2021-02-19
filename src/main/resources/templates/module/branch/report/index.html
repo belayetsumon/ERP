@@ -19,7 +19,7 @@
                         <div class="col-sm-6">
                             <div class="box box-primary box-solid">
                                 <div class="box-header with-border">
-                                    <h4></h4>
+                                    <h4>Transactions</h4>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -28,14 +28,23 @@
                                             <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
                                                 <td><span class="badge bg-light-blue">1</span></td>
                                                 <td><a th:href="@{/branchpos/index}">POS</a></td>               
-                                            </tr> 
-                                            
-                                             <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
-                                                <td><span class="badge bg-light-blue">1</span></td>
+                                            </tr>
+
+
+
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                                <td><span class="badge bg-light-blue">2</span></td>
                                                 <td><a th:href="@{/branchexpense/index}">Branch Expense</a></td>               
                                             </tr> 
 
-                                        </tbody></table>
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                                <td><span class="badge bg-light-blue">3</span></td>
+                                                <td><a th:href="@{/}">Inventory Item Receive</a></td>               
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
                                 </div>
                             </div>  
                             <div class="box box-warning box-solid">
@@ -50,13 +59,12 @@
                                                 <td></td>
                                                 <td></td>               
                                             </tr>
-                                           
+
                                         </tbody>
-                                    
+
                                     </table>
                                 </div>
                             </div> 
-
                         </div>
 
                         <div class="col-sm-6">
@@ -68,12 +76,25 @@
                                 <div class="box-body">
                                     <table class="table table-condensed">
                                         <tbody>
-                                           <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
                                                 <td><span class="badge bg-light-blue">1</span></td>
+                                                <td><a th:href="@{/branchpos/list}">POS Sales List</a></td>               
+                                            </tr> 
+
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                                <td><span class="badge bg-light-blue">2</span></td>
+                                                <td><a th:href="@{/branchpos/unallocatedlist}">Unallocated Sales</a></td>               
+                                            </tr> 
+
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                                <td><span class="badge bg-light-blue">3</span></td>
                                                 <td><a th:href="@{/branchexpense/list}">Branch Expense List</a></td>               
                                             </tr> 
-                                                                                       
-                                        
+
+                                            <tr sec:authorize="hasAuthority('USER_MANAGEMENT')">
+                                                <td><span class="badge bg-light-blue">4</span></td>
+                                                <td><a th:href="@{/}">Inventory Item Status</a></td>               
+                                            </tr>
                                         </tbody></table>
                                 </div>
                             </div>  

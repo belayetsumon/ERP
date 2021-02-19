@@ -5,6 +5,7 @@
  */
 package com.itgarden.ERP.module.sales.cart.model;
 
+import com.itgarden.ERP.module.inventory.model.settings.Items;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import org.springframework.context.annotation.Scope;
@@ -18,7 +19,11 @@ public class SalesCartItem implements Serializable {
 
     private long id;
 
-    private int itemCode;
+    private long itemId;
+
+    private String itemCode;
+    
+     private String name;
 
     private String itemDescription;
 
@@ -42,9 +47,11 @@ public class SalesCartItem implements Serializable {
 
     }
 
-    public SalesCartItem(long id, int itemCode, String itemDescription, BigDecimal quantity, String unit, BigDecimal price, BigDecimal taxPercent, BigDecimal taxTotal, BigDecimal discountPercent, BigDecimal discountTotal, BigDecimal itemTotal) {
+    public SalesCartItem(long id, long itemId, String itemCode, String name, String itemDescription, BigDecimal quantity, String unit, BigDecimal price, BigDecimal taxPercent, BigDecimal taxTotal, BigDecimal discountPercent, BigDecimal discountTotal, BigDecimal itemTotal) {
         this.id = id;
+        this.itemId = itemId;
         this.itemCode = itemCode;
+        this.name = name;
         this.itemDescription = itemDescription;
         this.quantity = quantity;
         this.unit = unit;
@@ -64,12 +71,28 @@ public class SalesCartItem implements Serializable {
         this.id = id;
     }
 
-    public int getItemCode() {
+    public long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(int itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getItemDescription() {
@@ -143,5 +166,10 @@ public class SalesCartItem implements Serializable {
     public void setItemTotal(BigDecimal itemTotal) {
         this.itemTotal = itemTotal;
     }
+    
+    
+    
+    
+    
 
 }

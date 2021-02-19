@@ -17,12 +17,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author User
  */
 @Service
+@Transactional
 public class ItemService {
 
     @Autowired
@@ -33,10 +35,14 @@ public class ItemService {
     SalesPricingService salesPricingService;
 
     // item active and saleable
+    
+  
     public ItemDTO itemByItemCodeAndactiveSales(int itemCode, boolean noSale, boolean itemstatus) {
         ItemDTO itemdto = new ItemDTO();
 
         Items item = itemsRepository.findByItemCodeAndNoSaleAndItemstatus(itemCode, noSale, itemstatus);
+        
+        
         itemdto.setId(item.getId());
         itemdto.setItemCode(parseInt(item.getItemCode()));
         itemdto.setName(item.getName());
@@ -45,6 +51,8 @@ public class ItemService {
     }
 
     // item active and saleable
+    
+    
     public ItemDTO itemById(Long id) {
 
         ItemDTO itemdto = new ItemDTO();
@@ -97,7 +105,62 @@ public class ItemService {
         return itemdto;
     }
 
-    // All Active Item
+    // item active and saleable
+     @Transactional
+    public ItemDTO itemByItemCode(String itemCode) {
+
+        ItemDTO itemdto = new ItemDTO();
+
+        Items item = itemsRepository.findByItemCode(itemCode);
+
+        itemdto.setId(item.getId());
+
+        itemdto.setItemCode(parseInt(item.getItemCode()));
+
+        itemdto.setName(item.getName());
+
+        itemdto.setDescription(item.getDescription());
+
+        itemdto.setDiscount(item.getDiscount());
+        itemdto.setItemTaxTypeName("5");
+
+        itemdto.setUnitsofMeasureName(item.getUnitsofMeasure());
+
+//        set retail price
+        if (item.getSalesPrice() != null) {
+            itemdto.setRetailPrice(salesPricingService.pricebyItemAndType(item, SalesType.Retail));
+        } else {
+            itemdto.setRetailPrice(0.00);
+
+        }
+
+//        set Whole Sale Price
+        if (item.getSalesPrice() != null) {
+            itemdto.setWholesalePrice(salesPricingService.pricebyItemAndType(item, SalesType.Wholesale));
+        } else {
+            itemdto.setWholesalePrice(0.00);
+        }
+
+        //  set purchase price
+        if (item.getPurchasingPricing() != null) {
+            itemdto.setPurchasePrice(item.getPurchasingPricing().getPrice());
+        } else {
+            itemdto.setWholesalePrice(0.00);
+        }
+
+        if (item.getStandardCosts() != null) {
+            itemdto.setPurchasePrice(item.getStandardCosts().getPrice());
+        } else {
+            itemdto.setWholesalePrice(0.00);
+        }
+
+        //  set standerdcoast 
+//   return DTO     
+        return itemdto;
+    }
+
+    // All Active 
+    
     public List<Items> allActiveItemList(boolean itemstatus) {
 
         List<Items> itemList = itemsRepository.findByItemstatus(itemstatus);
@@ -106,6 +169,7 @@ public class ItemService {
     }
 
     // All Active Item and salable 
+
     public List<Items> allActiveAndSalableItemList(boolean noSale, boolean itemstatus) {
 
         List<Items> itemList = itemsRepository.findByNoSaleAndItemstatus(noSale, itemstatus);
@@ -114,6 +178,7 @@ public class ItemService {
     }
 
     // All item 
+    
     public Page<Items> allItems() {
 
         Pageable pageable = new PageRequest(0, 10000, Sort.Direction.DESC, "id");
@@ -125,6 +190,7 @@ public class ItemService {
     }
 
     // last inserted id
+  
     public Items itemLastInsertedId() {
 
         Items item = itemsRepository.findTopByOrderByIdDesc();
@@ -135,6 +201,7 @@ public class ItemService {
 
     // Product Refarance Code  generate 
     // last inserted id
+  
     public String itemCode() {
 
         Items item = itemsRepository.findTopByOrderByIdDesc();
@@ -162,11 +229,10 @@ public class ItemService {
         if (iCode != null) {
 
             return true;
-            
-        } else{
-        return false;
+
+        } else {
+            return false;
         }
-    
 
     }
 

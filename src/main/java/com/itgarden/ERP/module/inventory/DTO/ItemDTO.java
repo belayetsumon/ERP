@@ -5,15 +5,10 @@
  */
 package com.itgarden.ERP.module.inventory.DTO;
 
-import com.itgarden.ERP.module.finance_banking.model.settings.GlAccounts;
 import com.itgarden.ERP.module.inventory.model.enumvalue.ItemType;
 import com.itgarden.ERP.module.inventory.model.enumvalue.Itemstatus;
-import com.itgarden.ERP.module.inventory.model.settings.ItemCategories;
-import com.itgarden.ERP.module.inventory.model.settings.Units;
-import com.itgarden.ERP.module.settings.model.company_setup.ItemTaxTypes;
 import com.itgarden.ERP.module.settings.model.enumvalue.YesNo;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  *

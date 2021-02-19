@@ -45,25 +45,26 @@
                                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
                                 </ul>
                             </div>
-                            
-                            
-                               <div class="col-sm-12">
+
+
+                            <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary btn-sm pull-right">Submit</button>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="hidden" class="form-control input-sm" th:field="*{id}" placeholder="">
-                                
+
                                 <input type="hidden" class="form-control input-sm" th:field="*{transType}" placeholder="">
                             </div> 
 
                             <table class="table table-bordered">
                                 <tr>
-                                    <td>From Location:<span class="text-red"> * </span>:</td>
+                                    <td>From Location<span class="text-red"> * </span>:</td>
+                                    <td>To Location<span class="text-red"> * </span>:</td>
 
-                                    <td>Reference:<span class="text-red">  </span>:</td>
+                                    <td>Reference<span class="text-red">  </span>:</td>
 
-                                    <td>Date:<span class="text-red"> * </span>:</td>
+                                    <td>Date<span class="text-red"> * </span>:</td>
 
                                 </tr>
                                 <tr> 
@@ -82,24 +83,6 @@
 
                                         </div> </td>
 
-                                    <td><input type="text" class="form-control input-sm" th:field="*{iltReference}" placeholder="">
-                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('iltReference')}" th:errors="*{iltReference}"> </span> </td>
-                                    <td> 
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </span>
-                                            <input type="text" class="form-control input-sm" th:field="*{iltDate}" placeholder="">
-                                        </div>
-                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('iltDate')}" th:errors="*{iltDate}"> </span></td>
-                                </tr>
-                                <tr>
-                                <td>To Location:<span class="text-red"> * </span>:</td>
-
-                                    <td></td>
-
-                                    <td></td>
-                                </tr>
-                                <tr>
                                     <td><div class="form-group ">
                                             <!--                                          <input id = "customers">                 
                                                                                       <input type="hidden" class="form-control input-sm" th:field="*{customers}" placeholder="">-->
@@ -112,198 +95,25 @@
                                             </select>
                                             <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('toLocation')}" th:errors="*{toLocation}"> </span>
 
-                                        </div> </td>   
-                                     <td></td>
+                                        </div> </td> 
 
-                                    <td></td>
-                                    
+                                    <td><input type="text" class="form-control input-sm" th:field="*{iltReference}" placeholder="" readonly="true">
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('iltReference')}" th:errors="*{iltReference}"> </span> </td>
+                                    <td> 
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control input-sm" th:field="*{iltDate}" placeholder="">
+                                        </div>
+                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('iltDate')}" th:errors="*{iltDate}"> </span></td>
                                 </tr>
-                                
-                                
+
                             </table>                 
-
-
-                            <div class=" col-sm-12"> 
-<!--                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td scope="row">Memo<span class="text-red">  </span>:</td>
-                                            <td> 
-                                                <textarea  class="form-control input-sm" th:field="*{memo}" placeholder="" value="0.00"></textarea>
-                                                <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}"> </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>  -->
-
-                                <!--                                <div class="col-sm-12 invisible">
-                                
-                                                                    <div class="form-group col-sm-6">
-                                                                        Freight Cost<span class="text-red">  </span>:
-                                                                        <input type="text" class="form-control" th:field="*{freightCost}" placeholder="">
-                                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('freightCost')}" th:errors="*{freightCost}"> </span>
-                                                                    </div>
-                                
-                                                                    <div class="form-group col-sm-6">
-                                                                        <label for="name">alloc<span class="text-red">  </span>:</label>
-                                                                        <input type="text" class="form-control" th:field="*{alloc}" placeholder="">
-                                                                        <span  class="help-block has-error text-red" th:if="${#fields.hasErrors('alloc')}" th:errors="*{alloc}"> </span>
-                                                                    </div>
-                                                                </div>-->
-<!--                                <div class="col-sm-12">
-
-                                                                        <input type="hidden"  name="dueDate"   value="10/11/2020"     placeholder="">
-                                                                        <input type="hidden"  name="totalDiscount" th:value="${session.salesItemCartSessionTotalDiscount}">
-                                                                        <input type="hidden" name="totalVat" th:value="${session.salesItemCartSessionTotalVat}">
-                                                                        <input type="hidden"  name="grandTotal"   value="0"     placeholder="">
-                                    <button type="submit" class="btn btn-primary btn-sm col-sm-offset-5">Submit</button>
-
-                                </div>-->
-                            </div>
                         </form>
 
-
-
-
-<!--                                             <div class=" col-sm-12"> 
-                                                    <h4 class="text-center">Inventory Location Transfers Items</h4>
-                                                    <div class="" th:if="${session.salesItemCartSession==null}" >
-                                                        Your Product item is Currently Empty
-                        
-                                                    </div>
-                                                    <table  id="diitemTable" class="table"  th:if="${not #lists.isEmpty(session.salesItemCartSession)}">
-                        
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">#</th>
-                                                                <th scope="col">Item Code/Name</th>
-                                                                <th scope="col">Quantity</th>
-                                                                <th scope="col">Unit</th>
-                                                                <th scope="col">Price</th>
-                                                     
-                                                                <th scope="col">Item Total</th>
-                                                                <th scope="col">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr th:each="itemList,status:${session.salesItemCartSession}">
-                                                                <td scope="row"><span id ="itemId" th:text="${itemList.id}"></span></td>
-                                                                <td><span id ="itemCode" th:text="${itemList.itemCode}"></span></td>
-                                                                <td><span id ="itemQuantity" th:text="${itemList.quantity}"></span></td>
-                                                                <td> <span id ="itemUnit" th:text="${itemList.unit}"></span></td>
-                                                                <td><span id ="itemPrice" th:text="${itemList.price}"></span></td>
-                                            
-                                                                <td><span id ="itemItemTotal" th:text="${itemList.itemTotal}"></span></td>
-                                                                <td>
-                        
-                        
-                                                                    <button id="diitemEdit" class="btn btn-xs btn-warning">Update</button>
-                                                                    <button  id="diitemDelete" class="btn btn-xs btn-danger">Delete</button>
-                                                                </td>
-                                                            </tr>
-                                                    </table>
-                                                    <form  enctype='application/json' id="disalesCartItem" name="salesCartItem" th:action="@{/salescart/add}" method="post">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">#</th>
-                                                                    <th scope="col" style="width:20%">Item Code/Name</th>
-                                                                    <th scope="col">Quantity</th>
-                                                                    <th scope="col">Unit</th>
-                                                                    <th scope="col">Price</th>
-                                                                    <th scope="col">Item Total</th>
-                                                                    <th scope="col"></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td><input type="text" id="diid" name="id"  size="10" value="" class="form-control input-sm"    placeholder=""  readonly></td>
-                        
-                                                                    <td>
-                                                                        <select class="form-control  input-sm diitemselect" name="itemCode">
-                        
-                                                                            <option th:each="itemLists :${itemList}"
-                                                                                    th:value=" ${itemLists.id}"
-                                                                                    th:text="${itemLists.itemCode+' '+itemLists.name}">
-                                                                                Select one</option>
-                                                                        </select>
-                        
-                                                                        <input type="hidden" id="didescription" name="itemDescription"  size="10" value="0" class="form-control input-sm"    placeholder="">
-                                                                    </td>
-                        
-                                                                    <td><input type="number" min="0" size="10" value="0.00" step=".01" id="diquantity" name="quantity"   class="form-control input-sm" ></td>
-                        
-                                                                    <td><input type="text" id="diunit" name="unit"  size="8" value="" class="form-control input-sm"  readonly></td>
-                        
-                        
-                                                                    <td><input type="number" min="0" value="0" step=".01"  id="diprice" class="form-control input-sm" name="price" placeholder="" ></td>
-                        
-                                                                    
-                                                                    <td><input type="text" min="0" size="10"value="0" step=".01" id="diitemTotal" class="form-control input-sm"  name="total" placeholder="" readonly></td>
-                        
-                                                                    <td><a  id="invoiceItemSaveButton" class="btn btn-xs btn-success">Save Item</a></td>
-                                                                </tr>
-                                                                <tr>
-                        
-                                                                    <td colspan="7"></td>
-                                                                    <td>Total</td>
-                                                                    <td><input type="text"  th:value="${session.salesItemCartSessionItemTotal}" size="12" step="any" min="0" class=""  placeholder="0.00" readonly></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                        
-                                                    </form>
-                                                </div>-->
-
-
-
-
-
-
-           <div class=" col-sm-12"> 
+                        <div class=" col-sm-12"> 
                             <h4 class="text-center"> Inventory Location Transfers Items</h4>
-                            <div class="" th:if="${session.inventoryItemCartSession==null}" >
-                                Your Product item is Currently Empty
 
-                            </div>
-                            <table  id="adj_itemTable" class="table"  th:if="${not #lists.isEmpty(session.inventoryItemCartSession)}">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        
-                                        <th scope="col">Item Code/Name</th>
-                                        
-                                        <th scope="col">Quantity</th>
-                                        
-                                        <th scope="col">Unit</th>
-                                        
-                                        <th scope="col">Retail Price</th>
-                                        
-                                        <th scope="col">Item Total</th>
-                                        
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                    
-                                </thead>
-                                <tbody>
-                                    <tr th:each="itemList,status:${session.inventoryItemCartSession}">
-                                        <td scope="row"><span id ="itemId" th:text="${itemList.id}"></span></td>
-
-                                        <td><span id ="itemCode" th:text="${itemList.itemCode}"></span></td>
-
-                                        <td><span id ="itemQuantity" th:text="${itemList.quantity}"></span></td>
-
-                                        <td> <span id ="itemUnit" th:text="${itemList.unit}"></span></td>
-
-                                        <td><span id ="itemPrice" th:text="${itemList.price}"></span></td>
-
-                                        <td><span id ="itemItemTotal" th:text="${itemList.itemTotal}"></span></td>
-                                        <td>
-<!--                                            <button id="adj_itemEdit" class="btn btn-xs btn-warning">Update</button>-->
-                                            <button  id="adj_itemDelete" class="btn btn-xs btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
-                            </table>
 
                             <form  enctype='application/json' id="disalesCartItem" name="inventoryCartItem" th:action="@{/inventorycartitem/save}" method="post">
                                 <table class="table">
@@ -345,17 +155,61 @@
 
                                             <td><a  id="inventory_adj_ItemSaveButton" class="btn btn-xs btn-success">Save Item</a></td>
                                         </tr>
-<!--                                        <tr>
-                                            <td colspan="7"></td>
-
-                                            <td>Total</td>
-                                            <td> 
-                                                <input type="text"  size="12" step="any" min="0"class=""  placeholder="0.00" readonly>                                          
-                                        </tr>-->
+                                        <!--                                        <tr>
+                                                                                    <td colspan="7"></td>
+                                        
+                                                                                    <td>Total</td>
+                                                                                    <td> 
+                                                                                        <input type="text"  size="12" step="any" min="0"class=""  placeholder="0.00" readonly>                                          
+                                                                                </tr>-->
                                     </tbody>
                                 </table>
 
                             </form>
+                            <div class="" th:if="${session.inventoryItemCartSession==null}" >
+                                <h4 class="text-center text-red">  Your Product Item Is Currently Empty</h4>
+
+                            </div>
+                            <table  id="adj_itemTable" class="table"  th:if="${not #lists.isEmpty(session.inventoryItemCartSession)}">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+
+                                        <th scope="col">Item Code/Name</th>
+
+                                        <th scope="col">Quantity</th>
+
+                                        <th scope="col">Unit</th>
+
+                                        <th scope="col">Retail Price</th>
+
+                                        <th scope="col">Item Total</th>
+
+                                        <th scope="col">Action</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr th:each="itemList,status:${session.inventoryItemCartSession}">
+                                        <td scope="row"><span id ="itemId" th:text="${itemList.id}"></span></td>
+
+                                        <td><span id ="itemCode" th:text="${itemList.itemCode}"></span></td>
+
+                                        <td><span id ="itemQuantity" th:text="${itemList.quantity}"></span></td>
+
+                                        <td> <span id ="itemUnit" th:text="${itemList.unit}"></span></td>
+
+                                        <td><span id ="itemPrice" th:text="${itemList.price}"></span></td>
+
+                                        <td><span id ="itemItemTotal" th:text="${itemList.itemTotal}"></span></td>
+                                        <td>
+                                            <!--                                            <button id="adj_itemEdit" class="btn btn-xs btn-warning">Update</button>-->
+                                            <button  id="adj_itemDelete" class="btn btn-xs btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                            </table>
+
+
                         </div>
                     </div> 
                     <!-- /.box-body -->

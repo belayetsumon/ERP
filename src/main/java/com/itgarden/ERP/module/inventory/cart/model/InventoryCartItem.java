@@ -17,7 +17,11 @@ public class InventoryCartItem {
 
     private long id;
 
-    private int itemCode;
+    private Long itemId;
+
+    private String itemCode;
+
+    private String itemName;
 
     private BigDecimal quantity;
 
@@ -29,12 +33,12 @@ public class InventoryCartItem {
 
     public InventoryCartItem() {
     }
-    
-    
 
-    public InventoryCartItem(long id, int itemCode, BigDecimal quantity, String unit, BigDecimal price, BigDecimal itemTotal) {
+    public InventoryCartItem(long id, Long itemId, String itemCode, String itemName, BigDecimal quantity, String unit, BigDecimal price, BigDecimal itemTotal) {
         this.id = id;
+        this.itemId = itemId;
         this.itemCode = itemCode;
+        this.itemName = itemName;
         this.quantity = quantity;
         this.unit = unit;
         this.price = price;
@@ -49,12 +53,28 @@ public class InventoryCartItem {
         this.id = id;
     }
 
-    public int getItemCode() {
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(int itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public BigDecimal getQuantity() {
@@ -87,6 +107,5 @@ public class InventoryCartItem {
 
     public void setItemTotal(BigDecimal itemTotal) {
         this.itemTotal = itemTotal;
-    }
-
+    }   
 }

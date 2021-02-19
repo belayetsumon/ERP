@@ -24,6 +24,8 @@ import com.itgarden.ERP.module.user.services.LoggedUserService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/inventoryadjustments")
 public class InventoryAdjustmentsController {
-    
+
     @Autowired
     LoggedUserService loggedUserService;
 
@@ -70,9 +72,6 @@ public class InventoryAdjustmentsController {
 
     @Autowired
     StockMovesRepository stockMovesRepository;
-    
-    
-    
 
     @RequestMapping(value = {"", "/", "/index"})
     public String index(Model model, InventoryAdjustments inventoryAdjustments) {
@@ -98,23 +97,17 @@ public class InventoryAdjustmentsController {
     @RequestMapping("/save")
     public String save(Model model, @Valid InventoryAdjustments inventoryAdjustments, BindingResult bindingResult, RedirectAttributes redirectAttrs, HttpSession inventoryItemSession) {
 
-      
-         boolean referCheck = inventoryAdjustmentsService.referCodeCheck(inventoryAdjustments.getInAdReference());
-        
-          if (referCheck ==true) {
+        boolean referCheck = inventoryAdjustmentsService.referCodeCheck(inventoryAdjustments.getInAdReference());
+
+        if (referCheck == true) {
 
             ObjectError referCodeError;
 
-            referCodeError = new ObjectError("inAdReference", "This code "+inventoryAdjustments.getInAdReference()+" is exists. Please  refresh your browser and try again.");
+            referCodeError = new ObjectError("inAdReference", "This code " + inventoryAdjustments.getInAdReference() + " is exists. Please  refresh your browser and try again.");
 
             bindingResult.addError(referCodeError);
         }
-        
-        
-        
-        
-        
-        
+
         List<InventoryCartItem> cartItemList = (List<InventoryCartItem>) inventoryItemSession.getAttribute("inventoryItemCartSession");
 
         if (cartItemList == null || cartItemList.size() == 0) {
@@ -179,7 +172,7 @@ public class InventoryAdjustmentsController {
             stockMoves.setTranDate(inventoryAdjustments.getAdDate());
 
             stockMoves.setItems(itemCode);
-            
+
             TransactionsType transactionsType = new TransactionsType();
 
             transactionsType = transactionsTypeRepository.findBySlug("inventory-adjustment");
@@ -232,6 +225,20 @@ public class InventoryAdjustmentsController {
 
         model.addAttribute("list", inventoryAdjustmentsRepository.findAllByOrderByIdDesc());
 
+        List<InventoryAdjustmentItem> allItem = inventoryAdjustmentItemRepository.findAll();
+
+        Function<InventoryAdjustmentItem, BigDecimal> totalQuantityMapper = inventoryAdjustmentItem -> inventoryAdjustmentItem.getQuantity();
+        BigDecimal totalquantity = allItem.stream().map(totalQuantityMapper).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        model.addAttribute("totalquantity", totalquantity);
+
+        Function<InventoryAdjustmentItem, BigDecimal> totalPriceMapper = inventoryAdjustmentItem -> inventoryAdjustmentItem.getItemTotal();
+       
+        BigDecimal totalPrice = allItem.stream().map(totalPriceMapper).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        model.addAttribute("totalPrice", totalPrice);
+        
+
         return "module/inventory/transactions/inventoryadjustments_list";
     }
 
@@ -246,8 +253,8 @@ public class InventoryAdjustmentsController {
     @RequestMapping("/print/{id}")
     public String print(Model model, @PathVariable Long id, InventoryAdjustments inventoryAdjustments) {
 
-      model.addAttribute("user_name", loggedUserService.activeUserName());
-        
+        model.addAttribute("user_name", loggedUserService.activeUserName());
+
         model.addAttribute("inventoryAdjustment", inventoryAdjustmentsRepository.getOne(id));
 
         return "module/inventory/transactions/inventoryadjustments_print";

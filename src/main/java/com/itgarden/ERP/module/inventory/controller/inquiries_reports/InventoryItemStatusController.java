@@ -5,11 +5,13 @@
  */
 package com.itgarden.ERP.module.inventory.controller.inquiries_reports;
 
+import com.itgarden.ERP.module.inventory.DTO.ItemStatusDTO;
 import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
 import com.itgarden.ERP.module.inventory.model.settings.Items;
 import com.itgarden.ERP.module.inventory.model.transactions.StockMoves;
 import com.itgarden.ERP.module.inventory.repository.settings.InventoryLocationsRepository;
 import com.itgarden.ERP.module.inventory.repository.transactions.StockMovesRepository;
+import com.itgarden.ERP.module.inventory.transactions.service.StockMoveService;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,9 @@ public class InventoryItemStatusController {
     @Autowired
     InventoryLocationsRepository inventoryLocationsRepository;
 
+    @Autowired
+    StockMoveService stockMoveService;
+
     @RequestMapping(value = {"", "/", "/index"})
     public String index(Model model) {
 
@@ -41,12 +46,7 @@ public class InventoryItemStatusController {
 
         List<StockMoves> stockMoves = stockMovesRepository.findAll();
 
-        //    Map<StockMoves, BigDecimal> result ;
-//        stockMoves.stream()
-//    .collect(Collectors.toMap(StockMoves::getItems, StockMoves::getQty, BigDecimal::add));
-        stockMoves.stream().collect(Collectors.groupingBy(StockMoves::getItems, Collectors.mapping(StockMoves::getQty, Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
-
-        Map<Items, BigDecimal> lists = stockMoves.stream().collect(Collectors.groupingBy(StockMoves::getItems, Collectors.mapping(StockMoves::getQty, Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
+        List<ItemStatusDTO> lists = stockMoveService.globalTemStatus();
 
         model.addAttribute("list", lists);
 
@@ -65,13 +65,7 @@ public class InventoryItemStatusController {
 
         model.addAttribute("location_name", inventoryLocations.getLocationName());
 
-        List<StockMoves> stockMoves = stockMovesRepository.findByInventoryLocations(inventoryLocations);
-
-        //    Map<StockMoves, BigDecimal> result ;
-//        stockMoves.stream()
-//    .collect(Collectors.toMap(StockMoves::getItems, StockMoves::getQty, BigDecimal::add));
-        // stockMoves.stream().collect(Collectors.groupingBy(StockMoves::getItems,Collectors.mapping(StockMoves::getQty, Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
-        Map<Items, BigDecimal> lists = stockMoves.stream().collect(Collectors.groupingBy(StockMoves::getItems, Collectors.mapping(StockMoves::getQty, Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
+        List<ItemStatusDTO> lists = stockMoveService.byLocationItemStatus(inventoryLocations);
 
         model.addAttribute("list", lists);
 

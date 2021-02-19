@@ -5,11 +5,12 @@
  */
 package com.itgarden.ERP.module.sales.model.transactions;
 
+import com.itgarden.ERP.module.finance_banking.model.settings.BankAccounts;
 import com.itgarden.ERP.module.inventory.model.settings.InventoryLocations;
 import com.itgarden.ERP.module.sales.model.settings.CustomerBranches;
 import com.itgarden.ERP.module.sales.model.settings.Customers;
+import com.itgarden.ERP.module.sales.model.settings.SalesPersons;
 import com.itgarden.ERP.module.settings.model.company_setup.TransactionsType;
-import com.itgarden.ERP.module.settings.model.miscellaneous.PaymentTerms;
 import com.itgarden.ERP.module.settings.model.miscellaneous.ShippingCompany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -62,26 +63,30 @@ public class Pos {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date invoiceDate;
 
-    @Column(nullable = false)
-    @NotNull(message = "Due date cannot be blank.")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dueDate;
-
+//    private Date dueDate;
     @NotNull(message = "Price type cannot be blank.")
     private String priceType;
 
+    @Column(unique = true, nullable = false, updatable = false)
     private String posReference;
+
+    /// Banking
+    @ManyToOne(optional = false)
+    @NotNull(message = "Bank account cannot be blank.")
+    private BankAccounts bankAccounts;
+    
+    private BigDecimal bankCharge;
+
+    @ManyToOne
+    @NotNull(message = "Salesman cannot be blank.")
+    private SalesPersons salesPersons;
 
     private String comments;
 
-    @ManyToOne(optional = false)
-    @NotNull(message = " Payment terms cannot be blank.")
-    private PaymentTerms paymentTerms;
-
+//    @ManyToOne(optional = false)
+//    @NotNull(message = " Payment terms cannot be blank.")
+//    private PaymentTerms paymentTerms;
     private boolean template;
-
-
 
     /// Not Understandable 
     private BigDecimal ov_amount;
@@ -104,6 +109,8 @@ public class Pos {
 
     @NotNull(message = "Total vat cannot be blank.")
     private BigDecimal totalVat;
+   
+    private BigDecimal totalBankCharge;
 
     @NotNull(message = " Grand total cannot be blank.")
     private BigDecimal grandTotal;
@@ -164,17 +171,18 @@ public class Pos {
     public Pos() {
     }
 
-    public Pos(Long invoiceno, TransactionsType transactionsType, Customers customers, CustomerBranches branchCode, Date invoiceDate, Date dueDate, String priceType, String posReference, String comments, PaymentTerms paymentTerms, boolean template, BigDecimal ov_amount, BigDecimal ov_gst, BigDecimal ov_freight, BigDecimal ov_freight_tax, BigDecimal ov_discount, BigDecimal alloc, BigDecimal prepAmount, BigDecimal totalDiscount, BigDecimal totalVat, BigDecimal grandTotal, String deliveryAddress, String contactPhone, String contactPersonsName, String contactEmail, String deliverTo, ShippingCompany shipVia, BigDecimal freightCost, InventoryLocations fromStkLoc, String dimension_id, boolean tax_included, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<PosItem> posItem) {
+    public Pos(Long invoiceno, TransactionsType transactionsType, Customers customers, CustomerBranches branchCode, Date invoiceDate, String priceType, String posReference, BankAccounts bankAccounts, BigDecimal bankCharge, SalesPersons salesPersons, String comments, boolean template, BigDecimal ov_amount, BigDecimal ov_gst, BigDecimal ov_freight, BigDecimal ov_freight_tax, BigDecimal ov_discount, BigDecimal alloc, BigDecimal prepAmount, BigDecimal totalDiscount, BigDecimal totalVat, BigDecimal grandTotal, String deliveryAddress, String contactPhone, String contactPersonsName, String contactEmail, String deliverTo, ShippingCompany shipVia, BigDecimal freightCost, InventoryLocations fromStkLoc, String dimension_id, boolean tax_included, String createdBy, LocalDateTime created, String modifiedBy, LocalDateTime modified, List<PosItem> posItem) {
         this.invoiceno = invoiceno;
         this.transactionsType = transactionsType;
         this.customers = customers;
         this.branchCode = branchCode;
         this.invoiceDate = invoiceDate;
-        this.dueDate = dueDate;
         this.priceType = priceType;
         this.posReference = posReference;
+        this.bankAccounts = bankAccounts;
+        this.bankCharge = bankCharge;
+        this.salesPersons = salesPersons;
         this.comments = comments;
-        this.paymentTerms = paymentTerms;
         this.template = template;
         this.ov_amount = ov_amount;
         this.ov_gst = ov_gst;
@@ -243,14 +251,6 @@ public class Pos {
         this.invoiceDate = invoiceDate;
     }
 
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
     public String getPriceType() {
         return priceType;
     }
@@ -267,20 +267,36 @@ public class Pos {
         this.posReference = posReference;
     }
 
+    public BankAccounts getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(BankAccounts bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
+    public BigDecimal getBankCharge() {
+        return bankCharge;
+    }
+
+    public void setBankCharge(BigDecimal bankCharge) {
+        this.bankCharge = bankCharge;
+    }
+
+    public SalesPersons getSalesPersons() {
+        return salesPersons;
+    }
+
+    public void setSalesPersons(SalesPersons salesPersons) {
+        this.salesPersons = salesPersons;
+    }
+
     public String getComments() {
         return comments;
     }
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public PaymentTerms getPaymentTerms() {
-        return paymentTerms;
-    }
-
-    public void setPaymentTerms(PaymentTerms paymentTerms) {
-        this.paymentTerms = paymentTerms;
     }
 
     public boolean isTemplate() {
